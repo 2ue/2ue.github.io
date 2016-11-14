@@ -1,0 +1,51 @@
+<header id="header">
+  <% if (page.backgroundImg){ %>
+  <div id="banner-post-user" style="background: url(/images/posts/<%- page.backgroundImg %>) center #000; "></div>
+  <%} else { %>
+  <div id="banner-post-dflt"></div>
+  <% } %>
+  <% if (theme.shade_bg && (theme.shade_bg_precente == 70 || theme.shade_bg_precente == 40 || theme.shade_bg_precente == 20 || theme.shade_bg_precente == 0)){ %>
+  <div id="shade-bg"></div>
+  <%} else { %>
+  <div id="shade-bg-default"></div>
+  <% } %>
+  <div id="header-outer" class="outer">
+
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <% for (var i in theme.menu){ %>
+        <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
+        <% } %>
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-search-btn" class="nav-icon" title="<%= __('search') %>">
+          <div id="search-form-wrap">
+            <%- search_form({button: '&#xF002;'}) %>
+          </div>
+        </a>
+        <% if (theme.rss){ %>
+        <a id="nav-rss-link" class="nav-icon" href="<%- theme.rss %>" title="<%= __('rss_feed') %>"></a>
+        <% } %>
+      </nav>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 class="post-top-title"><%= page.title %></h1>
+      <% if (page.author){ %>
+        <h3 class="article-top-author"><span><%= __('author_name') %>：</span><%= page.author %></h3>
+      <%} else if(theme.author){ %>
+        <h3 class="article-top-author"><span><%= __('author_name') %>：</span><%= theme.author %></h3>
+      <%} else { %>
+        <h3 class="article-top-author"><span><%= __('author_name') %>：</span><%= config.author %></h3>
+      <% } %>
+      <% if (page.tags && page.tags.length){ %>
+        <h2 class="article-top-tags">
+          <%- list_tags(page.tags, {
+            show_count: false,
+            class: 'article-top-tag'
+          }) %>
+        </h2>
+      <% } %>
+    </div>
+  </div>
+</header>

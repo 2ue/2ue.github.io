@@ -1,0 +1,67 @@
+# Site
+title: 2ue
+subtitle: 千里之行始于足下
+description: 冰封千里非一日之功
+author: Yufei
+language: zh-CN
+timezone:
+
+# Header
+menu:
+  2ue'Blog: /
+#  Home: /
+  Archives: /archives
+rss: /atom.xml
+
+# Content
+excerpt_link: Read More
+#fancybox: true
+
+#pages tag text
+pre: prev
+next: next
+
+# Sidebar
+sidebar: right
+widgets:
+- category
+- tag
+- tagcloud
+- archive
+- recent_posts
+
+# display widgets at the bottom of index pages (pagination == 2)
+index_widgets:
+# - category
+# - tagcloud
+# - archive
+
+# widget behavior
+archive_type: 'monthly'
+show_count: false
+
+#是否首页开启文章隐藏
+hide_index_post_content: true
+hide_index_post_content_height: 80px
+
+#图片预设
+#index_default_img: index-default-bg.jpg
+index_default_img: post-default-bg.jpg
+post_default_img: post-default-bg.jpg
+shade_bg: shade-bg.png
+shade_bg_precente: 70 #可选参数为70,40,20,0
+
+# Miscellaneous
+google_analytics:
+favicon: /favicon.png
+twitter:
+google_plus:
+fb_admins:
+fb_app_id:
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+# deploy:
+#   type: git
+#   repo: git@github.com:2ue/2ue.github.io.git
+#   branch: master
