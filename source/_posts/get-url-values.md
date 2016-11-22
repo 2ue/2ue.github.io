@@ -11,9 +11,9 @@ categories:
 
 ---
 
-## 言url
+## 神奇的url
 
-url随处可见，有些url包含了很多丰富的信息，那么我们如何来获取这些信息并有效的加以利用呢?
+一条url包含了很丰富的信息，那么我们如何来获取这些信息并有效的加以利用呢?
 随便举个例子：https://github.com/search?utf8=%E2%9C%93&q=javascript
 这条url就是在github上搜索javascript后跳转页面对应的url。我们要做的就是获取'?'后面的参数，以及获取后可以用来做什么。
 
