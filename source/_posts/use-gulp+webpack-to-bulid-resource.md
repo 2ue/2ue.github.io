@@ -7,7 +7,7 @@ tags:
 - gulp
 - webpack
 categories:
-- javascript
+- tools
 ---
 
 > 平时在项目中使用它们的机会不多，以下都是自己项目之外的折腾，如果有错误之处，请不吝指出
@@ -20,7 +20,7 @@ categories:
 
 
 
-### 配置webpack
+## 配置webpack
 
 webpack.config.js具体的如何配置这里就不一一赘述了，详见官方文档。
 
@@ -76,7 +76,7 @@ module.exports = {
 
 
 
-### 配置gulp
+## 配置gulp
 
 gulpfile.js同样，gulp的配置文档详情参考官方文档，这里以编译less文档并压缩css文档为例
 
@@ -121,7 +121,7 @@ ps：这里只列举了一个编译less的任务。
 
 
 
-### 在gulp里执行webpack任务
+## 在gulp里执行webpack任务
 
 > 到了这一步，gulp和webpack任务都编写完成了，如果单单是这样是没有意思的，因为每次启动都需要单独的执行两次命令：一次webpack，一次gulp命令，这样无疑是非常糟糕的。所以我们必须得想办法把gulp和webpack连接起来。怎么连接呢？具体的有两种办法。
 >
@@ -133,7 +133,7 @@ ps：这里只列举了一个编译less的任务。
 
 
 
-#### 利用gulp-webpack插件
+### 利用gulp-webpack插件
 
 重写`gulpfile.js`
 
@@ -241,7 +241,7 @@ common.js  3.54 kB       1  [emitted]  common.js
 { webpackGulpDeom }  »
 ```
 
-#### 利用gulp-util插件
+### 利用gulp-util插件
 
 > 这种方案只需要修改gulpfile.js就行了，webpack.config.js理论上来说不需要任何变化
 
@@ -325,17 +325,17 @@ chunk    {1} common.js (common.js) 0 bytes [rendered]
 ```
 
 
-### 两种方案对比
+## 两种方案对比
 
 从以上输出结果可以看出：
 
-#### 使用gulp-webpack
+### 使用gulp-webpack
 
 - `gulpfile.js`与`webpack.config.js`都要修改
 - 执行命令打印的信息更少
 - 编译时间更多？
 
-#### 使用gulp-util
+### 使用gulp-util
 
 - 只需要修改`gulpfile.js`,即使以后单独使用其中一个也不需要再做额外修改
 - 打印信息更丰富

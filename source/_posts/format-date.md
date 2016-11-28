@@ -6,13 +6,11 @@ tags:
 - date
 - javascirpt
 categories:
-- code
 - case
 ---
 
 ## 格式化时间
 需求比较简单，把标准时间格式化为'2016-06-14'这种格式。
-
 ``` javascript
 function formateDate (date,char){
     //char为连接年月日的字符
@@ -25,8 +23,6 @@ function formateDate (date,char){
     return time;
 }
 ```
-
-
 上述方法确实也解决了需求，但是应对需求变化的灵活性远远不足，比如需要格式化为'2016-06-14 15:22:40'这样的格式，再去按照这种方式实现显得比较冗余。所以在网上扒了一下，发现已有大神们解决了这个问题，下面这种方法个人比较喜欢，也是比较简洁的一种方式。
 
 ``` javascript

@@ -5,7 +5,6 @@ author: J.Yof
 tags:
 - javascript
 categories:
-- record
 - sinpats
 ---
 
@@ -13,7 +12,7 @@ categories:
 
 
 
-## 1.placeholder属性支持
+## placeholder属性支持
 
 ```javascript
 //修复不支持placeholder属性 start
@@ -33,9 +32,7 @@ if (!isSurportPlder) {
 };
 ```
 
-
-
-## 2.转换时间，输出2016-08-02格式日期
+## 转换时间，输出2016-08-02格式日期
 
 ```javascript
 function formatDate(date) {
@@ -57,7 +54,7 @@ function formatDate(date) {
 
 
 
-## 3.判断浏览器版本(PC)
+## 判断浏览器版本(PC)
 
 ```javascript
 function BrowserType() {
@@ -97,7 +94,7 @@ function BrowserType() {
 
 
 
-## 4.数字转换成千分位格式(如：123,456,9.89)
+## 数字转换成千分位格式(如：123,456,9.89)
 
 ```javascript
 function translateThree(num) {

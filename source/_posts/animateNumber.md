@@ -7,21 +7,20 @@ tags:
 - animation
 - javascript
 categories:
-- code
 - case
 ---
 
->利用插件实现一个简单的数字滚动效果
-
-
+>利用jquery.animateNumber插件实现一个简单的数字滚动效果
 
 ## 需求分析
 
-1.后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据；
-2.根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串
+1. 后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据；
+2. 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串
+
 ![animateNumber_01](/images/posts/animateNumber_01.png)
-3.每一个数字进行滚动变化
-4.最后，在项目中，我选取了插件[jquery.animateNumber](http://aishek.github.io/jquery-animateNumber/)来实现滚动效果。这个插件的使用方式很简单，在官方有很详尽的文档来展示各个案例，就不一一赘述了。
+
+3. 每一个数字进行滚动变化
+4. 最后，在项目中，我选取了插件[jquery.animateNumber](http://aishek.github.io/jquery-animateNumber/)来实现滚动效果。这个插件的使用方式很简单，在官方有很详尽的文档来展示各个案例，就不一一赘述了。
 
 
 ## HTML布局
@@ -45,7 +44,7 @@ categories:
 ```
 ## 撸JS
 
-#### 去除逗号(,)
+### 去除逗号(,)
 
 ``` js
 num = num.replace(',','');
@@ -58,22 +57,22 @@ var reg = new RegExp(',','g');
 num = num.replace(reg,'');
 ```
 
-#### 转化单位(元-->万元)
+### 转化单位(元-->万元)
 把金额单位转化为万元，并且保留两位小数，人数不进行转化
 
-``` js
+``` javascript
 if(!numWarpParent.hasClass('notChangeUint')){
     num = (Number(num) / 10000).toFixed(2);
 }
 ```
 
-#### 字符串拆分为数组
+### 字符串拆分为数组
 
-``` js
+``` javascript
 numArry = num.split('');
 ```
 
-#### 把数字添加到页面并调用animateNumber的方法
+### 把数字添加到页面并调用animateNumber的方法
 ``` js
 for(var i = 0; i < numArry.length; i++){
     var thisNum = parseInt(numArry[i]);
@@ -91,7 +90,7 @@ for(var i = 0; i < numArry.length; i++){
 ```
 
 ## 最后代码
-``` js
+``` javascript
 $('.animateNumber').each(function(){
     var _this = $(this);
     var totalNum = _this.attr('date-num'); //后台数据储存在date-num上
@@ -130,13 +129,3 @@ function isAnimate(num,numWarpParent,index){
 ## 总结
 1.功能模块化，尽量一个方法(函数)只做一件事情
 2.容错，由于涉及到DOM操作，所以为了保证页面的正常渲染必须有容错处理机制：数据出错不影响整个流程(页面渲染)的畅通
-
-
-
-
-
-
-
-
-
-

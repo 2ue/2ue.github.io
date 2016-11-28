@@ -1,14 +1,12 @@
 ---
 title: 利用javascrit获取url传递的参数
 date: 2016-06-15 20:54:14
-author: J.Yof
+author:  J.Yof
 tags:
 - javascript
+- url
 categories:
-- code
 - case
-
-
 ---
 
 ## 神奇的url
@@ -19,15 +17,15 @@ categories:
 
 ## 获取参数
 
-#### window.location的对象方法
+### window.location的对象方法
 
 ![window.location的参数](/images/posts/windowLocation.png)
 
-#### 获取url所有的参数
+### 获取url所有的参数
 
 url的参数其实就是'?'后那一部分，所以我们要做的就是把'?'后面的字符串数组化(对象化)。
 
-``` js
+``` javascript
 function getUrlVal(){
 //  https://github.com/search?utf8=%E2%9C%93&q=javascript
     var urlValStr = window.location.search.replace('?','');
@@ -43,12 +41,12 @@ function getUrlVal(){
 console.log(getUrlVal());  //输出 Object {utf8: "%E2%9C%93", q: "javascript"}
 ```
 
-#### 获取url中指定键名(name)的键值(val)
+### 获取url中指定键名(name)的键值(val)
 
 方法一：利用上面的方法，然后获取指定参数
 方法二：如果只获得指定键名的键值，其实没必要获得整个对象，直接通过已知的键名截取对应字符串就行了
 
-``` js
+``` javascript
 function getOneVal(name){
 //  'http://www.gotoplay.com/active?itemtype=sport&active=basketball&time=20160614&place=N230&peopleNum=657'
     var urlValStr = window.location.search.replace('?','');
@@ -64,10 +62,10 @@ console.log(getOneVal('peopleNum'))  //657
 ```
 
 ## 参数的利用
-----
+
 在项目中这些参数有哪些用处呢？
 
-#### 导航定位
+### 导航定位
 
 什么是导航定位？就是点击导航栏的标签，页面跳转后，对应的标签相应的会突出变化。如下图：
 ![navLocation](/images/posts/navLocation.png)
@@ -83,7 +81,7 @@ console.log(getOneVal('peopleNum'))  //657
     2.然后在导航栏部分，对应的地方加上参数值，这一步，导航栏都是公用模板，并且规则都一样，所以只需要一次添加
     3.跳转后定位
 
-##### html代码
+## html代码
 
 ``` html
 <div class="nav">
@@ -94,9 +92,9 @@ console.log(getOneVal('peopleNum'))  //657
 </div>
 ```
 
-##### js代码
+### js代码
 
-``` js
+``` javascript
 function getOneVal(name,urlValStr){
     var afterNameStr = urlValStr.split(name)[1];
     var strFirstSite = afterNameStr.indexOf('&');
@@ -118,5 +116,3 @@ $('.nav a').each(function(){
     }
 })
 ```
-
-
