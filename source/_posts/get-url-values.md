@@ -23,22 +23,24 @@ categories:
 
 ### 获取url所有的参数
 
-url的参数其实就是'?'后那一部分，所以我们要做的就是把'?'后面的字符串数组化(对象化)。
+我们可以直接通过`window.location.search`来取得这部分，也就是我们需要的url参数。
+
+当`url`没有包含`?`时，`window.location.search`会返回`undefined`。
 
 ``` javascript
-function getUrlVal(){
-//  https://github.com/search?utf8=%E2%9C%93&q=javascript
-    var urlValStr = window.location.search.replace('?','');
-    var urlValArry = urlValStr.split('&');
-    //在实际中，可以根据所需保存为json或者对象，即也可以写成var urlValObject = [];
+function getUrlVal(str){
+  	if(!str || str.indexOf('?') != 0) return false;
+    var urlValArry = str.replace('?','').split('&');
     var urlValObject = {};
-    for(i in urlValArry){
+    for(var i in urlValArry){
         urlValObject[urlValArry[i].split('=')[0]] = urlValArry[i].split('=')[1];
     };
     return urlValObject;
 };
 
-console.log(getUrlVal());  //输出 Object {utf8: "%E2%9C%93", q: "javascript"}
+//  https://github.com/search?utf8=%E2%9C%93&q=javascript
+var urlStr = window.location.search.replace('?','');
+console.log(getUrlVal(urlStr));  //输出 Object {utf8: "%E2%9C%93", q: "javascript"}
 ```
 
 ### 获取url中指定键名(name)的键值(val)
@@ -47,23 +49,62 @@ console.log(getUrlVal());  //输出 Object {utf8: "%E2%9C%93", q: "javascript"}
 方法二：如果只获得指定键名的键值，其实没必要获得整个对象，直接通过已知的键名截取对应字符串就行了
 
 ``` javascript
-function getOneVal(name){
-//  'http://www.gotoplay.com/active?itemtype=sport&active=basketball&time=20160614&place=N230&peopleNum=657'
-    var urlValStr = window.location.search.replace('?','');
-    var afterNameStr = urlValStr.split(name)[1];
+function getOneVal(str,name){
+  	if(!str || str.indexOf('?') != 0) return false;
+    var afterNameStr = str.replace('?','').split(name)[1];
     var strFirstSite = afterNameStr.indexOf('&');
-    strFirstSite = (strFirstSite == -1) ? afterNameStr.length : strFirstSite // 返回第一个&位置，如果没有'&'则返回字符串长度
-    var val = afterNameStr.slice(1,strFirstSite);
-    return val;
+  	// 返回第一个&位置，如果没有'&'则返回字符串长度
+    strFirstSite = (strFirstSite == -1) ? afterNameStr.length : strFirstSite 
+    var reslt = afterNameStr.slice(1,strFirstSite);
+    return reslt;
 };
 
-console.log(getOneVal('time'))  //输出20160614
-console.log(getOneVal('peopleNum'))  //657
+//  'http://www.gotoplay.com/active?itemtype=sport&active=basketball&time=20160614&place=N230&peopleNum=657'
+var urlStr = window.location.search;
+console.log(getOneVal(urlStr,'time'))  //输出20160614
+console.log(getOneVal(urlStr,'peopleNum'))  //657
+```
+
+## 将方法绑定到原型链上
+
+``` javascript
+String.prototype.toObj = function(key){
+    /*
+  		如果有传入key，那么就只返回key对应的Val(找不到则返回undefined)
+		如果没有传入key,那么就返回一个object对象
+	*/
+  var str = this;
+  if(str.indexOf('?') != 0) return {};
+  if(str.indexOf(key) == -1) return undefined;
+  var tmpArry = str.replace('?','').split('&');
+  var reslt = {};
+  for(var i in tmpArry){
+    var tempKeyVal = tmpArry[i].split('=');
+    if(!!key) {
+      if(tempKeyVal[0] != key) reslt = undefined;
+      reslt = tempKeyVal[1];
+      break;
+    }else {
+      reslt[tempKeyVal[0]] = tempKeyVal[1];
+    }
+  };
+  return reslt;
+};
+// http://www.gotoplay.com/active?itemtype=sport&active=basketball&time=20160614
+var urlStr = window.location.search;
+console.log(urlStr.toObj()) //{itemtype:'sport',active:'basketball',time:'20160614'}
+console.log(urlStr.toObj('active'))  //basketball
 ```
 
 ## 参数的利用
 
-在项目中这些参数有哪些用处呢？
+在项目中这些参数有哪些用处呢，下面列举几个比较常用的用处
+- 传递数据
+- 导航定位
+- 更改状态
+- ...
+
+
 
 ### 导航定位
 
