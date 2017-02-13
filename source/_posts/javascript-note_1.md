@@ -39,15 +39,16 @@ arry.join('-') //返回字符串1-6-8-2ue-o90，arry = [1,6,8,'2ue','o90']
 arry.join('') //返回字符串1682ueo90，arry = [1,6,8,'2ue','o90']
 ```
 
-注意如果需要加数组arry以逗号形式展示到页面，则不需要`.join()`方法，因为javascript的赋值操作会自动调用`.toString()`方法如
+**注意如果需要加数组arry以逗号形式展示到页面，则不需要`.join()`方法，因为javascript的赋值操作会自动调用`.toString()`方法**，如
 
 ``` javascript
 //JS
-var div = document.getElementById('div');
-div.innerHTML = arry;
+var arry = [1,6,8,'2ue','o90']
+var divBox = document.getElementById('div');
+divBox.innerHTML = arry;
 
-//HTML
-<div id="div">1,6,8,2ue,o90</div>
+//前面赋值的操作将会调用toString方法，因此
+console.log(divBox) //<div id="div">1,6,8,2ue,o90</div>
 ```
 
 ## push：在数组尾部添加一个元素  
@@ -203,18 +204,18 @@ arry.splice(-1,1)  //返回 [5]; arry = [1,'o90',4]
 arry.splice(0,0,2,3,[8,9])  // 返回 []; arry = [2,3,[8,9],1,'o90',4]
 ```
 
-##  总结
+##  来一张表
 
 |     方法名     |        功能         | 原数组是否改变 |      返回      |
 | :---------: | :---------------: | :-----: | :----------: |
 | **length**  |      获取数组长度       |   NO    |   被引用数组长度    |
 |  **join**   | 将数组元素连接起来以构建一个字符串 |   NO    |   转换后的字符串    |
-|  **push**   |      在尾部添加元素      |   YES   |    新数组长度     |
-| **unshift** |      在头部添加元素      |   YES   |    新数组长度     |
+|  **push**   |      在尾部添加元素      | **YES** |    新数组长度     |
+| **unshift** |      在头部添加元素      | **YES** |    新数组长度     |
 | **concat**  |      在尾部添加元素      |   NO    |     新数组      |
-|   **pop**   |     删除最后一个元素      |   YES   |    被删除元素     |
-|  **shift**  |      删除第一个元素      |   YES   |    被删除元素     |
-| **reverse** |     颠倒数组元素顺序      |   YES   |    对数组的引用    |
-|  **sort**   |      数组元素排序       |   YES   |    对数组的引用    |
+|   **pop**   |     删除最后一个元素      | **YES** |    被删除元素     |
+|  **shift**  |      删除第一个元素      | **YES** |    被删除元素     |
+| **reverse** |     颠倒数组元素顺序      | **YES** |    对数组的引用    |
+|  **sort**   |      数组元素排序       | **YES** |    对数组的引用    |
 |  **slice**  |   根据索引返回数组的一部分    |   NO    | 根据索引返回数组的一部分 |
-| **splice**  |   插入、删除或替换数组的元素   |   YES   |  被移除元素组成的数组  |
+| **splice**  |   插入、删除或替换数组的元素   | **YES** |  被移除元素组成的数组  |
