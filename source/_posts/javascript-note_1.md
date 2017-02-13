@@ -1,12 +1,13 @@
 ---
 title: Javascript系列(1) - Javascript数组方法
 date: 2016-8-11 21:22:35
-author: 2ue
+author: J.Yof
 tags:
 - javascript
 - 数组
 categories:
 - record
+
 ---
 
 > Javascript的Array(数组对象)的方法记录。

@@ -1,6 +1,6 @@
 ---
 title: 使用webpack + gulp构建项目
-date: 2016-11-24 14:46:41
+date: 2016-9-24 20:46:41
 author: J.Yof
 comments: true
 tags:
@@ -8,6 +8,7 @@ tags:
 - webpack
 categories:
 - tools
+
 ---
 
 > 平时在项目中使用它们的机会不多，以下都是自己项目之外的折腾，如果有错误之处，请不吝指出
