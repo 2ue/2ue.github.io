@@ -19,7 +19,9 @@ categories:
 >
 > 所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源
 
+## demo
 
+先上[DEMO](https://github.com/2ue/gulp-webpack-template)
 
 ## 配置webpack
 
