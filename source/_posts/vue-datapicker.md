@@ -1,5 +1,5 @@
 ---
-title: vue-datepicker
+title: 使用vue大法写了一个简单的日期插件
 date: 2017-01-05 23:03:29
 author: J.Yof
 comments: true
@@ -14,7 +14,7 @@ categories:
 
 ## 效果预览([demo](https://2ue.github.io/vue-datepicker))
 
- ![vue-datepicker](https://github.com/2ue/vue-datepicker/blob/master/src/gifShow/vue-datepicker2.gif)
+ ![vue-datepicker](/images/posts/vue-datepicker2.gif)
 
 ## 项目构建
 
