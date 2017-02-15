@@ -30,9 +30,9 @@ canonical: true
 menu:
   home: /
   # categories: /categories
-  #about: /about
   archives: /archives
   tags: /tags
+  about: https://2ue.github.io/aboutMe/dist/index.html
   # schedule: /schedule
   #commonweal: /404.html
 
