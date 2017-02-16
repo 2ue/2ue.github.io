@@ -28,10 +28,10 @@ canonical: true
 
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
-  home: /
+  home: ./
   # categories: /categories
-  archives: /archives
-  tags: /tags
+  archives: ./archives
+  tags: ./tags
   about: https://2ue.github.io/aboutMe/dist/index.html
   # schedule: /schedule
   #commonweal: /404.html
