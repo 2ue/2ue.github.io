@@ -67,21 +67,21 @@ categories:
 ## 总结方法
 根据上面的表格对比，我整理了一些常见的方法。
 
-### 判断数字
+#### 判断数字
 ``` javascript
 function isNumber(para){
     return !isNaN(para);
 };
 ```
 
-### 判断字符串（非严格）
+#### 判断字符串（非严格）
 ``` javascript
 function isString(para){
     return typeof para === 'string';
 };
 ```
 
-### 判断字符串（严格）
+#### 判断字符串（严格）
 在必要的情况下使用，因为此种方法会把'1'识别成`number`类型
 ``` javascript
 function isStrictString(para){
@@ -89,14 +89,14 @@ function isStrictString(para){
 };
 ```
 
-### 判断数组
+#### 判断数组
 ``` javascript
 function isArray(para){
     return Object.prototype.toString.call(para) === '[object Array]';
 };
 ```
 
-### 判断对象
+#### 判断对象
 
 这里特指{}类`JSON`对象
 
@@ -106,7 +106,7 @@ function isObject(para){
 };
 ```
 
-### 判断可执行函数
+#### 判断可执行函数
 ``` javascript
 function isFunction(para){
     return typeof para === 'function';
