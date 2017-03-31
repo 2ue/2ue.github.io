@@ -8,3 +8,5 @@ public/
 .deploy*/
 .idea
 .project
+.history/
+.history
