@@ -55,7 +55,7 @@ categories:
 |  **Number**  |      -1      |    false    |   false    |   number    |  [obejct Number]  |
 |  **Number**  |      0       |    false    |    true    |   number    |  [obejct Number]  |
 |  **Number**  |      1       |    false    |   false    |   number    |  [obejct Number]  |
-|  **Number**  |     NaN      |    false    |    true    |   number    | [obejct  Number]  |
+|  **Number**  |     NaN      |    true    |    true    |   number    | [obejct  Number]  |
 |  **String**  |     '1'      |    false    |   false    |   string    |  [obejct String]  |
 |  **String**  |     'a'      |    true     |   false    |   string    |  [obejct String]  |
 |  **String**  |      ''      |    true     |    true    |   string    |  [obejct String]  |
@@ -65,12 +65,20 @@ categories:
 | **Function** | function(){} |    true     |   false    |   obejct    | [obejct Function] |
 
 ## 总结方法
-根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程
+根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程.
 
-#### 判断数字
+#### 判断数字(非严格)
 ``` javascript
 function isNumber(para){
     return !isNaN(para);
+};
+```
+
+#### 判断数字(严格)
+在必要的情况下使用，因为此种方法会把'1'识别成`string`类型
+``` javascript
+function isStrictNumber(para){
+    return !isNaN(para) && typeof para === 'number';
 };
 ```
 
@@ -116,6 +124,7 @@ function isFunction(para){
 ## 总结
 当我们需要判断其他类型时，完全可以参照上面的表来写出自己的方法哦。
 当然现在前端各种流行库不断推陈出新，我们完全可以直接使用别人封装好的库来实现这些功能，比如`underscore.js`、`lodash.js`等，但是编码的乐趣不就是在于自己解决最本质的问题么。所以即使有这么多的流行库大行其道，也不妨碍我们了解这些知识的初心，说不定哪天你自己也写出一个很火的库呢~
+当然随着ES6标准的不断被各大浏览器厂商支持，ES6的普及度越来越广，这些方法都会被内置到原生`javascript`内部吧(有些方法已经加进去了~)。
 
 
 
