@@ -50,7 +50,7 @@ categories:
 |      类型      |      值       | isNaN(para) |   !para    | typeof para |  toString(para)   |
 | :----------: | :----------: | :---------: | :--------: | :---------: | :---------------: |
 |   **Null**   |     null     |    true     |    true    |   obejct    |   [obejct Null]   |
-| **Udefined** |   udefined   |    true     |    true    |    3333     | [obejct Udefined] |
+| **Udefined** |   udefined   |    true     |    true    |  udefined   | [obejct Udefined] |
 | **Boolean**  |  true/false  |    true     | false/true |    true     | [obejct Boolean]  |
 |  **Number**  |      -1      |    false    |   false    |   number    |  [obejct Number]  |
 |  **Number**  |      0       |    false    |    true    |   number    |  [obejct Number]  |
@@ -64,9 +64,58 @@ categories:
 |  **Object**  |   {}/{n:4}   |    true     |   false    |   obejct    |  [obejct Object]  |
 | **Function** | function(){} |    true     |   false    |   obejct    | [obejct Function] |
 
+## 总结方法
+根据上面的表格对比，我整理了一些常见的方法。
 
+### 判断数字
+``` javascript
+function isNumber(para){
+    return !isNaN(para);
+};
+```
 
+### 判断字符串（非严格）
+``` javascript
+function isString(para){
+    return typeof para === 'string';
+};
+```
 
+### 判断字符串（严格）
+在必要的情况下使用，因为此种方法会把'1'识别成`number`类型
+``` javascript
+function isStrictString(para){
+    return isNaN(para) && typeof para === 'string';
+};
+```
+
+### 判断数组
+``` javascript
+function isArray(para){
+    return Object.prototype.toString.call(para) === '[object Array]';
+};
+```
+
+### 判断对象
+
+这里特指{}类`JSON`对象
+
+``` javascript
+function isObject(para){
+    return Object.prototype.toString.call(para) === '[object Object]';
+};
+```
+
+### 判断可执行函数
+``` javascript
+function isFunction(para){
+    return typeof para === 'function';
+};
+```
+
+## 总结
+当我们需要判断其他类型时，完全可以参照上面的表来写出自己的方法哦。
+当然现在前端各种流行库不断推陈出新，我们完全可以直接使用别人封装好的库来实现这些功能，比如`underscore.js`、`lodash.js`等，但是编码的乐趣不就是在于自己解决最本质的问题么。所以即使有这么多的流行库大行其道，也不妨碍我们了解这些知识的初心，说不定哪天你自己也写出一个很火的库呢~
 
 
 
