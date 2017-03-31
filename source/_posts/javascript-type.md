@@ -65,7 +65,7 @@ categories:
 | **Function** | function(){} |    true     |   false    |   obejct    | [obejct Function] |
 
 ## 总结方法
-根据上面的表格对比，我整理了一些常见的方法。
+根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程
 
 #### 判断数字
 ``` javascript
