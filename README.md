@@ -23,6 +23,6 @@
 - [[移动端适配方案](https://2ue.github.io/2016/11/22/Mobile-terminal-adapter/)]
 - [[使用webpack + gulp构建项目](https://2ue.github.io/2016/11/24/use-gulp+webpack-to-bulid-resource/)]
 - [[<2016><2017>](https://2ue.github.io/2016/12/31/2016-to-2017/)]
-- [[<2016><2017>](https://2ue.github.io/2017/03/15/user-babun-tips-1/)]
-- [Javascript常用见问题之判断类型](https://2ue.github.io/2017/03/31/javascript-type/)]
+- [[神器babun的折腾记录(一)](https://2ue.github.io/2017/03/15/user-babun-tips-1/)]
+- [[Javascript常用见问题之判断类型](https://2ue.github.io/2017/03/31/javascript-type/)]
 
