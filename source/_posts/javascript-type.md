@@ -97,6 +97,31 @@ function isStrictString(para){
 };
 ```
 
+#### 判断一般数据类型
+null为object
+``` javascript
+function isBasicType(para){
+    const _type = typeof para;
+    return _type === 'undefined' || _type === 'number' || _type === 'string' || type === 'boolean';
+};
+```
+
+#### 判断是否为Null(不能识别'')
+此方法只能识别`null`，如果要包含''，请结合方法`isStringNull()`一起使用
+``` javascript
+function isNull(para){
+    return !para && typeof para === 'object';
+};
+```
+
+#### 判断是否为''(不能识别`null`)
+此方法只能识别''，如果要包含`null`，请结合方法`isNull()`一起使用
+``` javascript
+function isStringNull(para){
+    return !para && typeof para === 'string' && isNaN(para);
+};
+```
+
 #### 判断数组
 ``` javascript
 function isArray(para){
@@ -105,9 +130,7 @@ function isArray(para){
 ```
 
 #### 判断对象
-
 这里特指{}类`JSON`对象
-
 ``` javascript
 function isObject(para){
     return Object.prototype.toString.call(para) === '[object Object]';
