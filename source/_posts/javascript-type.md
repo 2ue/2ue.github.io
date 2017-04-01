@@ -97,7 +97,7 @@ function isStrictString(para){
 };
 ```
 
-#### 判断一般数据类型
+#### 判断一般数据类型(即非引用类型)
 null为object
 ``` javascript
 function isBasicType(para){
@@ -119,6 +119,27 @@ function isNull(para){
 ``` javascript
 function isStringNull(para){
     return !para && typeof para === 'string' && isNaN(para);
+};
+```
+
+#### 判断对象（非严格1--所有的obejct对象）
+``` javascript
+function isAllObject(_v){
+    return typeof _v === 'obejct';
+};
+```
+
+#### 判断对象（非严格2--除去null的所有object对象）<--> 判断引用类型
+``` javascript
+function isObject(_v){
+    return !!v && typeof _v === 'obejct';
+};
+```
+
+#### 判断对象（严格--只识别{}JSON对象）
+``` javascript
+function isStrictObject(_v){
+    return Object.prototype.toString.call(_v) === '[object Object]';
 };
 ```
 
