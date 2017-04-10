@@ -15,7 +15,8 @@ categories:
 var UNIT_ARRAY = ['千','百','十'];
 var NUM_ARRAY = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
 var NUM_UNIT_ARRAY = ['万', '亿', '兆', '京', '垓', '秭', '穰', '沟', '涧', '正', '载', '极', '恒河沙', '阿僧祗', '那由他', '不可思议', '无量', '大数'];
-
+var REG_DEL_REPEAT = /(.)\1+/g;
+var REG_SPLIT_LEN = /(\d{4}(?=\d)(?!\d+\.|$))/g;
 
 
 //以四位数分割
@@ -23,7 +24,7 @@ function splitNum(num,_len,_type){
 
     if(!num) return 0;
 
-    return num.toString().replace(/\,/g,'').split('').reverse().join('').replace(/(\d{4}(?=\d)(?!\d+\.|$))/g, '$1,').split('').reverse().join('').split(',');
+    return num.toString().replace(/\,/g,'').split('').reverse().join('').replace(REG_SPLIT_LEN, '$1,').split('').reverse().join('').split(',');
 
 };
 
@@ -57,7 +58,7 @@ function switchNum(num,_isFirst){
             res.push(NUM_ARRAY[num[i]])
         }
     };
-    return res.join('').replace(/(.)\1+/g,'$1');
+    return res.join('').replace(REG_DEL_REPEAT,'$1');
 
 }
 
@@ -78,7 +79,7 @@ function jionNum (num) {
         }
     };
 
-    return reslt.replace(/(.)\1+/g,'$1');
+    return reslt.replace(REG_DEL_REPEAT,'$1');
         
 };
 
