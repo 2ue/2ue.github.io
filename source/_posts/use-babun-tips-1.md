@@ -11,12 +11,12 @@ categories:
 - tools
 ---
 
-babun使用默认安装，位置在'C:\Users\userName\.babun'
+babun使用默认安装，位置在`C:\Users\userName\.babun`
 
 ## 1.导致本地的git ssh key不可用
 
 #### 原因
-安装`babun`会添加全局变量`Home`，指向`babun`安装目录下的`.babun/cymwin/home`，因此在使用命令生成key时不会在'C:\Users\userName\.ssh`目录。
+安装`babun`会添加全局变量`Home`，指向`babun`安装目录下的`.babun/cymwin/home`，因此在使用命令生成key时不会在`C:\Users\userName\.ssh`目录。
 
 ```bash
 ssh -T git@github.com
@@ -43,9 +43,7 @@ Load key "/home/Administrator/.ssh/id_rsa": bad permissions
 Permission denied (publickey).
 ```
 
-此时发现发现还是报错，错误信息为`Permissions 0670`
-
-#### 复制`.babun\cymwin\home\userName\.ssh`目录下的`ssh key`到`C:\Users\userName`目录
+当生成key之后，测试是否联通，你会发现还是报错了，提示权限不够，错误信息为`Permissions 0670`
 
 #### 在终端切换到`C:\Users\userName\.ssh`目录，执行下面命令
 
@@ -68,6 +66,5 @@ Hi 2ue! You've successfully authenticated, but GitHub does not provide shell acc
 参考文章：
 
 1.https://github.com/babun/babun/issues/327
-
 2.http://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
 
