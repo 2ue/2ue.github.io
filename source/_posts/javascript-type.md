@@ -41,7 +41,7 @@ categories:
 常用来判断一个变量是否存在，面对`Arry`、`Object`等**引用类型变量**时无论是否为空都会被转换成`true`
 
 ## typeof para
-事实证明typeof并不是万能的，他在面对出Null以外的**基本类型**变量是相当有威力的，但是再面对**引用类型变量**和`null`时都会被识别成`object`
+事实证明typeof并不是万能的，在对除Null以外的**基本类型**变量是相当有威力的，但是对**引用类型变量**和`null`时都会被识别成`object`
 
 ## Object.prototype.toString.call(para);
 前面的`typeof`死在半路，无法打探到**引用类型变量**和`null`的真实情报，但是我们得出了另一个情报：**他们都是`obejct`**。那么我们就完全可以利用`Object`原型上的`toString()`方法来判断
@@ -68,6 +68,7 @@ categories:
 根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程.
 
 #### 判断数字(非严格)
+字符串'`1`'也会被识别和成`number`
 ``` javascript
 function isNumber(para){
     return !isNaN(para);
@@ -75,7 +76,7 @@ function isNumber(para){
 ```
 
 #### 判断数字(严格)
-在必要的情况下使用，因为此种方法会把'1'识别成`string`类型
+在必要的情况下使用，因为此种方法会把字符串'`1`'识别成`string`类型
 ``` javascript
 function isStrictNumber(para){
     return !isNaN(para) && typeof para === 'number';
@@ -90,7 +91,7 @@ function isString(para){
 ```
 
 #### 判断字符串（严格）
-在必要的情况下使用，因为此种方法会把'1'识别成`number`类型
+在必要的情况下使用，因为此种方法会把'`1`'识别成`number`类型
 ``` javascript
 function isStrictString(para){
     return isNaN(para) && typeof para === 'string';
@@ -102,7 +103,7 @@ null为object
 ``` javascript
 function isBasicType(para){
     const _type = typeof para;
-    return _type === 'undefined' || _type === 'number' || _type === 'string' || type === 'boolean';
+    return _type !== 'obejct';
 };
 ```
 
@@ -114,10 +115,10 @@ function isNull(para){
 };
 ```
 
-#### 判断是否为''(不能识别`null`)
-此方法只能识别''，如果要包含`null`，请结合方法`isNull()`一起使用
+#### 判断是否为`''`(不能识别`null`)
+此方法只能识别`''`，如果要包含`null`，请结合方法`isNull()`一起使用
 ``` javascript
-function isStringNull(para){
+function isStrictNull(para){
     return !para && typeof para === 'string' && isNaN(para);
 };
 ```
