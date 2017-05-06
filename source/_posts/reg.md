@@ -1,13 +1,12 @@
 ---
-title: 常用正则整理
+title: 常用正则整理(持续收集)
 date: 2016-09-05 12:12:24
 author: J.Yof
 tags:
 - javascirpt
 - reg
 categories:
-- case
-- tips
+- regex
 ---
 
 ```javascript
