@@ -35,7 +35,7 @@ categories:
 - Object.prototype.toString.call(para);
 
 ## isNaN(para)
-用来判断是否为`number`类型的专有方法，但是需要注意的时，`NaN`也是`number`类型哦。
+用来判断是否为`number`类型的专有方法。但是需要注意的是，如果使用`typeof`判断那么结果会是`number`。
 
 ## !para
 常用来判断一个变量是否存在，面对`Arry`、`Object`等**引用类型变量**时无论是否为空都会被转换成`true`
@@ -59,7 +59,7 @@ categories:
 |  **String**  |     '1'      |    false    |   false    |   string    |  [obejct String]  |
 |  **String**  |     'a'      |    true     |   false    |   string    |  [obejct String]  |
 |  **String**  |      ''      |    true     |    true    |   string    |  [obejct String]  |
-|  **String**  |     ' '      |    true     |   false    |   string    |  [obejct String]  |
+|  **String**  |     ' '(中间包含空格)      |    true     |   false    |   string    |  [obejct String]  |
 |  **Array**   |    []/[4]    |    true     |   false    |   obejct    |  [obejct Array]   |
 |  **Object**  |   {}/{n:4}   |    true     |   false    |   obejct    |  [obejct Object]  |
 | **Function** | function(){} |    true     |   false    |   obejct    | [obejct Function] |
@@ -68,7 +68,7 @@ categories:
 根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程.
 
 #### 判断数字(非严格)
-字符串'`1`'也会被识别和成`number`
+字符串'`1`'会被识别成`number`
 ``` javascript
 function isNumber(para){
     return !isNaN(para);
@@ -76,7 +76,7 @@ function isNumber(para){
 ```
 
 #### 判断数字(严格)
-在必要的情况下使用，因为此种方法会把字符串'`1`'识别成`string`类型
+在必要的情况下使用：此方法会把字符串'`1`'识别成`string`类型
 ``` javascript
 function isStrictNumber(para){
     return !isNaN(para) && typeof para === 'number';
@@ -91,7 +91,7 @@ function isString(para){
 ```
 
 #### 判断字符串（严格）
-在必要的情况下使用，因为此种方法会把'`1`'识别成`number`类型
+在必要的情况下使用：此种方法会把字符串'`1`'识别成`number`类型
 ``` javascript
 function isStrictString(para){
     return isNaN(para) && typeof para === 'string';
@@ -99,11 +99,10 @@ function isStrictString(para){
 ```
 
 #### 判断一般数据类型(即非引用类型)
-null为object
+注意：使用typeof判断`null`结果为`object`
 ``` javascript
 function isBasicType(para){
-    const _type = typeof para;
-    return _type !== 'obejct';
+    return typeof para !== 'obejct';
 };
 ```
 
@@ -115,11 +114,26 @@ function isNull(para){
 };
 ```
 
-#### 判断是否为`''`(不能识别`null`)
+#### 判断是否为空字符串(不包含空格)
 此方法只能识别`''`，如果要包含`null`，请结合方法`isNull()`一起使用
 ``` javascript
-function isStrictNull(para){
-    return !para && typeof para === 'string' && isNaN(para);
+function isStringtNull(para){
+    return !para && typeof para === 'string';
+};
+```
+
+#### 判断是否为`undefined`
+``` javascript
+function isUndefined(para){
+    return typeof para === 'undefined';
+};
+```
+
+#### 判断是否为`false`
+当为`null`,`undefined`,`''`,`0`,`-0`,`false`,`NaN`
+``` javascript
+function isFalse(para){
+    return !para;
 };
 ```
 
