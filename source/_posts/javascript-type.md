@@ -106,7 +106,7 @@ function isBasicType(para){
 };
 ```
 
-#### 判断是否为Null(不能识别'')
+#### 判断是否为null(不能识别'')
 此方法只能识别`null`，如果要包含''，请结合方法`isStringNull()`一起使用
 ``` javascript
 function isNull(para){
