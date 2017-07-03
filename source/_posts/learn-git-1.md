@@ -1,10 +1,9 @@
 ---
-title: Git学习（一）-- git入门
+title: Git学习之新手入门
 date: 2016-06-20 15:51:17
 author: J.Yof
 tags:
 - git
-- github
 categories:
 - tools
 ---
