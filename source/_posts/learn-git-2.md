@@ -10,7 +10,9 @@ categories:
 
 > 记录一些项目中常用的命令
 
-##查看状态
+
+
+## 查看状态
 
 可以查看工作区(edit即add之前)和暂存区(add之后，commit之前)
 
@@ -79,7 +81,7 @@ git branch -r -d origin/name
 git checkout name //如果分支不存在则创建一个名为name的新分支
 ```
 
-合并分支
+### 合并分支
 
 ``` shell
 //例如：合并分支dev到master
