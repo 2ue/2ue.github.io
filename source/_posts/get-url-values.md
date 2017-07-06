@@ -96,10 +96,10 @@ console.log(urlStr.toObj('active'))  //basketball
 强大的正则总是让人心生向往，利用正则无疑是最简洁优雅的一种方法
 ### 获取指定某个参数
 ``` javascript
-    function getUrlParam(name){
+    function getUrlParam(url,name){
         if(!name) return;
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
-            r = window.location.search.substr(1).match(reg);
+            r = url.substr(1).match(reg);
         if (r != null) {
             return (r[2]);
         }else{
