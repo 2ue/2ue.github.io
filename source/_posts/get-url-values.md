@@ -45,9 +45,6 @@ console.log(getUrlVal(urlStr));  //输出 Object {utf8: "%E2%9C%93", q: "javascr
 
 ### 获取url中指定键名(name)的键值(val)
 
-方法一：利用上面的方法，然后获取指定参数
-方法二：如果只获得指定键名的键值，其实没必要获得整个对象，直接通过已知的键名截取对应字符串就行了
-
 ``` javascript
 function getOneVal(str,name){
   	if(!str || str.indexOf('?') != 0) return false;
@@ -95,7 +92,33 @@ var urlStr = window.location.search;
 console.log(urlStr.toObj()) //{itemtype:'sport',active:'basketball',time:'20160614'}
 console.log(urlStr.toObj('active'))  //basketball
 ```
-
+## 利用正则表达式来获取参数
+强大的正则总是让人心生向往，利用正则无疑是最简洁优雅的一种方法
+### 获取指定某个参数
+``` javascript
+    function getUrlParam(name){
+        if(!name) return;
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
+            r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return (r[2]);
+        }else{
+            return null;
+        }
+    }
+```
+### 获取所有的参数
+``` javascript
+    function parse_url(url){
+        if(!url) return;
+        var pattern = /(\w+)=(\w+)/ig;
+        var parames = {};
+        url.replace(pattern, function(a, b, c){
+            parames[b] = c;
+        });
+        return parames;
+    }
+```
 ## 参数的利用
 
 在项目中这些参数有哪些用处呢，下面列举几个比较常用的用处
