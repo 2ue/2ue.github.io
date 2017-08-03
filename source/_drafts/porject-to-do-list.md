@@ -1,6 +1,6 @@
 ## 待做项目
 
-### 弹幕
+## 弹幕
 
 播放器
 
@@ -23,7 +23,7 @@
 
 网站广告
 
-### 组件
+## 组件
 - rem
 - reset.css
 - util
@@ -33,7 +33,7 @@
 - 下拉刷新，下拉加载下一篇
 - 倒计时
 
-### 博客--自己开发主题
+## 博客--自己开发主题
 - 设计，自主设计
 - 模块
   - 文章
@@ -43,7 +43,22 @@
   - 视频 （推荐视频，弹幕播放器等）
   - 项目list
 
-### vue-组件
+## vue-组件
 参考三秒和ele
 
 ## node写一个通过注释自生成文档的脚本
+
+
+
+## css button
+
+参考：http://www.bootcss.com/p/buttons/
+
+发布到npm上，
+
+- button.css：未压缩的样式，包括了rest和button
+- button.min.css：用于直接引用，包括了rest和button
+- rest.min.css：初始化样式
+- button.code.css：按钮样式
+rest.min.css 和 button.code.css用于用户直接编译。
+rest.min.css内部的样式会加前缀（如input.className{}），覆盖掉用户自己的rest（重叠部分），如果用户不希望自己的rest被覆盖可以只引入button.code.css
