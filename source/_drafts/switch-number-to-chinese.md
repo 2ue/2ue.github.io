@@ -7,7 +7,7 @@ tags:
 - Javascript
 - number
 categories:
-- javascript
+- utils
 ---
 
 ## 场景

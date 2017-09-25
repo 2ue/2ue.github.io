@@ -39,4 +39,9 @@ categories:
 - 额外的周边工具的使用
     - webpack的配置
 
+# 坑
+- 获取属性，获取公用属性，通过标签分类
+- 组件初始化时computed无法拿到props的属性，无法拿到method的方法
+- methods里面不能使用箭头函数: 会改变this的指向
+- v-if,v-else,v-else-if
 # 解决方案
