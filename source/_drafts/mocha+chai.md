@@ -136,8 +136,6 @@ describe('hooks', function() {
   // test cases
 });
 ```
-
-## 如何进行流程测试
 ## 注意
 - 内置promise对象
 - ES6需要转码
