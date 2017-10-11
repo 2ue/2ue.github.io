@@ -139,6 +139,3 @@ describe('hooks', function() {
 ## 注意
 - 内置promise对象
 - ES6需要转码
-
-
-
