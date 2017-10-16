@@ -7,7 +7,7 @@ tags:
 - Javascript
 - test
 categories:
-- libarys
+- test
 ---
 
 >`mocha+chai`是比较流行的测试框架‘套装’，能实现一些基本的前端测试如函数功能测试，模拟登陆，异步测试,流程测试等
