@@ -62,6 +62,19 @@ this.HTML_DECODE = {
 ```
 
 ## 利用浏览器自动转义
+当转义后的字符串直接插入到DOM中后，浏览器会自动进行反转义。众所周知，`e.innerHTML`可以取出DOM节点的内容，但是他取出的内容是转义后的内容，只有通过`e.childNodes[i].nodeValue`方法取出的内容才是反转义的内容。
+
+``` javascript
+function htmlDecode(_html) {
+    var e = document.createElement('div'), res = '';
+    e.innerHTML = _html;
+    for(var i = 0; i < e.childNodes.length; i++){
+        res += e.childNodes[i].nodeValue;
+    };
+    return res;
+};
+```
+注意：`e.childNodes`是一个数组，他将`_html`分段（每65536字符分一段）存储到`e.childNodes[i]`中，使用`e.childNodes`方法取得反转义后的字符串需要循环`e.childNodes`数组
 
 http://tool.oschina.net/commons?type=2
 
