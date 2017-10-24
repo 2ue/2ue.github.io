@@ -1,25 +1,27 @@
 ---
-title: 如何使用javascript优雅的实现html代码转义和反转义？
+title: 开发中html的转义和反转义与javascript的转码和解码？
 date: 2017-10-17 9:44:42
 author: J.2ue
 tags:
+- 转义
+- 转码
+- 解码
 - javascript
-- html转义
 categories:
 - tips
 ---
 
-> 如果数据库需要存储一段前端相关（主要是html/javascript）的代码，通常在存储之前我们往往需要转义。当我们再次取出这段代码放到页面时，就需要反转义。
+> 如果数据库需要存储一段前端相关的代码，通常在存储之前我们往往需要转义或转码。当我们再次从数据库得到数据插入到页面时，可能也要转义和转码。
 
+## 目的
+通常而言，转义和转码的目的不同。
 
+转义通常是为了保持信息的完整度和存储一致性：
+- 像`<`和`>`这类符号已经用来表示`HTML`标签，因此就不能直接当作文本中的符号来使用。为了在`HTML`文档中使用这些符号，就需要定义它的转义字符串，当解释程序遇到这类字符串时就把它解释为真实的字符。
+- 有些字符在`ASCII`字符集中没有定义，因此需要使用转义字符串来表示
 
-## 转义的目的
-
-凡事多问10万个为什么？那么我们为什么要转义呢？主要有两方面的原因：
-
-- 像“<”和“>”这类符号已经用来表示HTML标签，因此就不能直接当作文本中的符号来使用。为了在HTML文档中使用这些符号，就需要定义它的转义字符串。当解释程序遇到这类字符串时就把它解释为真实的字符
-- 有些字符在ASCII字符集中没有定义，因此需要使用转义字符串来表示
-- `HTML`代码中也许包含有`javascript`等代码，为了防止注入攻击（`XSR`），需要转义
+转码通常是对于`javascript`代码，一般是为了安全
+- 为了防止注入攻击（`XSR`），需要转义
 
 ## 转义字符串的组成
 
@@ -59,6 +61,8 @@ this.HTML_DECODE = {
 })('&lt;&#890;&99&#00&0x99;')
 ```
 
+## 利用浏览器自动转义
+
 http://tool.oschina.net/commons?type=2
 
 常用HTML转义字符,html转义符,JavaScript转义符,html转义字符表,HTML语言特殊字符对照表(ISO Latin-1字符集) - 来源：嘻嘻网 114.xixik.com
@@ -80,10 +84,8 @@ http://blog.csdn.net/u013026207/article/details/53994032
 http://blog.csdn.net/guolb57/article/details/6260215
 
 function toWeirdCase(string){
-  //TODO
   return string.replace(/([a-zA-z])(([a-zA-z]|\s)|)/g,(a,b,c) => (b.toUpperCase() + c))
 }
-
 
 function htmlDecode(str) {
     let e = document.createElement('div'), _html = '';
@@ -95,12 +97,12 @@ function htmlDecode(str) {
 };
 
 //获取Html转义字符  
-function htmlEncode( html ) {  
-  return document.createElement( 'a' ).appendChild(   
-         document.createTextNode( html ) ).parentNode.innerHTML;  
-};  
+function htmlEncode(html) {
+  return document.createElement('a').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+};
 //获取Html   
-function htmlDecode( html ) {  
-  var a = document.createElement( 'a' ); a.innerHTML = html;  
+function htmlDecode(html) {
+  var a = document.createElement('a');
+  a.innerHTML = html;  
   return a.textContent;  
 };
