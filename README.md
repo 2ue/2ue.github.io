@@ -1,4 +1,4 @@
-##[个人博客](https://2ue.github.io)
+## [个人博客](https://2ue.github.io)
 
 ### 分支
 
@@ -25,4 +25,3 @@
 - [[<2016><2017>](https://2ue.github.io/2016/12/31/2016-to-2017/)]
 - [[神器babun的折腾记录(一)](https://2ue.github.io/2017/03/15/user-babun-tips-1/)]
 - [[Javascript常用见问题之判断类型](https://2ue.github.io/2017/03/31/javascript-type/)]
-
