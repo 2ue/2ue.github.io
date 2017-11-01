@@ -1,8 +1,7 @@
 .header {
   position: relative;
   margin: 0 auto;
-  // width: $main-desktop;
-  width: 70%;
+  width: $main-desktop;
 
   +tablet() {
     width: auto;
@@ -19,6 +18,8 @@
   padding: 0;
   width: 240px;
   background: white;
+  box-shadow: $box-shadow-inner;
+  border-radius: $border-radius-inner;
 
   +desktop-large() {
     .container & { width: 240px; }
@@ -26,10 +27,12 @@
   +tablet() {
     position: relative;
     width: auto;
+    border-radius: initial;
   }
   +mobile() {
     position: relative;
     width: auto;
+    border-radius: initial;
   }
 }
 
@@ -44,8 +47,7 @@
 }
 
 .container .main-inner {
-  // width: $main-desktop;
-  width: 70%;
+  width: $main-desktop;
 
   +tablet() {
     width: auto;
@@ -59,19 +61,22 @@
   float: right;
   box-sizing: border-box;
   padding: $content-desktop-padding;
-  // width: $content-desktop;
-  width: calc(100% - 260px);
+  width: $content-desktop;
   background: white;
   min-height: 700px;
+  box-shadow: $box-shadow-inner;
+  border-radius: $border-radius-inner;
 
   +tablet() {
     width: 100%;
     padding: 20px;
+    border-radius: initial;
   }
   +mobile() {
     width: 100%;
     padding: 20px;
     min-height: auto;
+    border-radius: initial;
   }
 }
 
@@ -80,7 +85,7 @@
   float: left;
   margin-top: 300px;
   width: $sidebar-desktop;
-  background: white;
+  background: $body-bg-color;
   box-shadow: none;
 
   +tablet() {
@@ -96,23 +101,17 @@
 
 .footer-inner {
   width: $main-desktop;
-
-  &:before {
-    content: " ";
-    float: left;
-    width: 260px;
-    min-height: 50px;
-  }
+  padding-left: 260px;
 
   +tablet() {
     width: auto;
-
-    &:before { display: none; }
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   +mobile() {
     width: auto;
-
-    &:before { display: none; }
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -123,13 +122,9 @@
   .content-wrap { float: left; }
   .sidebar { float: right; }
 
-  .footer-inner:before { float: right; }
+  .footer-inner {
+    padding-left: 0;
+    padding-right: 260px;
+  }
 }
-// .header{ width: 80%;}
-// .container .main-inner { width: 80%;}
-// .content-wrap {
-//   +tablet() {
-//       width: calc(100% - 260px);
-//     }
-//  }
 
