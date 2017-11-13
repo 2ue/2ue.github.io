@@ -7,7 +7,7 @@ title: 前端路上
 subtitle: 万物皆有裂缝
 description: 前端不是终点！
 author: 2ue
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -42,6 +42,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
+  theme: night
 
 # Category & Tag
 default_category: uncategorized

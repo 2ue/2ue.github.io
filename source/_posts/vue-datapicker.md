@@ -1,5 +1,5 @@
 ---
-title: 使用vue大法写了一个简单的日期插件
+title: 使用vue框架造了一个日历控件
 date: 2017-01-05 23:03:29
 author: J.2ue
 comments: true

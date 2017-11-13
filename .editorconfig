@@ -1,6 +1,6 @@
 root = true
 
-[*]
+[*.{js,css,styl,stylus,md,json,yml,html,ejs,swig}]
 indent_style = space
 indent_size = 4
 end_of_line = crlf

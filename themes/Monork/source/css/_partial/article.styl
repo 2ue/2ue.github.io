@@ -104,10 +104,28 @@
     border-bottom: 1px solid color-border
     padding: 10px 0
   blockquote
+    background: #f3f5f9
     font-family: font-serif
-    font-size: 1.4em
-    margin: line-height 20px
-    text-align: center
+    font-size: font-size
+    margin: line-height 0
+    padding: 5px 20px
+    color: #999
+    &:before
+        float: left;
+        font-family: "FontAwesome";
+        content: "\f10d";
+        margin-top: -15px;
+        margin-left: -10px;
+        font-size: 20px;
+        // color: #808080;
+    &:after
+        float: right;
+        font-family: "FontAwesome";
+        content: "\f10e";
+        margin-right: -8px;
+        margin-top: -5px;
+        font-size: 20px;
+        // color: #808080;
     footer
       font-size: font-size
       margin: line-height 0
