@@ -84,7 +84,26 @@ hr {
 blockquote {
   padding: 0 15px;
   color: $grey-dim;
-  border-left: 4px solid $gray-lighter;
+  position: relative;
+  background: #f3f5f9
+  margin: line-height 0;
+  padding: 25px 20px 10px;
+  &:before{
+    position: absolute;
+    font-family: "FontAwesome";
+    content: "\f10d";
+    top: -15px;
+    left: 10px;
+    font-size: 20px;
+  }
+  &:after{
+    position: absolute;
+    font-family: "FontAwesome";
+    content: "\f10e";
+    bottom: -18px;
+    right: 10px;
+    font-size: 20px;
+  }
 
   cite::before {
     content: "-";

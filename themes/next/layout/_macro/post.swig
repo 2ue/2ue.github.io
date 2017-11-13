@@ -280,8 +280,21 @@
       {% endif %}
 
       {% if is_index %}
-        {% if post.description and theme.excerpt_description %}
-          {{ post.description }}
+        {% if theme.excerpt_description && post.content.indexOf('</blockquote>') > 0 %}
+          <div>
+            {{ post.content.substr(0, post.content.indexOf('</blockquote>')) }}
+          </div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="{{ url_for(post.path) }}">
+              {{ __('post.read_more') }} &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        {% elif theme.excerpt_description && post.description %}
+          <blockquote>
+            <p>{{ post.description }}</p>
+          </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="{{ url_for(post.path) }}">
@@ -300,8 +313,12 @@
           <!--/noindex-->
         {% elif theme.auto_excerpt.enable %}
           {% set content = post.content | striptags %}
-          {{ content.substring(0, theme.auto_excerpt.length) }}
-          {% if content.length > theme.auto_excerpt.length %}...{% endif %}
+          <blockquote>
+            <p>
+              {{ content.substring(0, theme.auto_excerpt.length) }}
+              {% if content.length > theme.auto_excerpt.length %}...{% endif %}
+            </p>
+          </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="{{ url_for(post.path) }}{% if theme.scroll_to_more %}#{{ __('post.more') }}{% endif %}" rel="contents">
