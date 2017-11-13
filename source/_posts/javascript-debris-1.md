@@ -1,11 +1,11 @@
 ---
 title: 常用javascript碎片(1)
 date: 2016-11-9 10:02:30
-author: J.Yof
+author: J.2ue
 tags:
-- javascript
-categories:
 - sinpats
+categories:
+- javascript
 ---
 
 > 重复造轮子是一件痛苦的事，造好轮子找不到轮子确实一件更痛苦的事，因此本文记录了一下日常code中经常使用的一些javascript代码片段，以便下次使用时更方便的查找。

@@ -1,7 +1,7 @@
 ---
 title: 字符串转译成HTML
 date: 2017-7-18 15:12:09
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
 - Javascript

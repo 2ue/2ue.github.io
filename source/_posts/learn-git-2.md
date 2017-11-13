@@ -1,7 +1,7 @@
 ---
 title: Git学习之常用命令
 date: 2017-7-1 13:13:01
-author: J.Yof
+author: J.2ue
 tags:
 - git
 categories:
@@ -17,7 +17,7 @@ categories:
 可以查看工作区(edit即add之前)和暂存区(add之后，commit之前)
 
 ``` shell
-git status 
+git status
 ```
 
 ## 提交到暂存区
@@ -43,7 +43,7 @@ git commit -m "note text"
 ``` shell
 git push <origin> <remote>
 //如提交本覅origin到远程master分支
-git push origin master 
+git push origin master
 ```
 
 ## 分支

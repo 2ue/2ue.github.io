@@ -1,12 +1,11 @@
 ---
 title: 如何写一个自己的日历
 date: 2017-11-2 10:08:43
-author: J.Yof
+author: J.2ue
 tags:
 - date
-- javascirpt
 categories:
-- utils
+- javascript
 ---
 
 > 众所周知，虽然`javascript`中关于时间的API有不少，我们可以通过方法单独的获取年、月、日、时、分、秒、毫秒...貌似很多，最近写了一个日历（以前写的，但写得很烂，最近优化一下），所以下面简单的记录一下如何写一个日历，列出了一些我在写日历过程中自己封装的一些方法

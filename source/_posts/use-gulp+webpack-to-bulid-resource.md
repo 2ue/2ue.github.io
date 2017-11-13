@@ -1,7 +1,7 @@
 ---
 title: 使用webpack + gulp构建项目
 date: 2016-9-24 20:46:41
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
 - gulp

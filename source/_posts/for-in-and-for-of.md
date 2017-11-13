@@ -6,9 +6,8 @@ tags:
 - 遍历
 - for...in
 - for...of
-- javascript
 categories:
-- tips
+- javascript
 ---
 
 > `for...in`和`for...of`都是用于数据的遍历。`for...in`是`ES5`标准，用于遍历对象属性（键），而`for...of`是`ES6`标准，是对`for...in`的修正，用于遍历对象元素（值），`for...of`兼容性不是很好（除了PC端老顽固`IE`之外，移动端某些安卓机和浏览器也是不支持它，具体可以[查看MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of)）。

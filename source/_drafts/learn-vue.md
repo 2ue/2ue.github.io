@@ -1,9 +1,8 @@
 ---
 title: vue踩坑记（一）
 date: 2017-5-18 20:14:23
-author: J.Yof
+author: J.2ue
 tags:
-- javascirpt
 - vue
 categories:
 - vue
@@ -34,7 +33,7 @@ categories:
     - 路由切换不刷新页面产生的影响以及解决方案
     - 前端如何实现重定向到404路由
     - 路由嵌套及继承（在子路由中使用'/'会发生什么）
-    - 
+    -
 
 - 额外的周边工具的使用
     - webpack的配置

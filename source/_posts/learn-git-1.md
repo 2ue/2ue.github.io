@@ -1,7 +1,7 @@
 ---
 title: Git学习之新手入门
 date: 2016-06-20 15:51:17
-author: J.Yof
+author: J.2ue
 tags:
 - git
 categories:

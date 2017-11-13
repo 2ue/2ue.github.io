@@ -1,13 +1,13 @@
 ---
 title: 移动端适配方案
 date: 2016-11-22 15:39:04
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
-- mobile
 - rem
+- mobile
 categories:
-- code
+- javascript
 ---
 
 > 需要移动端适配的根本原因：屏幕窗口的大小，devicepixelratio值等。

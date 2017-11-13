@@ -1,12 +1,12 @@
 ---
 title: 神器babun踩坑(一)
 date: 2017-3-15 13:01:33
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
 - babun
-- tools
 - shell
+- git
 categories:
 - tools
 ---

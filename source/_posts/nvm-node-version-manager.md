@@ -37,7 +37,7 @@ nvm.exe
 root: D:\devTools\nvm
 path: D:\devTools\nodejsv
 arch: 64
-proxy: none 
+proxy: none
 node_mirror: http://npm.taobao.org/mirrors/node/
 npm_mirror: https://npm.taobao.org/mirrors/npm/
 ```

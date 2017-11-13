@@ -1,13 +1,12 @@
 ---
 title: 使用vue大法写了一个简单的日期插件
 date: 2017-01-05 23:03:29
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
-- vue
 - datepicker
 categories:
-- demo
+- vue
 ---
 
 > 使用官方提供的vue-simple-template配置打包，写的一个简单的vue-datepicker。支持选择功能，功能比较简单，欢迎大家拍砖.

@@ -1,12 +1,11 @@
 ---
 title: 利用javascrit获取url传递的参数
 date: 2016-06-15 20:54:14
-author:  J.Yof
+author:  J.2ue
 tags:
-- javascript
 - url
 categories:
-- case
+- javascript
 ---
 
 ## 神奇的url
@@ -51,7 +50,7 @@ function getOneVal(str,name){
     var afterNameStr = str.replace('?','').split(name)[1];
     var strFirstSite = afterNameStr.indexOf('&');
   	// 返回第一个&位置，如果没有'&'则返回字符串长度
-    strFirstSite = (strFirstSite == -1) ? afterNameStr.length : strFirstSite 
+    strFirstSite = (strFirstSite == -1) ? afterNameStr.length : strFirstSite
     var reslt = afterNameStr.slice(1,strFirstSite);
     return reslt;
 };

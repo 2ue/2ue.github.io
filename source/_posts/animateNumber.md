@@ -1,16 +1,15 @@
 ---
 title: 实现数字滚动变化以及延伸
 date: 2016-06-14 12:39:19
-author: J.Yof
+author: J.2ue
 comments: true
 tags:
 - animation
-- javascript
 categories:
-- case
+- javascript
 ---
 
->利用jquery.animateNumber插件实现一个简单的数字滚动效果
+> 利用jquery.animateNumber插件实现一个简单的数字滚动效果
 
 ## 需求分析
 
