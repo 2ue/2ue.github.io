@@ -14,6 +14,8 @@ categories:
 
 ## error deployer not found: git
 
+出现这种问题一般有两种情况，按照下面的两步来操作就OK了
+
 - 检查根目录下`_config.yml`文件的`deploy`的`type`值是否为`git`，如果不是请修改成`git`
 - 检查当前项目是否安装`hexo-deployer-git`，如未安装，请执行`npm install hexo-deployer-git --save`
 
