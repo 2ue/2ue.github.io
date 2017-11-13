@@ -1,9 +1,10 @@
 ---
-title: 如何写一个自己的日历
+title: 如何写一个日历组件
 date: 2017-11-2 10:08:43
 author: J.2ue
 tags:
-- date
+- 日历
+- kalendar
 categories:
 - javascript
 ---
@@ -58,8 +59,8 @@ function getWeekday(year, month, day){
     return new Date(year, month, day).getDate() + 1;
 }
 
-getWeekday(2016,10,9) //2016年11月9是星期4
-getWeekday(2017,10,9) //2017年11月9是星期5
+getWeekday(2016,10,9) //输出4，表示2016年11月9是星期4
+getWeekday(2017,10,9) //输出5，表示2017年11月9是星期5
 
 ```
 
