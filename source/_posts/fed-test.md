@@ -8,17 +8,14 @@ tags:
 - 前端测试
 categories:
 - test
-
 ---
 
-key:  GUI软件测试 TDD BDD 自动化测试 Mock
-
-------
 
 > 前端测试是保证代码质量以及程序稳定的一种可靠方式，同时也从代码层面解决了自测难，自测烦等前端测试综合症。当然在前端开发引入测试环节无疑会增加人力和时间成本，如果最终产生的结果和增加的成本能够两两抵消产生正面效应，那么有必要考虑把测试环节加入到团队的规划中。
 
 Ps：本次更多的是讲述概念性的东西，代码性的具体实例不做过多实践
 
+------
 ## GUI(Graphical User Interface)软件测试
 
 > 前端测试不同于后端测试，因为除了一般的逻辑测试以外，由于存在界面交互，所以涉及到模拟用户行为达到测试的目的。由此引入了一个概念：GUI(Graphical User Interface)软件测试，也就是图形用户界面软件测试
@@ -241,7 +238,7 @@ describe('Enzyme Shallow', function () {
 
 ## 参考
 
-- [关于`TDD`、`BDD`和DDD的一些看法](http://www.cnblogs.com/ustbwuyi/archive/2012/10/26/2741223.html)
+- [关于TDD、BDD和DDD的一些看法](http://www.cnblogs.com/ustbwuyi/archive/2012/10/26/2741223.html)
 - [虚拟座谈会：代码测试比率、测试驱动开发及行为驱动开发](http://www.infoq.com/cn/articles/virtual-panel-`TDD`-`BDD`)
 - [Mocha](http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html)
 - [PhantomJS](https://segmentfault.com/a/1190000009333157)
