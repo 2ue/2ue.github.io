@@ -13,20 +13,42 @@ var demoText = fs.readFileSync(readmeDemoPath, 'utf8');
 //获取文章列表
 console.log('======获取文章列表======\n', remotePath, '\n');
 var posts = fs.readdirSync(remotePath);
-var resText = '';
+var resText = '', postsInfo = [];
 
 //解析文章标题和地址
 console.log('======解析文章标题和地址======\n', posts, '\n');
 posts.forEach(function (file, index) {
     var fileName = file.split('.')[0];
     var textArr = fs.readFileSync(path.join(remotePath, file), 'utf8').split('\n');
-    var title = textArr[1].replace(/(title: )|[\n\r\s\cx\f]/g, '');
-    var date = textArr[2].replace(/(date: )|[\n\r\s\cx\f]/g, '').split(' ')[0].replace(/\-/g, '/');
-    resText += `- [[${title}](https://2ue.github.io/${date}/${fileName}/)]${posts.length == index + 1 ? '' : '\n'}`;
+    var title = textArr[1].replace(/(title: )|[\n\r\cx\f]/g, '');
+    var time = textArr[2].replace(/(date: )|[\n\r\cx\f]/g, '');
+    var date = time.split(' ')[0].replace(/\-/g, '/');
+    postsInfo.push({
+        time: time,
+        date: date,
+        sortTag: new Date(time).getTime(),
+        content: `- [[${time} - ${title}](https://2ue.github.io/${date}/${fileName}/)]`
+    });
 
 });
-console.log('======解析文章标题和地址 success======\n', resText, '\n');
-//写入文章列表
+
+console.log('======按文章时间顺序排序（越新越靠前）======\n', postsInfo, '\n');
+
+//按文章时间顺序排序（越新越靠前）
+postsInfo.sort(function (a, b) {
+    return a.sortTag - b.sortTag;
+});
+
+console.log('====== 开始拼装数据 ======\n', postsInfo, '\n');
+
+//按文章时间顺序排序（越新越靠前）
+postsInfo.forEach(function (post, index) {
+    resText += `${post.content}${posts.length == index + 1 ? '' : '\n'}`;
+});
+
+console.log('====== 开始写入数据 ======\n', resText, '\n');
+
+// 写入文章列表
 fs.writeFile(readmePath, demoText.replace('[POST_LIST]', resText), 'utf-8', (err) => {
     if (err) throw err;
     console.log('======The file has been saved!======');
