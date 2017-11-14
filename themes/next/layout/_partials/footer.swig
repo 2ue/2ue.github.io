@@ -38,6 +38,10 @@
     #}NexT.{{ theme.scheme }}{#
   #}</a>{% if theme.footer.theme.version %} v{{ theme.version }}{% endif %}{#
 #}</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
 {% endif %}
 
 {% if theme.footer.custom_text %}
