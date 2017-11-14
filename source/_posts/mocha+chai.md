@@ -4,7 +4,7 @@ date: 2017-10-10 11:06:52
 author: J.2ue
 comments: true
 tags:
-- Javascript
+- javascript
 - test
 categories:
 - test
