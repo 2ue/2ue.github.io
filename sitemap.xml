@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://2ue.github.io/2017/11/15/vue-style-scoped/</loc>
+    
+    <lastmod>2017-11-15T16:00:55.583Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://2ue.github.io/2016/12/31/2016-to-2017/</loc>
     
     <lastmod>2017-11-15T15:54:14.850Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://2ue.github.io/categories/index.html</loc>
     
     <lastmod>2017-11-15T15:42:25.661Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://2ue.github.io/2017/11/15/vue-style-scoped/</loc>
-    
-    <lastmod>2017-11-15T15:32:06.927Z</lastmod>
     
   </url>
   
