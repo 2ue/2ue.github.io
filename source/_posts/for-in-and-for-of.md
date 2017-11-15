@@ -1,5 +1,5 @@
 ---
-title: 请勿滥用for...in与for...of
+title: 慎重用for...in与for...of
 date: 2017-10-27 14:43:12
 author: J.2ue
 tags:
@@ -71,6 +71,8 @@ for (var i of obj) {
 ```
 
 可以看出，`for...of`方法在`for...in`上做了优化，并且限制了只能遍历数组。当然在`ES5`中，具有遍历数组功能的还有`map`、`filter`、`some`、`every`、`reduce`、`reduceRight`等，但是需要注意的是，有些方法不能被`break`句柄打断循环，使用`retun`也不能返回到外层，如`forEach`
+
+其实不难看出`for...in`是属于鸡肋属性了，而`for...of`由于兼容性原因，在某些地方也应该慎用，即使是移动端也要慎用，应该它并不兼容所有内核。
 
 ## 参考
 
