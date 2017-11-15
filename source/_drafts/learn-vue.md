@@ -26,6 +26,7 @@ categories:
 - slot插槽的运用
 - use方法的应用
 - 在全局引用css
+- minx混合属性
 - 操纵DOM节点
     - 路由切换时操纵DOM节点可以通过监听$router变化来实现
     - 建议使用原生js封装一些通用方法
