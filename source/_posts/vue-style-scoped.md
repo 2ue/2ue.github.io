@@ -1,5 +1,5 @@
 ---
-title: vue中谨慎style的scoped属性
+title: vue中慎用style的scoped属性
 date: 2017-11-15 19:09:16
 author: J.2ue
 tags:

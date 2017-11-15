@@ -36,7 +36,7 @@ console.log('======按文章时间顺序排序（越新越靠前）======\n', po
 
 //按文章时间顺序排序（越新越靠前）
 postsInfo.sort(function (a, b) {
-    return a.sortTag - b.sortTag;
+    return b.sortTag - a.sortTag;
 });
 
 console.log('====== 开始拼装数据 ======\n', postsInfo, '\n');
