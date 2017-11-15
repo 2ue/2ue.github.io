@@ -1,9 +1,9 @@
 var fs = require('fs');
 var path = require('path');
 
-var LIST_TEMPLATE = '';
 var remotePath = path.join(__dirname, '../source/_posts');
 var readmePath = path.join(__dirname, '../README.md');
+//markdown模板
 var readmeDemoPath = path.join(__dirname, '../README.demo.md');
 
 //获取模板文件内容
