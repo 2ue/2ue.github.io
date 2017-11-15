@@ -19,7 +19,6 @@ $ git -v
 git version 2.7.3.windows.1  //2.7.3为当前版本
 ```
 
-
 ## 全局个人信息配置
 
 ``` shell

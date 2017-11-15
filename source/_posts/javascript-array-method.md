@@ -1,15 +1,15 @@
 ---
-title: Javascript系列(1) - Javascript数组方法
+title: Javascript系列 - Javascript数组方法
 date: 2016-8-11 21:22:35
 author: J.2ue
 tags:
+- Array
 - 数组
 categories:
 - javascript
-
 ---
 
-> Javascript的Array(数组对象)的方法记录。
+> Javascript的Array(数组对象)方法整理，对比他们的功能，返回值，分析他们的参数，以及具体的作用。
 
 ## length：获取数组长度
 
@@ -204,7 +204,7 @@ arry.splice(-1,1)  //返回 [5]; arry = [1,'o90',4]
 arry.splice(0,0,2,3,[8,9])  // 返回 []; arry = [2,3,[8,9],1,'o90',4]
 ```
 
-##  来一张表
+## 来一张表
 
 |     方法名     |        功能         | 原数组是否改变 |      返回      |
 | :---------: | :---------------: | :-----: | :----------: |

@@ -8,9 +8,7 @@ categories:
 - javascript
 ---
 
-> 重复造轮子是一件痛苦的事，造好轮子找不到轮子确实一件更痛苦的事，因此本文记录了一下日常code中经常使用的一些javascript代码片段，以便下次使用时更方便的查找。
-
-
+> 轮子很多，但并不是所有的轮子都适合自己的业务，并且有时候为了精简代码，也不想引入一个完整的库，所有搜集整理一些项目中常用的代码片段，给自己也给大家造轮子提供参考。造自己的轮子，让别人去说吧！
 
 ## placeholder属性支持
 
@@ -52,8 +50,6 @@ function formatDate(date) {
 };
 ```
 
-
-
 ## 判断浏览器版本(PC)
 
 ```javascript
@@ -92,8 +88,6 @@ function BrowserType() {
 }
 ```
 
-
-
 ## 数字转换成千分位格式(如：123,456,9.89)
 
 ```javascript
@@ -102,6 +96,3 @@ function translateThree(num) {
   return newNum;
 }
 ```
-
-
-

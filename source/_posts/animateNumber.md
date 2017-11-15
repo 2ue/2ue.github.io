@@ -21,8 +21,8 @@ categories:
 3. 每一个数字进行滚动变化
 4. 最后，在项目中，我选取了插件[jquery.animateNumber](http://aishek.github.io/jquery-animateNumber/)来实现滚动效果。这个插件的使用方式很简单，在官方有很详尽的文档来展示各个案例，就不一一赘述了。
 
-
 ## HTML布局
+
 其中num是后台传入的值,notChangeUint用来标记不进行单位变换的值
 
 ``` html
@@ -41,6 +41,7 @@ categories:
     </div>
 </div>
 ```
+
 ## 撸JS
 
 ### 去除逗号(,)
@@ -57,6 +58,7 @@ num = num.replace(reg,'');
 ```
 
 ### 转化单位(元-->万元)
+
 把金额单位转化为万元，并且保留两位小数，人数不进行转化
 
 ``` javascript
@@ -72,7 +74,8 @@ numArry = num.split('');
 ```
 
 ### 把数字添加到页面并调用animateNumber的方法
-``` js
+
+``` javascript
 for(var i = 0; i < numArry.length; i++){
     var thisNum = parseInt(numArry[i]);
     var spanNum;
@@ -89,6 +92,7 @@ for(var i = 0; i < numArry.length; i++){
 ```
 
 ## 最后代码
+
 ``` javascript
 $('.animateNumber').each(function(){
     var _this = $(this);
@@ -126,5 +130,6 @@ function isAnimate(num,numWarpParent,index){
 ```
 
 ## 总结
+
 1.功能模块化，尽量一个方法(函数)只做一件事情
 2.容错，由于涉及到DOM操作，所以为了保证页面的正常渲染必须有容错处理机制：数据出错不影响整个流程(页面渲染)的畅通

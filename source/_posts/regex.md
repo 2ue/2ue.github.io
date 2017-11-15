@@ -8,6 +8,8 @@ categories:
 - javascript
 ---
 
+> 正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅
+
 ```javascript
 var regex = window.regex || (function (document, $) {
         var _reg = {};

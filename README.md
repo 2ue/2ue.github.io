@@ -20,10 +20,13 @@ ps: 感谢伟大的开源贡献者
 
 # 文章列表
 
+如何生成文章列表？
+执行`npm run g`或者`node generate_post_list`
+
 - [[2016-06-14 12:39:19 - 实现数字滚动变化以及延伸](https://2ue.github.io/2016/06/14/animateNumber/)]
 - [[2016-06-15 20:54:14 - 利用javascrit获取url传递的参数](https://2ue.github.io/2016/06/15/get-url-values/)]
 - [[2016-06-20 15:51:17 - Git学习之新手入门](https://2ue.github.io/2016/06/20/learn-git-1/)]
-- [[2016-8-11 21:22:35 - Javascript系列(1) - Javascript数组方法](https://2ue.github.io/2016/8/11/javascript-note-1/)]
+- [[2016-8-11 21:22:35 - Javascript系列 - Javascript数组方法](https://2ue.github.io/2016/8/11/javascript-array-method/)]
 - [[2016-09-05 12:12:24 - 常用正则整理(持续收集)](https://2ue.github.io/2016/09/05/regex/)]
 - [[2016-9-24 20:46:41 - 使用webpack + gulp构建项目](https://2ue.github.io/2016/9/24/use-gulp+webpack-to-bulid-resource/)]
 - [[2016-11-9 10:02:30 - 常用javascript碎片(1)](https://2ue.github.io/2016/11/9/javascript-debris-1/)]

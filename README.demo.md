@@ -20,4 +20,7 @@ ps: 感谢伟大的开源贡献者
 
 # 文章列表
 
+如何生成文章列表？
+执行`npm run g`或者`node generate_post_list`
+
 [POST_LIST]

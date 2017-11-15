@@ -11,21 +11,18 @@ categories:
 
 ---
 
-> 平时在项目中使用它们的机会不多，以下都是自己项目之外的折腾，如果有错误之处，请不吝指出
->
-> 有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？
->
-> 话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。
->
-> 所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源
+> 有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源
 
+ps: 平时在项目中使用它们的机会不多，以下都是自己项目之外的折腾，如果有错误之处，请不吝指出。
 ## demo
 
 先上[DEMO](https://github.com/2ue/gulp-webpack-template)
 
 ## 配置webpack
 
-webpack.config.js具体的如何配置这里就不一一赘述了，详见官方文档。
+webpack的有很强大的配置选项，官方中英文文档都已经很详尽。
+[中文文档](https://doc.webpack-china.org/configuration/)
+[英文文档](https://webpack.js.org/concepts/)
 
 ``` javascript
 'use strict';
@@ -77,8 +74,6 @@ module.exports = {
 { webpackGulpDeom }  »
 ```
 
-
-
 ## 配置gulp
 
 gulpfile.js同样，gulp的配置文档详情参考官方文档，这里以编译less文档并压缩css文档为例
@@ -122,19 +117,13 @@ gulp.task('dev', ['cssUglify']);
 
 ps：这里只列举了一个编译less的任务。
 
-
-
 ## 在gulp里执行webpack任务
 
-> 到了这一步，gulp和webpack任务都编写完成了，如果单单是这样是没有意思的，因为每次启动都需要单独的执行两次命令：一次webpack，一次gulp命令，这样无疑是非常糟糕的。所以我们必须得想办法把gulp和webpack连接起来。怎么连接呢？具体的有两种办法。
->
-> 一种是使用gulp-webpack插件
->
-> 另一种是使用gulp-util插件
->
-> 那么我们来重写gulpfile.js和webpack.config.js吧
+到了这一步，gulp和webpack任务都编写完成了，如果单单是这样是没有意思的，因为每次启动都需要单独的执行两次命令：一次webpack，一次gulp命令，这样无疑是非常糟糕的。所以我们必须得想办法把gulp和webpack连接起来。怎么连接呢？具体的有两种办法：
+- 一种是使用gulp-webpack插件。
+- 另一种是使用gulp-util插件。
 
-
+那么我们来重写gulpfile.js和webpack.config.js吧
 
 ### 利用gulp-webpack插件
 
@@ -191,7 +180,6 @@ gulp.task('dev', ['cssUglify', 'buildJs']);
 ```
 
 `gulpfile.js`的变化：
-
 - 增加了可以一个buildJs任务来执行webpack.config.js文件的配置
 - 相应的监听对象扩大了
 
@@ -326,7 +314,6 @@ chunk    {1} common.js (common.js) 0 bytes [rendered]
 [14:29:00] Finished 'default' after 7.21 μs
 { webpackGulpDeom }  »
 ```
-
 
 ## 两种方案对比
 

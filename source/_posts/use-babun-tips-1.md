@@ -11,6 +11,10 @@ categories:
 - tools
 ---
 
+> babun是一款颜值集功能于一身的window平台下的命令行工具，集成了zsh等强大的工具，支持各种配置，并且有丰富的插件支持。
+
+## 安装位置
+
 babun使用默认安装，位置在`C:\Users\userName\.babun`
 
 ## 1.导致本地的git ssh key不可用
