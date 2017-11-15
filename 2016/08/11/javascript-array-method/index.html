@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Array,数组," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Javascript的Array(数组对象)方法整理，对比他们的功能，返回值，分析他们的参数，以及具体的作用。  length：获取数组长度  Method:  Arry.length 被引用数组(Arry)是否改变:  NO Arguments:  无 Return:  返回被引用数组长度   12var arry = [1,6,8,&apos;2ue&apos;,&apos;o90&apos;]arry.length //返回5，">
+<meta name="keywords" content="Array,数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript系列 - Javascript数组方法">
+<meta property="og:url" content="http://2ue.github.io/2016/08/11/javascript-array-method/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="Javascript的Array(数组对象)方法整理，对比他们的功能，返回值，分析他们的参数，以及具体的作用。  length：获取数组长度  Method:  Arry.length 被引用数组(Arry)是否改变:  NO Arguments:  无 Return:  返回被引用数组长度   12var arry = [1,6,8,&apos;2ue&apos;,&apos;o90&apos;]arry.length //返回5，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript系列 - Javascript数组方法">
+<meta name="twitter:description" content="Javascript的Array(数组对象)方法整理，对比他们的功能，返回值，分析他们的参数，以及具体的作用。  length：获取数组长度  Method:  Arry.length 被引用数组(Arry)是否改变:  NO Arguments:  无 Return:  返回被引用数组长度   12var arry = [1,6,8,&apos;2ue&apos;,&apos;o90&apos;]arry.length //返回5，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2016/08/11/javascript-array-method/"/>
+
+
+
+
+
+  <title>Javascript系列 - Javascript数组方法 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2016/08/11/javascript-array-method/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript系列 - Javascript数组方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T21:22:35+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Javascript的Array(数组对象)方法整理，对比他们的功能，返回值，分析他们的参数，以及具体的作用。</p>
+</blockquote>
+<h2 id="length：获取数组长度"><a href="#length：获取数组长度" class="headerlink" title="length：获取数组长度"></a>length：获取数组长度</h2><blockquote>
+<ul>
+<li>Method:  Arry.length</li>
+<li><strong>被引用数组(Arry)是否改变:  NO</strong></li>
+<li>Arguments:  无</li>
+<li>Return:  返回被引用数组长度</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.length <span class="comment">//返回5，arry = [1,6,8,'2ue','o90']</span></div></pre></td></tr></table></figure>
+<h2 id="join：连接数组内各元素组成一个字符串"><a href="#join：连接数组内各元素组成一个字符串" class="headerlink" title="join：连接数组内各元素组成一个字符串"></a>join：连接数组内各元素组成一个字符串</h2><blockquote>
+<ul>
+<li>Method:  Arry.join(str)</li>
+<li><strong>被引用数组(Arry)是否改变:  NO</strong></li>
+<li>Arguments:  <code>str</code>非必需<ul>
+<li><code>str</code>不存在时(不传递str)以默认逗号连接元素</li>
+<li><code>str</code>可以为任意字符串，也可以为空(‘’)（字符串为空时，各元素之间无连接符号）</li>
+</ul>
+</li>
+<li>Return:  返回连接后的字符串</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.join() <span class="comment">//返回字符串1,6,8,2ue,o90，arry = [1,6,8,'2ue','o90']</span></div><div class="line">arry.join(<span class="string">'-'</span>) <span class="comment">//返回字符串1-6-8-2ue-o90，arry = [1,6,8,'2ue','o90']</span></div><div class="line">arry.join(<span class="string">''</span>) <span class="comment">//返回字符串1682ueo90，arry = [1,6,8,'2ue','o90']</span></div></pre></td></tr></table></figure>
+<p><strong>注意如果需要加数组arry以逗号形式展示到页面，则不需要<code>.join()</code>方法，因为javascript的赋值操作会自动调用<code>.toString()</code>方法</strong>，如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//JS</span></div><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line"><span class="keyword">var</span> divBox = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);</div><div class="line">divBox.innerHTML = arry;</div><div class="line"></div><div class="line"><span class="comment">//前面赋值的操作将会调用toString方法，因此</span></div><div class="line"><span class="built_in">console</span>.log(divBox) <span class="comment">//&lt;div id="div"&gt;1,6,8,2ue,o90&lt;/div&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="push：在数组尾部添加一个元素"><a href="#push：在数组尾部添加一个元素" class="headerlink" title="push：在数组尾部添加一个元素"></a>push：在数组尾部添加一个元素</h2><blockquote>
+<ul>
+<li>Method:  Arry.push(value,…)</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  <code>value</code>非必需。<ul>
+<li><code>value</code>不存在(不传递str)返回被引用数组长度，无实际意义</li>
+<li><code>value</code>可以为<code>合法的</code>布尔值，字符串，数组，对象，数字，<code>null</code>，<code>undefined</code>，空</li>
+<li>其中，也可以接收多个参数</li>
+</ul>
+</li>
+<li>Return:  返回被引用数组长度</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.push() <span class="comment">//返回5，arry = [1,6,8,'2ue','o90']  实际没有任何意义</span></div><div class="line">arry.push(<span class="literal">true</span>) <span class="comment">//返回6，arry = [1,6,8,'2ue','o90',true]</span></div><div class="line">arry.push(<span class="string">'dmw'</span>) <span class="comment">//返回7，arry = [1,6,8,'2ue','o90',true,'dmw']</span></div><div class="line">arry.push(<span class="string">''</span>) <span class="comment">//返回8，arry = [1,6,8,'2ue','o90',true,'dmw','']</span></div><div class="line">arry.push(<span class="number">3</span>) <span class="comment">//返回9，arry = [1,6,8,'2ue','o90',true,'dmw','',3]</span></div><div class="line">arry.push(<span class="literal">undefined</span>) <span class="comment">//返回10，arry = [1,6,8,'2ue','o90',true,'dmw','',3,undefined]</span></div><div class="line">arry.push(<span class="literal">null</span>) <span class="comment">//返回11，arry = [1,6,8,'2ue','o90',true,'dmw','',3,undefined,null]</span></div><div class="line">arry.push([<span class="string">'9'</span>,<span class="string">'8'</span>]) <span class="comment">//返回12，arry = [1,6,8,'2ue','o90',true,'dmw','',3,undefined,null,['9','8']]</span></div><div class="line">arry.push(&#123;<span class="attr">key</span>:<span class="string">'hah'</span>&#125;) <span class="comment">//返回13，arry = [1,6,8,'2ue','o90',true,'dmw','',3,undefined,null,['9','8'],&#123;key:'hah'&#125;]</span></div><div class="line"><span class="comment">//接收多个参数</span></div><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.push(<span class="literal">true</span>,<span class="string">'dmw'</span>,<span class="string">''</span>,<span class="number">3</span>,<span class="literal">undefined</span>,<span class="literal">null</span>,[<span class="string">'9'</span>,<span class="string">'8'</span>],&#123;<span class="attr">key</span>:<span class="string">'hah'</span>&#125;)</div><div class="line"><span class="comment">//返回13，arry = [1,6,8,'2ue','o90',true,'dmw','',3,undefined,null,['9','8'],&#123;key:'hah'&#125;]</span></div></pre></td></tr></table></figure>
+<h2 id="unshift：在数组尾部添加一个元素"><a href="#unshift：在数组尾部添加一个元素" class="headerlink" title="unshift：在数组尾部添加一个元素"></a>unshift：在数组尾部添加一个元素</h2><blockquote>
+<ul>
+<li>Method:  Arry.unshift(value,…)</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  <code>value</code>非必需。<ul>
+<li><code>value</code>不存在(不传递str)返回被引用数组长度，无实际意</li>
+<li><code>value</code>可以为<code>合法的</code>布尔，字符串，数组，对象，数字，<code>null</code>，<code>undefined</code>，空</li>
+<li>其中也可以接收多个参数。</li>
+</ul>
+</li>
+<li>Return:  返回被引用数组长度</li>
+</ul>
+</blockquote>
+<p>同<code>.push()</code>方法</p>
+<h2 id="concat：在尾部添加元素到数组"><a href="#concat：在尾部添加元素到数组" class="headerlink" title="concat：在尾部添加元素到数组"></a>concat：在尾部添加元素到数组</h2><blockquote>
+<ul>
+<li>Method:  Arry.concat(value,…)</li>
+<li><strong>被引用数组(Arry)是否改变:  NO</strong></li>
+<li>Arguments:  <code>value</code>非必需。<ul>
+<li><code>value</code>不存在(不传递str)返回组成的新数组，无实际意</li>
+<li><code>value</code>可以为<code>合法的</code>布尔，字符串，数组，对象，数字，<code>null</code>，<code>undefined</code>，空，也可以接收多个参数。</li>
+<li>其中当<code>value</code>为数组时，那么添加的是数组中的元素，而不是数组，所以可以用<code>.concat()</code>来连接数组</li>
+</ul>
+</li>
+<li>Return:  返回组成的新数组</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回值为一个新的数组，不改变原数组</span></div><div class="line"><span class="comment">//参数为数组时</span></div><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line"><span class="keyword">var</span> newArry = arry.concat([<span class="string">'lalal'</span>,<span class="string">'mof'</span>])</div><div class="line"><span class="comment">//返回值 newArry = [1,6,8,'2ue','o90','lalal','mof']</span></div><div class="line"><span class="comment">//原数组 arry = [1,6,8,'2ue','o90']</span></div><div class="line"><span class="comment">//其它情况同push方法一致</span></div></pre></td></tr></table></figure>
+<h2 id="pop：删除最后一个元素"><a href="#pop：删除最后一个元素" class="headerlink" title="pop：删除最后一个元素"></a>pop：删除最后一个元素</h2><blockquote>
+<ul>
+<li>Method:  Arry.pop()</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  无</li>
+<li>Return:  返回被删除(最后一个)元素，被引用数组为空，不改变数组，返回<code>undefined</code></li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>]</div><div class="line">arry.pop() <span class="comment">//返回1，arry = []</span></div><div class="line">arry.pop() <span class="comment">//返回undefined，arry = []</span></div></pre></td></tr></table></figure>
+<h2 id="shift：删除第一个元素"><a href="#shift：删除第一个元素" class="headerlink" title="shift：删除第一个元素"></a>shift：删除第一个元素</h2><blockquote>
+<ul>
+<li>Method:  Arry.shift()</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  无</li>
+<li>Return:  返回被删除(第一个)元素，被引用数组为空，不改变数组，返回<code>undefined</code></li>
+</ul>
+</blockquote>
+<p>同<code>.pop()</code></p>
+<h2 id="reverse：颠倒数组元素顺序"><a href="#reverse：颠倒数组元素顺序" class="headerlink" title="reverse：颠倒数组元素顺序"></a>reverse：颠倒数组元素顺序</h2><blockquote>
+<ul>
+<li>Method:  Arry.reverse()</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  无</li>
+<li>Return:  返回对数组的引用，返回值为数组类型</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.reverse() <span class="comment">//返回['o90','2ue',8,6,1] arry = ['o90','2ue',8,6,1]</span></div></pre></td></tr></table></figure>
+<h2 id="sort：数组元素排序"><a href="#sort：数组元素排序" class="headerlink" title="sort：数组元素排序"></a>sort：数组元素排序</h2><blockquote>
+<ul>
+<li>Method:  Arry.sort(fun)</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:  fun非必需<ul>
+<li><strong>fun如果为空，那么默认安装字符编码的顺序进行排序</strong></li>
+<li><strong>如不为空，那么fun必须为函数类型</strong>。</li>
+<li>Arry.sort(fun(value1,value2){})，fun函数参数<code>value1</code> 的值为<code>Arry[i]</code>，<code>value2</code> 的值为<code>Arry[i+1]</code>，其中<code>0&lt; = i &lt; Arry.length - 1</code>。所以请注意，<code>.sort()</code>方法排序会对被引用数组进行遍历，遍历的次数为<code>Arry.length - 1</code>，而非<code>Arry.length</code>。因为在<code>Arry.length - 1</code>次时，排序其实就已经完成了。</li>
+</ul>
+</li>
+<li>Return:  返回对数组的引用，返回值为数组类型</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>,<span class="number">6</span>,<span class="number">890</span>,<span class="number">9</span>,<span class="number">7990</span>]</div><div class="line">arry.sort()<span class="comment">//返回[1, "2ue", 6, 7990, 890, 9, "o90"] arry = [1, "2ue", 6, 7990, 890, 9, "o90"]</span></div><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">65443</span>,<span class="number">6</span>,<span class="number">890</span>,<span class="number">9</span>,<span class="number">7990</span>]</div><div class="line">arry.sort(<span class="function"><span class="keyword">function</span>(<span class="params">value1,value2</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> value2-value1</div><div class="line">&#125;)</div><div class="line"><span class="comment">//返回[65443, 7990, 890, 9, 6, 1] arry = [65443, 7990, 890, 9, 6, 1]</span></div></pre></td></tr></table></figure>
+<h2 id="slice：根据索引返回数组的一部分"><a href="#slice：根据索引返回数组的一部分" class="headerlink" title="slice：根据索引返回数组的一部分"></a>slice：根据索引返回数组的一部分</h2><blockquote>
+<ul>
+<li>Method:  Arry.slice(satrtIndex,endIndex)</li>
+<li><strong>被引用数组(Arry)是否改变:  NO</strong></li>
+<li>Arguments:<ul>
+<li><code>satrtIndex</code>开始索引(<strong>不包含开始索引</strong>)，必须，且必须为<code>nubmer</code>类型，正负皆可。为正或者<code>0(0,+0,-0)</code>表示从数组正向开始索引，为负表示从方向开始索引(<strong>-1表示倒数的0</strong>)。</li>
+<li><code>endIndex</code>结束索引(<strong>不包含结束索引</strong>)，必须，且必须为<code>nubmer</code>类型，正负皆可。为正或者<code>0(0,+0,-0)</code>表示从数组正向开始索引，为负表示从方向开始索引(<strong>-1表示倒数的0</strong>)。</li>
+<li>最终<code>satrtIndex</code>的实际值必须小于<code>endIndex</code>，且他们所在的那段索引必须与被引用数组的索引有交集，否则返回空数组。</li>
+</ul>
+</li>
+<li>Return:  根据索引返回数组的一部分，返回值为数组类型</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//被引用数组值不会改变</span></div><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>]</div><div class="line">arry.slice(<span class="number">1</span>,<span class="number">3</span>) <span class="comment">//返回[6,8,'2ue']</span></div><div class="line">arry.slice(<span class="number">3</span>,<span class="number">1</span>) <span class="comment">//返回[]</span></div><div class="line">arry.slice(<span class="number">-1</span>,<span class="number">2</span>) <span class="comment">//返回[]</span></div><div class="line">arry.slice(<span class="number">1</span>,<span class="number">-2</span>) <span class="comment">//返回[6,8]</span></div><div class="line">arry.slice(<span class="number">1</span>,<span class="number">-4</span>) <span class="comment">//返回[]</span></div><div class="line">arry.slice(<span class="number">-3</span>,<span class="number">-1</span>) <span class="comment">//返回[6,8,'2ue']</span></div><div class="line">arry.slice(<span class="number">-1</span>,<span class="number">-3</span>) <span class="comment">//返回[]</span></div></pre></td></tr></table></figure>
+<h2 id="splice：移除元素"><a href="#splice：移除元素" class="headerlink" title="splice：移除元素"></a>splice：移除元素</h2><blockquote>
+<ul>
+<li>Method:  Arry.splice(satrtIndex, deleteCount, value, …)</li>
+<li><strong>被引用数组(Arry)是否改变:  YES</strong></li>
+<li>Arguments:<ul>
+<li><code>satrtIndex</code>开始索引，必须，且必须为<code>nubmer</code>类型，正负皆可。为正或者<code>0(0,+0,-0)</code>表示从数组正向开始索引，为负表示从方向开始索引(<strong>-1表示倒数的0</strong>)。</li>
+<li><code>deleteCount</code>将删除的个数，非必须，且必须为<code>nubmer</code>类型。从start开始，包括start所指的元素在内要删除的元素个数。这个参数是可选的，如果没有指定它，splice()将删除从start开始到原数组结尾的所有元素，小于等于0将不会删除。</li>
+<li><code>value</code>要插入数组的零个或多个值，从start所指的下标处开始插入。可以为<code>合法的</code>布尔，字符串，数组，对象，数字，<code>null</code>，<code>undefined</code>，空，可接收多个参数。</li>
+</ul>
+</li>
+<li>Return:  被移除元素组成的数组</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arry = [<span class="number">1</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="string">'2ue'</span>,<span class="string">'o90'</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</div><div class="line">arry.splice(<span class="number">7</span>)  <span class="comment">// 返回 [6,7]; arry = [1,6,8,'2ue','o90',4,5]</span></div><div class="line">arry.splice(<span class="number">1</span>,<span class="number">2</span>)  <span class="comment">// 返回 [6,8]; arry = [1,'2ue','o90',4,5]</span></div><div class="line">arry.splice(<span class="number">-1</span>,<span class="number">1</span>)  <span class="comment">//返回 [5]; arry = [1,'o90',4]</span></div><div class="line">arry.splice(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>,[<span class="number">8</span>,<span class="number">9</span>])  <span class="comment">// 返回 []; arry = [2,3,[8,9],1,'o90',4]</span></div></pre></td></tr></table></figure>
+<h2 id="来一张表"><a href="#来一张表" class="headerlink" title="来一张表"></a>来一张表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">原数组是否改变</th>
+<th style="text-align:center">返回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>length</strong></td>
+<td style="text-align:center">获取数组长度</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">被引用数组长度</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>join</strong></td>
+<td style="text-align:center">将数组元素连接起来以构建一个字符串</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">转换后的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>push</strong></td>
+<td style="text-align:center">在尾部添加元素</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">新数组长度</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>unshift</strong></td>
+<td style="text-align:center">在头部添加元素</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">新数组长度</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>concat</strong></td>
+<td style="text-align:center">在尾部添加元素</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">新数组</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>pop</strong></td>
+<td style="text-align:center">删除最后一个元素</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">被删除元素</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>shift</strong></td>
+<td style="text-align:center">删除第一个元素</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">被删除元素</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>reverse</strong></td>
+<td style="text-align:center">颠倒数组元素顺序</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">对数组的引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>sort</strong></td>
+<td style="text-align:center">数组元素排序</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">对数组的引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>slice</strong></td>
+<td style="text-align:center">根据索引返回数组的一部分</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">根据索引返回数组的一部分</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>splice</strong></td>
+<td style="text-align:center">插入、删除或替换数组的元素</td>
+<td style="text-align:center"><strong>YES</strong></td>
+<td style="text-align:center">被移除元素组成的数组</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Array/" rel="tag"># Array</a>
+          
+            <a href="/tags/数组/" rel="tag"># 数组</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/20/learn-git-1/" rel="next" title="Git学习之新手入门">
+                <i class="fa fa-chevron-left"></i> Git学习之新手入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/05/regex/" rel="prev" title="常用正则整理(持续收集)">
+                常用正则整理(持续收集) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#length：获取数组长度"><span class="nav-number">1.</span> <span class="nav-text">length：获取数组长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join：连接数组内各元素组成一个字符串"><span class="nav-number">2.</span> <span class="nav-text">join：连接数组内各元素组成一个字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push：在数组尾部添加一个元素"><span class="nav-number">3.</span> <span class="nav-text">push：在数组尾部添加一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unshift：在数组尾部添加一个元素"><span class="nav-number">4.</span> <span class="nav-text">unshift：在数组尾部添加一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat：在尾部添加元素到数组"><span class="nav-number">5.</span> <span class="nav-text">concat：在尾部添加元素到数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pop：删除最后一个元素"><span class="nav-number">6.</span> <span class="nav-text">pop：删除最后一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shift：删除第一个元素"><span class="nav-number">7.</span> <span class="nav-text">shift：删除第一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse：颠倒数组元素顺序"><span class="nav-number">8.</span> <span class="nav-text">reverse：颠倒数组元素顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort：数组元素排序"><span class="nav-number">9.</span> <span class="nav-text">sort：数组元素排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slice：根据索引返回数组的一部分"><span class="nav-number">10.</span> <span class="nav-text">slice：根据索引返回数组的一部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#splice：移除元素"><span class="nav-number">11.</span> <span class="nav-text">splice：移除元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来一张表"><span class="nav-number">12.</span> <span class="nav-text">来一张表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

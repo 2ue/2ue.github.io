@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Babun,cmd,shell,git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Babun是一款集颜值功能于一身的window平台下的命令行工具。它集成了zsh、Cygwin等强大的工具，支持各种配置，并且有丰富的插件支持；并且有丰富的命令和命令提示功能，以及超级棒的历史命令提示。  Babun官方贴出了Babun的十大特性  Pre-configured Cygwin with a lot of addons： 预置大量的Cygwin插件 Silent command-l">
+<meta name="keywords" content="Babun,cmd,shell,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows平台下超强的cmd工具Babun使用笔记">
+<meta property="og:url" content="http://2ue.github.io/2017/03/15/babun/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="Babun是一款集颜值功能于一身的window平台下的命令行工具。它集成了zsh、Cygwin等强大的工具，支持各种配置，并且有丰富的插件支持；并且有丰富的命令和命令提示功能，以及超级棒的历史命令提示。  Babun官方贴出了Babun的十大特性  Pre-configured Cygwin with a lot of addons： 预置大量的Cygwin插件 Silent command-l">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows平台下超强的cmd工具Babun使用笔记">
+<meta name="twitter:description" content="Babun是一款集颜值功能于一身的window平台下的命令行工具。它集成了zsh、Cygwin等强大的工具，支持各种配置，并且有丰富的插件支持；并且有丰富的命令和命令提示功能，以及超级棒的历史命令提示。  Babun官方贴出了Babun的十大特性  Pre-configured Cygwin with a lot of addons： 预置大量的Cygwin插件 Silent command-l">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2017/03/15/babun/"/>
+
+
+
+
+
+  <title>windows平台下超强的cmd工具Babun使用笔记 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2017/03/15/babun/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">windows平台下超强的cmd工具Babun使用笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T13:01:33+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index">
+                    <span itemprop="name">tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Babun是一款集颜值功能于一身的window平台下的命令行工具。它集成了zsh、Cygwin等强大的工具，支持各种配置，并且有丰富的插件支持；并且有丰富的命令和命令提示功能，以及超级棒的历史命令提示。</p>
+</blockquote>
+<h2 id="Babun"><a href="#Babun" class="headerlink" title="Babun"></a><a href="https://Babun.github.io/" target="_blank" rel="external">Babun</a></h2><p>官方贴出了Babun的十大特性</p>
+<ul>
+<li>Pre-configured Cygwin with a lot of addons： 预置大量的Cygwin插件</li>
+<li>Silent command-line installer, no admin rights required：静默命令行安装，不需要管理员权限</li>
+<li>pact - advanced package manager (like apt-get or yum)： 支持pact高级包管理器，类似于apt-get、yum等</li>
+<li>xTerm-256 compatible console： xterm-256兼容控制台</li>
+<li>HTTP(s) proxying support： HTTP(s) 代理支持</li>
+<li>Plugin-oriented architecture： 插件体系，可以安装丰富的插件</li>
+<li>Pre-configured git and shell： 预置git和shell，支持自定义配置</li>
+<li>Integrated oh-my-zsh： 集成了zsh</li>
+<li>Auto update feature： 自动检测最新版本</li>
+<li>“Open Babun Here” context menu entry： 支持右键菜单“此处打开Babun”</li>
+</ul>
+<p>当然对于上面这些特性，我不得不补充一点，那就是它强大的命令提示功能，能从根据你的输入匹配历史输入，狠棒！</p>
+<h3 id="Cygwin"><a href="#Cygwin" class="headerlink" title="Cygwin"></a>Cygwin</h3><p><code>Babun</code>的核心包括一个预配置的<code>Cygwin</code>。<code>cygwin</code>是一个非常好的工具，但有很多使用技巧，使你能够节省大量的时间。<code>Babun</code>解决了很多问题，它里面包含了很多重要的软件包，是你能够第一时间能够使用它们</p>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p><code>Babun</code>的<code>shell</code>通过调整，已达到最佳的用户体验，<code>Babun</code>有两个配置之后马上使用的<code>shell</code>(默认使用<code>zsh</code>，可以使用<code>bash</code>或者<code>zsh</code>命令切换到对应的模式)，<code>Babun</code>的<code>shell</code>具有以下的特点:</p>
+<ul>
+<li>语法高亮</li>
+<li>具有unix的工具</li>
+<li>软件开发工具</li>
+<li>git-语义提示</li>
+<li>自定义脚本和别名</li>
+<li>…</li>
+</ul>
+<h3 id="Console"><a href="#Console" class="headerlink" title="Console"></a>Console</h3><p><code>Babun</code>支持<code>HTTP</code>代理，只需添加地址和<code>HTTP</code>代理服务器的凭据。<code>Babunrc</code>文件所在文件夹执行源<code>Babunrc</code>启用HTTP代理。目前还不支持<code>SOCKS</code>代理。</p>
+<h3 id="开发者工具"><a href="#开发者工具" class="headerlink" title="开发者工具"></a>开发者工具</h3><p>Babun提供多种方便的工具和脚本，是你的开发工作更轻松，具有的功能如下:</p>
+<ul>
+<li>编程语言(python,Perl, etc等)</li>
+<li>git(各种各样的别名调整)</li>
+<li>UNIX工具((grep, wget, curl, etc)</li>
+<li>vcs (svn, git)</li>
+<li>oh-my-zsh</li>
+<li>自定义脚本(pbcopy, pbpaste, Babun, etc)</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="默认安装"><a href="#默认安装" class="headerlink" title="默认安装"></a>默认安装</h3><p>双击<code>install.bat</code>脚本，<code>Babun</code>使用默认安装位置<code>C:\Users\userName\.Babun</code>，安装好的<code>Babun</code>会在<code>C:\Users\userName\</code>下；<br>当然也可以指定安装位置</p>
+<h3 id="自定义安装"><a href="#自定义安装" class="headerlink" title="自定义安装"></a>自定义安装</h3><p>通过<code>cmd</code>命令行在执行<code>install.bat</code>时指定参数<code>/t</code>或<code>/target</code>指定安装的目录。<br>执行：Babun.bat /t install-dir</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Babun.bat /t c:\Babun</div></pre></td></tr></table></figure>
+<p>安装好之后会在<code>d:\Babun</code>目录下生成一个<code>.Babun</code>的目录，<code>Babun</code>所有文件都在这个目录中。注意安装目录最好不要有空格，这是<code>cygwin</code>要求的</p>
+<p>启动<code>Babun</code>默认是在’%userprofile%.Babun\cygwin\home\username’</p>
+<h2 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>Babun</code>内置了<code>Python</code>、<code>Perl</code>等解释器。<code>cygwin</code>自带的<code>python</code>没有<code>pip</code>，需手动安装。<br>直接执行下面这个命令就好了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://bootstrap.pypa.io/get-pip.py -O - | python</div></pre></td></tr></table></figure>
+<p>有了pip就可以自由的安装诸如<code>ipython</code>之类的东西，还有包罗万象的类库。</p>
+<h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><p><code>Babun</code>默认是安装了<code>oh-my-zsh</code>的，这里可以根据自身情况安装一些插件。具体可参考<a href="http://blog.csdn.net/czg13548930186/article/details/72858289" target="_blank" rel="external">利用<code>oh-my-zsh</code>打造你的超级终端一文</a>;</p>
+<h3 id="包管理器使用"><a href="#包管理器使用" class="headerlink" title="包管理器使用"></a>包管理器使用</h3><p><code>Babun</code>提供一个叫<code>pact</code>包管理工具，类似于<code>linux</code>上面的<code>apt-get</code>或<code>yum</code>的包管理工具</p>
+<h2 id="配置别名（alias）"><a href="#配置别名（alias）" class="headerlink" title="配置别名（alias）"></a>配置别名（alias）</h2><p>可以在<code>.Babun\cygwin\home\username</code>目录下配置对应工具的别名，而并不仅限于<code>git-bash</code>。<br>当然记忆别名其实也是体力活，我的想法是对一些常用的命令、经常手滑手速过快打错的命令、复杂的命令配置一些别名，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gt = git</div><div class="line">gti = git</div><div class="line">n = npm</div><div class="line">nr = npm run dev</div><div class="line">gtlg = git <span class="built_in">log</span> --color --graph --pretty=format:<span class="string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset'</span> --abbrev-commit --date=relative</div><div class="line">...等等</div></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="本地SSH-KEY不可用"><a href="#本地SSH-KEY不可用" class="headerlink" title="本地SSH-KEY不可用"></a>本地SSH-KEY不可用</h3><p>查看我记录的<a href="https://2ue.github.io/2017/06/15/babun-casue-ssh-key-bad/">Babun导致本地SSH-KEY不可用</a>一文</p>
+<h3 id="中文乱码问题"><a href="#中文乱码问题" class="headerlink" title="中文乱码问题"></a>中文乱码问题</h3><p>找了很多解决方案，都不能完美的解决问题，最后还是回归原始：不解决！！！</p>
+<h3 id="锁定文件夹"><a href="#锁定文件夹" class="headerlink" title="锁定文件夹"></a>锁定文件夹</h3><p>在使用<code>Babun</code>时（比如此时进入了<code>a</code>目录），它会锁定文件夹<code>a</code>目录，导致你可能无法做一些危险操作。必须关闭<code>Babun</code>后才能解锁进程</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="http://www.mamicode.com/info-detail-1653353.html" target="_blank" rel="external">windows下的命令行工具Babun</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Babun/" rel="tag"># Babun</a>
+          
+            <a href="/tags/cmd/" rel="tag"># cmd</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/05/vue-datapicker/" rel="next" title="使用vue框架造了一个日历控件">
+                <i class="fa fa-chevron-left"></i> 使用vue框架造了一个日历控件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/javascript-type/" rel="prev" title="Javascript常用见问题之判断类型">
+                Javascript常用见问题之判断类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Babun"><span class="nav-number">1.</span> <span class="nav-text">Babun</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cygwin"><span class="nav-number">1.1.</span> <span class="nav-text">Cygwin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell"><span class="nav-number">1.2.</span> <span class="nav-text">shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Console"><span class="nav-number">1.3.</span> <span class="nav-text">Console</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发者工具"><span class="nav-number">1.4.</span> <span class="nav-text">开发者工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认安装"><span class="nav-number">2.1.</span> <span class="nav-text">默认安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义安装"><span class="nav-number">2.2.</span> <span class="nav-text">自定义安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境配置"><span class="nav-number">3.</span> <span class="nav-text">开发环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip"><span class="nav-number">3.1.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用插件"><span class="nav-number">3.2.</span> <span class="nav-text">常用插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包管理器使用"><span class="nav-number">3.3.</span> <span class="nav-text">包管理器使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置别名（alias）"><span class="nav-number">4.</span> <span class="nav-text">配置别名（alias）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地SSH-KEY不可用"><span class="nav-number">5.1.</span> <span class="nav-text">本地SSH-KEY不可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中文乱码问题"><span class="nav-number">5.2.</span> <span class="nav-text">中文乱码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁定文件夹"><span class="nav-number">5.3.</span> <span class="nav-text">锁定文件夹</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

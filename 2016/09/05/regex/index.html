@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="正则," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+<meta name="keywords" content="正则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用正则整理(持续收集)">
+<meta property="og:url" content="http://2ue.github.io/2016/09/05/regex/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用正则整理(持续收集)">
+<meta name="twitter:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2016/09/05/regex/"/>
+
+
+
+
+
+  <title>常用正则整理(持续收集) | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2016/09/05/regex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用正则整理(持续收集)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-05T12:12:24+08:00">
+                2016-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="built_in">window</span>.regex || (<span class="function"><span class="keyword">function</span> (<span class="params">document, $</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> _reg = &#123;&#125;;</div><div class="line">        <span class="comment">/* 'pwd':/^[\@A-Za-z0-9\!\#\$\%\^\&amp;\*\.\~]&#123;6,16&#125;$/,//密码 */</span></div><div class="line">        <span class="comment">//验证数字</span></div><div class="line">        $.extend(_reg, &#123;</div><div class="line">            <span class="string">'num'</span>: <span class="regexp">/^\d+$/</span>, <span class="comment">//数字</span></div><div class="line">            <span class="string">'znum'</span>: <span class="regexp">/^[1-9](\d+)?$/</span>, <span class="comment">//  大于0的数字</span></div><div class="line">            <span class="string">'float'</span>: <span class="regexp">/^[-]&#123;0,1&#125;(\d+)[\.]+(\d+)$/</span>, <span class="comment">//浮点数</span></div><div class="line">            <span class="string">'money'</span>: <span class="regexp">/^\d&#123;1,12&#125;(?:\.\d&#123;1,3&#125;)?$/</span>, <span class="comment">// money</span></div><div class="line">            <span class="string">'idCard'</span>: <span class="regexp">/^\d&#123;15&#125;$|^\d&#123;18&#125;$|^\d&#123;17&#125;[xX]$/</span>, <span class="comment">//身份证</span></div><div class="line">            <span class="string">'idCardStrict'</span>:<span class="regexp">/^(\d&#123;6&#125;)([1-2])(\d&#123;3&#125;)((?:0[1-9])|(?:1[0-2]))((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))(\d&#123;3&#125;)(\d&#123;1&#125;)$/</span>,</div><div class="line">            <span class="string">'qq'</span>: <span class="regexp">/^[1-9]\d&#123;4,15&#125;$/</span>, <span class="comment">//QQ</span></div><div class="line">            <span class="string">'pwd'</span>: <span class="regexp">/^[\@A-Za-z0-9]&#123;6,16&#125;$/</span>, <span class="comment">//密码</span></div><div class="line">            <span class="string">'areacode'</span>: <span class="regexp">/^(0[1,2]&#123;1&#125;\d&#123;1&#125;)$|^(0[3-9]&#123;1&#125;\d&#123;2&#125;)$/</span>, <span class="comment">//区号</span></div><div class="line">            <span class="string">'tel'</span>: <span class="regexp">/^\d&#123;7,8&#125;$/</span>, <span class="comment">// 固话格式</span></div><div class="line">            <span class="string">'mobile'</span>: <span class="regexp">/^((\+86)|(\(\+86\)))?-?(13|14|15|18|17)[0-9]&#123;9&#125;$/</span>, <span class="comment">//验证手机号码</span></div><div class="line">            <span class="string">'telephone'</span>: <span class="regexp">/^(((\+)?86)|(\(\+86\)))?-?((((0)?[1,2]&#123;1&#125;\d&#123;1&#125;)?-?\d&#123;8&#125;)|((0[3-9]&#123;1&#125;\d&#123;2&#125;)?-?\d&#123;7,12&#125;))-?(\d&#123;1,8&#125;)?$/</span>, <span class="comment">//验证固定电话</span></div><div class="line">            <span class="string">'phone'</span>: <span class="regexp">/^((\+86)|(\(\+86\)))?-?(13|14|15|18|17)[0-9]&#123;9&#125;$|^((\+86)|(\(\+86\)))?-?(((0[1,2]&#123;1&#125;\d&#123;1&#125;)?-?\d&#123;8&#125;)|((0[3-9]&#123;1&#125;\d&#123;2&#125;)?-?\d&#123;7,8&#125;))$/</span>, <span class="comment">//手机号码和固定电话</span></div><div class="line">            <span class="string">'zipcode'</span>: <span class="regexp">/^\d&#123;6&#125;$/</span> <span class="comment">//验证邮编</span></div><div class="line">        &#125;);</div><div class="line">        <span class="comment">//验证字符串</span></div><div class="line">        $.extend(_reg, &#123;</div><div class="line">            <span class="string">'email'</span>: <span class="regexp">/^\w&#123;1,16&#125;([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/</span>, <span class="comment">//邮箱</span></div><div class="line">            <span class="string">'chinese'</span>: <span class="regexp">/^[\u4E00-\u9FA5]+$/</span>, <span class="comment">//仅汉字</span></div><div class="line">            <span class="string">'char'</span>: <span class="regexp">/^[A-Za-z]+$/</span>, <span class="comment">//仅仅是字母</span></div><div class="line">            <span class="string">'charn'</span>: <span class="regexp">/^[A-Za-z0-9]+$/</span>, <span class="comment">//数字加字母</span></div><div class="line">            <span class="string">'nospecial'</span>: <span class="regexp">/^[\u4E00-\u9FA5A-Za-z0-9]+$/</span>, <span class="comment">// 不包含特殊字符</span></div><div class="line">            <span class="string">'url'</span>: <span class="regexp">/^((http|https|ftp):\/\/)?(\w(\:\w)?@)?([0-9a-z_-]+\.)*?([a-z0-9-]+\.[a-z]&#123;2,6&#125;(\.[a-z]&#123;2&#125;)?(\:[0-9]&#123;2,6&#125;)?)((\/[^?#&lt;&gt;\/\\*":]*)+(\?[^#]*)?(#.*)?)?$/</span>,</div><div class="line">            <span class="string">'loginName'</span>: <span class="regexp">/^(13|14|15|18|17)[0-9]&#123;9&#125;$|^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/</span>, <span class="comment">// 用户名</span></div><div class="line">            <span class="string">'userName'</span>: <span class="regexp">/^[\u4e00-\u9fa5]&#123;2`,4&#125;$|[a-zA-Z]&#123;4,20&#125;$/</span>, <span class="comment">//真实姓名</span></div><div class="line">            <span class="string">'nickName'</span>: <span class="regexp">/^([a-zA-Z\u4e00-\u9fa5]&#123;1&#125;[a-zA-Z0-9_\u4e00-\u9fa5]&#123;3,19&#125;)$/</span> <span class="comment">//昵称</span></div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> _reg;</div><div class="line">    &#125;)(<span class="built_in">document</span>, <span class="built_in">window</span>.jQuery);</div><div class="line"><span class="built_in">window</span>.regex = regex;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/正则/" rel="tag"># 正则</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/11/javascript-array-method/" rel="next" title="Javascript系列 - Javascript数组方法">
+                <i class="fa fa-chevron-left"></i> Javascript系列 - Javascript数组方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/24/use-gulp+webpack-to-bulid-resource/" rel="prev" title="使用webpack + gulp构建项目">
+                使用webpack + gulp构建项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="nvm,node,npm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="nvm：一个node和npm的版本管理器（node&amp;amp;npm version manager），能让你快速的在不同版本间切换。  安装下载地址：官网下载有两种版本nvm-noinstall.zip(便携版)和nvm-setup.zip(exe安装版)两者唯一区别就是便携版需要手动配置全局变量，而安装版只需要在安装时选定安装目录则会自动配置好。  注意：安装之前最好先卸载之前的node  便">
+<meta name="keywords" content="nvm,node,npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node和npm版本管理器nvm的安装和使用">
+<meta property="og:url" content="http://2ue.github.io/2017/08/21/nvm-node-version-manager/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="nvm：一个node和npm的版本管理器（node&amp;amp;npm version manager），能让你快速的在不同版本间切换。  安装下载地址：官网下载有两种版本nvm-noinstall.zip(便携版)和nvm-setup.zip(exe安装版)两者唯一区别就是便携版需要手动配置全局变量，而安装版只需要在安装时选定安装目录则会自动配置好。  注意：安装之前最好先卸载之前的node  便">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-14T15:19:55.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node和npm版本管理器nvm的安装和使用">
+<meta name="twitter:description" content="nvm：一个node和npm的版本管理器（node&amp;amp;npm version manager），能让你快速的在不同版本间切换。  安装下载地址：官网下载有两种版本nvm-noinstall.zip(便携版)和nvm-setup.zip(exe安装版)两者唯一区别就是便携版需要手动配置全局变量，而安装版只需要在安装时选定安装目录则会自动配置好。  注意：安装之前最好先卸载之前的node  便">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2017/08/21/nvm-node-version-manager/"/>
+
+
+
+
+
+  <title>node和npm版本管理器nvm的安装和使用 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2017/08/21/nvm-node-version-manager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node和npm版本管理器nvm的安装和使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T14:02:36+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index">
+                    <span itemprop="name">tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>nvm：一个node和npm的版本管理器（node&amp;npm version manager），能让你快速的在不同版本间切换。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>下载地址：<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="external">官网下载</a><br>有两种版本<code>nvm-noinstall.zip</code>(便携版)和<code>nvm-setup.zip</code>(exe安装版)<br>两者唯一区别就是便携版需要手动配置全局变量，而安装版只需要在安装时选定安装目录则会自动配置好。</p>
+<blockquote>
+<p>注意：安装之前最好先卸载之前的<code>node</code></p>
+</blockquote>
+<h3 id="便携版安装"><a href="#便携版安装" class="headerlink" title="便携版安装"></a>便携版安装</h3><ul>
+<li><p>下载最新版的<code>nvm-noinstall.zip</code>后解压放到<code>D:\devTools</code>(可以放到任意位置，此处是我安装的目录，注意文件夹名不能存在空格);</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">elevate.cmd</div><div class="line">elevate.vbs</div><div class="line">install.cmd</div><div class="line">LICENSE</div><div class="line">nvm.exe</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置<code>nvm</code>，生成<code>settings.txt</code>，填写配置<br>方法一：双击<code>install.cmd</code>，会生成<code>settings.txt</code>文件（生成位置就是你输入的地址，一般是在<code>nvm</code>目录下，如果不是，需要拷贝过来）<br>方法二：直接在nvm目录下新建<code>settings.txt</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">root: D:\devTools\nvm</div><div class="line">path: D:\devTools\nodejsv</div><div class="line">arch: 64</div><div class="line">proxy: none</div><div class="line">node_mirror: http://npm.taobao.org/mirrors/node/</div><div class="line">npm_mirror: https://npm.taobao.org/mirrors/npm/</div></pre></td></tr></table></figure>
+<ul>
+<li>root ： nvm的存放地址</li>
+<li>path ： 存放指向node版本的快捷方式，使用nvm的过程中会自动生成。一般写的时候与nvm同级。</li>
+<li>arch ： 电脑系统是64位就写64,32位就写32</li>
+<li>proxy ： 代理</li>
+<li>node_mirror: node镜像源，安装node时会从此镜像源下载。</li>
+<li>npm_mirror: 同上，npm镜像源</li>
+</ul>
+</li>
+<li>全局变量配置<br>  1.添加变量<code>NVM_HOME</code>，值为<code>D:\devTools\nvm</code><br>  2.添加变量<code>NVM_SYMLINK</code>，值为<code>D:\devTools\nodejsv</code><br>  3.添加变量<code>NVM_HOME</code>和<code>NVM_SYMLINK</code>到全局变量<code>path</code>: 修改<code>path</code>的值最后加上<code>;%NVM_HOME%;%NVM_SYMLINK%;</code><br>到此便携版nvm安装完成</li>
+</ul>
+<h3 id="exe安装版"><a href="#exe安装版" class="headerlink" title="exe安装版"></a>exe安装版</h3><p>直接双击安装，可以使用默认的选项。也可以自己选择安装地址。然后安装过程中会自动把路径写入到全局变量。</p>
+<blockquote>
+<p>注意： 如果安装了杀毒软件，应该先关闭杀毒软件，因为写入全局变量是一个敏感操作，某些杀毒软件会报警（不关闭，报警时需要选择允许操作）</p>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="版本检测"><a href="#版本检测" class="headerlink" title="版本检测"></a>版本检测</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm version</span></div><div class="line">1.1.6</div><div class="line">// or</div><div class="line"><span class="meta">$</span><span class="bash"> nvm v</span></div><div class="line">1.1.6</div></pre></td></tr></table></figure>
+<h3 id="安装node-amp-npm"><a href="#安装node-amp-npm" class="headerlink" title="安装node&amp;npm"></a>安装node&amp;npm</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm install [version]</span></div><div class="line">// 如果安装最新版的，直接使用</div><div class="line"><span class="meta">$</span><span class="bash"> nvm install latest</span></div></pre></td></tr></table></figure>
+<h3 id="查看安装的node-amp-npm"><a href="#查看安装的node-amp-npm" class="headerlink" title="查看安装的node&amp;npm"></a>查看安装的node&amp;npm</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm list</span></div><div class="line">* 8.4.0 (Currently using 64-bit executable)</div><div class="line">6.9.0</div></pre></td></tr></table></figure>
+<h3 id="切换node版本"><a href="#切换node版本" class="headerlink" title="切换node版本"></a>切换node版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm use [version]</span></div><div class="line">Now using node v8.4.0 (64-bit)</div></pre></td></tr></table></figure>
+<h3 id="卸载某个版本node"><a href="#卸载某个版本node" class="headerlink" title="卸载某个版本node"></a>卸载某个版本node</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm uninstall [version]</span></div></pre></td></tr></table></figure>
+<h3 id="nvm命令查看"><a href="#nvm命令查看" class="headerlink" title="nvm命令查看"></a>nvm命令查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nvm</span></div><div class="line">Running version 1.1.6.</div><div class="line"></div><div class="line">Usage:</div><div class="line"></div><div class="line">  nvm arch                     : Show if node is running in 32 or 64 bit mode.</div><div class="line">  nvm install &lt;version&gt; [arch] : The version can be a node.js version or "latest" for the latest stable version.</div><div class="line">                                 Optionally specify whether to install the 32 or 64 bit version (defaults to system arch).</div><div class="line">                                 Set [arch] to "all" to install 32 AND 64 bit versions.</div><div class="line">                                 Add --insecure to the end of this command to bypass SSL validation of the remote download server.</div><div class="line">  nvm list [available]         : List the node.js installations. Type "available" at the end to see what can be installed. Aliased as ls.</div><div class="line">  nvm on                       : Enable node.js version management.</div><div class="line">  nvm off                      : Disable node.js version management.</div><div class="line">  nvm proxy [url]              : Set a proxy to use for downloads. Leave [url] blank to see the current proxy.</div><div class="line">                                 Set [url] to "none" to remove the proxy.</div><div class="line">  nvm node_mirror [url]        : Set the node mirror. Defaults to https://nodejs.org/dist/. Leave [url] blank to use default url.</div><div class="line">  nvm npm_mirror [url]         : Set the npm mirror. Defaults to https://github.com/npm/npm/archive/. Leave [url] blank to default url.</div><div class="line">  nvm uninstall &lt;version&gt;      : The version must be a specific version.</div><div class="line">  nvm use [version] [arch]     : Switch to use the specified version. Optionally specify 32/64bit architecture.</div><div class="line">                                 nvm use &lt;arch&gt; will continue using the selected version, but switch to 32/64 bit mode.</div><div class="line">  nvm root [path]              : Set the directory where nvm should store different versions of node.js.</div><div class="line">                                 If &lt;path&gt; is not set, the current root will be displayed.</div><div class="line">  nvm version                  : Displays the current running version of nvm for Windows. Aliased as v.</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><code>settings.txt</code>中<code>root</code>和<code>path</code>文件路径中不能存在空格，否则在使用<code>nvm use</code>命令时会报错</li>
+<li>在使用<code>nvm use</code>命令时，貌似无法再<code>git-bash</code>中使用，暂时不知道原因，在自带的<code>cmd</code>中可以</li>
+</ul>
+<h2 id="最后的最后"><a href="#最后的最后" class="headerlink" title="最后的最后"></a>最后的最后</h2><blockquote>
+<p>安装nvm比较简单，喜欢折腾的可以使用便携版，反之这直接使用安装版一键安装。最后大家愉快的玩耍吧</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nvm/" rel="tag"># nvm</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/01/learn-git-2/" rel="next" title="Git学习之常用命令">
+                <i class="fa fa-chevron-left"></i> Git学习之常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/fed-test/" rel="prev" title="前端测试探索">
+                前端测试探索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#便携版安装"><span class="nav-number">1.1.</span> <span class="nav-text">便携版安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exe安装版"><span class="nav-number">1.2.</span> <span class="nav-text">exe安装版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本检测"><span class="nav-number">2.1.</span> <span class="nav-text">版本检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装node-amp-npm"><span class="nav-number">2.2.</span> <span class="nav-text">安装node&npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看安装的node-amp-npm"><span class="nav-number">2.3.</span> <span class="nav-text">查看安装的node&npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换node版本"><span class="nav-number">2.4.</span> <span class="nav-text">切换node版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载某个版本node"><span class="nav-number">2.5.</span> <span class="nav-text">卸载某个版本node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvm命令查看"><span class="nav-number">2.6.</span> <span class="nav-text">nvm命令查看</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的最后"><span class="nav-number">4.</span> <span class="nav-text">最后的最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typeof,object," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+<meta name="keywords" content="typeof,object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript常用见问题之判断类型">
+<meta property="og:url" content="http://2ue.github.io/2017/03/31/javascript-type/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript常用见问题之判断类型">
+<meta name="twitter:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2017/03/31/javascript-type/"/>
+
+
+
+
+
+  <title>Javascript常用见问题之判断类型 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2017/03/31/javascript-type/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript常用见问题之判断类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T17:05:06+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。<br>本文所有的如果没特指，都是基于ES5的原生javascript</p>
+</blockquote>
+<h2 id="变量的基本类型"><a href="#变量的基本类型" class="headerlink" title="变量的基本类型"></a>变量的基本类型</h2><p>众所周知，<code>JavaScript</code>中变量可能包含两种不同的数据类型的值：<strong>基本类型</strong>和<strong>引用类型</strong>。基本类型是指简单的数据段，有<code>Number</code>、<code>String</code>、<code>Boolean</code>、<code>Udefined</code>、<code>Null</code>，而引用类型指那些可能包含多个值的对象，有<code>Object</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>。在<code>JavaScript</code>中，我们通过<code>var</code>来声明变量，由于<code>JavaScript</code>是若语言类型，我们无法在申明的时候规定他的类型，<code>JavaScript</code>变量的类型是随变量的值改变而改变的。所以我们要判断变量值的类型。下图列举一些常见的类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Null</strong></td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Udefined</strong></td>
+<td style="text-align:center">udefined、未赋值的变量</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Boolean</strong></td>
+<td style="text-align:center">true、false</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Number</strong></td>
+<td style="text-align:center">-1、0 、 1、 NaN</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>String</strong></td>
+<td style="text-align:center">‘1’、’a’</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Array</strong></td>
+<td style="text-align:center">[]、new Array()</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Object</strong></td>
+<td style="text-align:center">{}、new Object()</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Function</strong></td>
+<td style="text-align:center">function(){}</td>
+</tr>
+</tbody>
+</table>
+<p>读到这里也许你会问，这有什么棘手的，就这几种类型背下来不就行了么？然而我想告诉你：<strong>在大胆猜测的同时，也要用实践去证明你的猜测</strong>。然后你当你用<code>typeof</code>去检测它们的类型时，你就崩溃了：明明是<code>Null</code>为什么结果却是<code>oject</code>，明明是<code>Array</code>为什么还是<code>obejct</code>？…所以除了使用<code>typeof</code>方法外我们必须药寻找其他的方法，那么这些方法有哪些呢？请继续往下读(<code>para</code>表示要判断的变量)：</p>
+<ul>
+<li>isNaN(para)</li>
+<li>!para</li>
+<li>typeof para</li>
+<li>Object.prototype.toString.call(para);</li>
+</ul>
+<h2 id="isNaN-para"><a href="#isNaN-para" class="headerlink" title="isNaN(para)"></a>isNaN(para)</h2><p>用来判断是否为<code>number</code>类型的专有方法。但是需要注意的是，如果使用<code>typeof</code>判断那么结果会是<code>number</code>。</p>
+<h2 id="para"><a href="#para" class="headerlink" title="!para"></a>!para</h2><p>常用来判断一个变量是否存在，面对<code>Arry</code>、<code>Object</code>等<strong>引用类型变量</strong>时无论是否为空都会被转换成<code>true</code></p>
+<h2 id="typeof-para"><a href="#typeof-para" class="headerlink" title="typeof para"></a>typeof para</h2><p>事实证明typeof并不是万能的，在对除Null以外的<strong>基本类型</strong>变量是相当有威力的，但是对<strong>引用类型变量</strong>和<code>null</code>时都会被识别成<code>object</code></p>
+<h2 id="Object-prototype-toString-call-para"><a href="#Object-prototype-toString-call-para" class="headerlink" title="Object.prototype.toString.call(para)"></a>Object.prototype.toString.call(para)</h2><p>前面的<code>typeof</code>死在半路，无法打探到<strong>引用类型变量</strong>和<code>null</code>的真实情报，但是我们得出了另一个情报：<strong>他们都是<code>obejct</code></strong>。那么我们就完全可以利用<code>Object</code>原型上的<code>toString()</code>方法来判断</p>
+<h2 id="判断结果比较表"><a href="#判断结果比较表" class="headerlink" title="判断结果比较表"></a>判断结果比较表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">isNaN(para)</th>
+<th style="text-align:center">!para</th>
+<th style="text-align:center">typeof para</th>
+<th style="text-align:center">toString(para)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Null</strong></td>
+<td style="text-align:center">null</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">obejct</td>
+<td style="text-align:center">[obejct Null]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Udefined</strong></td>
+<td style="text-align:center">udefined</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">udefined</td>
+<td style="text-align:center">[obejct Udefined]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Boolean</strong></td>
+<td style="text-align:center">true/false</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false/true</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">[obejct Boolean]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Number</strong></td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center">[obejct Number]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Number</strong></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center">[obejct Number]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Number</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center">[obejct Number]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Number</strong></td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center">[obejct  Number]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>String</strong></td>
+<td style="text-align:center">‘1’</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">[obejct String]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>String</strong></td>
+<td style="text-align:center">‘a’</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">[obejct String]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>String</strong></td>
+<td style="text-align:center">‘’</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">[obejct String]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>String</strong></td>
+<td style="text-align:center">‘ ‘(中间包含空格)</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">[obejct String]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Array</strong></td>
+<td style="text-align:center">[]/[4]</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">obejct</td>
+<td style="text-align:center">[obejct Array]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Object</strong></td>
+<td style="text-align:center">{}/{n:4}</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">obejct</td>
+<td style="text-align:center">[obejct Object]</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Function</strong></td>
+<td style="text-align:center">function(){}</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">obejct</td>
+<td style="text-align:center">[obejct Function]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="总结方法"><a href="#总结方法" class="headerlink" title="总结方法"></a>总结方法</h2><p>根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程.</p>
+<h4 id="判断数字-非严格"><a href="#判断数字-非严格" class="headerlink" title="判断数字(非严格)"></a>判断数字(非严格)</h4><p>字符串’<code>1</code>‘会被识别成<code>number</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNumber</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !<span class="built_in">isNaN</span>(para);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断数字-严格"><a href="#判断数字-严格" class="headerlink" title="判断数字(严格)"></a>判断数字(严格)</h4><p>在必要的情况下使用：此方法会把字符串’<code>1</code>‘识别成<code>string</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isStrictNumber</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !<span class="built_in">isNaN</span>(para) &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">'number'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断字符串（非严格）"><a href="#判断字符串（非严格）" class="headerlink" title="判断字符串（非严格）"></a>判断字符串（非严格）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isString</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">'string'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断字符串（严格）"><a href="#判断字符串（严格）" class="headerlink" title="判断字符串（严格）"></a>判断字符串（严格）</h4><p>在必要的情况下使用：此种方法会把字符串’<code>1</code>‘识别成<code>number</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isStrictString</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">isNaN</span>(para) &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">'string'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断一般数据类型-即非引用类型"><a href="#判断一般数据类型-即非引用类型" class="headerlink" title="判断一般数据类型(即非引用类型)"></a>判断一般数据类型(即非引用类型)</h4><p>注意：使用typeof判断<code>null</code>结果为<code>object</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isBasicType</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para !== <span class="string">'obejct'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断是否为null-不能识别’’"><a href="#判断是否为null-不能识别’’" class="headerlink" title="判断是否为null(不能识别’’)"></a>判断是否为null(不能识别’’)</h4><p>此方法只能识别<code>null</code>，如果要包含’’，请结合方法<code>isStringNull()</code>一起使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNull</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !para &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">'object'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断是否为空字符串-不包含空格"><a href="#判断是否为空字符串-不包含空格" class="headerlink" title="判断是否为空字符串(不包含空格)"></a>判断是否为空字符串(不包含空格)</h4><p>此方法只能识别<code>&#39;&#39;</code>，如果要包含<code>null</code>，请结合方法<code>isNull()</code>一起使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isStringtNull</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !para &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">'string'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断是否为undefined"><a href="#判断是否为undefined" class="headerlink" title="判断是否为undefined"></a>判断是否为<code>undefined</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isUndefined</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">'undefined'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断是否为false"><a href="#判断是否为false" class="headerlink" title="判断是否为false"></a>判断是否为<code>false</code></h4><p>当为<code>null</code>,<code>undefined</code>,<code>&#39;&#39;</code>,<code>0</code>,<code>-0</code>,<code>false</code>,<code>NaN</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFalse</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !para;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断对象（非严格1–所有的obejct对象）"><a href="#判断对象（非严格1–所有的obejct对象）" class="headerlink" title="判断对象（非严格1–所有的obejct对象）"></a>判断对象（非严格1–所有的obejct对象）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAllObject</span>(<span class="params">_v</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> _v === <span class="string">'obejct'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断对象（非严格2–除去null的所有object对象）-lt-–-gt-判断引用类型"><a href="#判断对象（非严格2–除去null的所有object对象）-lt-–-gt-判断引用类型" class="headerlink" title="判断对象（非严格2–除去null的所有object对象）&lt;–&gt; 判断引用类型"></a>判断对象（非严格2–除去null的所有object对象）&lt;–&gt; 判断引用类型</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">_v</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> !!v &amp;&amp; <span class="keyword">typeof</span> _v === <span class="string">'obejct'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断对象（严格–只识别-JSON对象）"><a href="#判断对象（严格–只识别-JSON对象）" class="headerlink" title="判断对象（严格–只识别{}JSON对象）"></a>判断对象（严格–只识别{}JSON对象）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isStrictObject</span>(<span class="params">_v</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(_v) === <span class="string">'[object Object]'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断数组"><a href="#判断数组" class="headerlink" title="判断数组"></a>判断数组</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(para) === <span class="string">'[object Array]'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断对象"><a href="#判断对象" class="headerlink" title="判断对象"></a>判断对象</h4><p>这里特指{}类<code>JSON</code>对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(para) === <span class="string">'[object Object]'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="判断可执行函数"><a href="#判断可执行函数" class="headerlink" title="判断可执行函数"></a>判断可执行函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFunction</span>(<span class="params">para</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">'function'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当我们需要判断其他类型时，完全可以参照上面的表来写出自己的方法哦。<br>当然现在前端各种流行库不断推陈出新，我们完全可以直接使用别人封装好的库来实现这些功能，比如<code>underscore.js</code>、<code>lodash.js</code>等，但是编码的乐趣不就是在于自己解决最本质的问题么。所以即使有这么多的流行库大行其道，也不妨碍我们了解这些知识的初心，说不定哪天你自己也写出一个很火的库呢~<br>当然随着ES6标准的不断被各大浏览器厂商支持，ES6的普及度越来越广，这些方法都会被内置到原生<code>javascript</code>内部吧(有些方法已经加进去了~)。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typeof/" rel="tag"># typeof</a>
+          
+            <a href="/tags/object/" rel="tag"># object</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/15/babun/" rel="next" title="windows平台下超强的cmd工具Babun使用笔记">
+                <i class="fa fa-chevron-left"></i> windows平台下超强的cmd工具Babun使用笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/15/babun-casue-ssh-key-bad/" rel="prev" title="Babun导致本地SSH-KEY不可用">
+                Babun导致本地SSH-KEY不可用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量的基本类型"><span class="nav-number">1.</span> <span class="nav-text">变量的基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isNaN-para"><span class="nav-number">2.</span> <span class="nav-text">isNaN(para)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#para"><span class="nav-number">3.</span> <span class="nav-text">!para</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof-para"><span class="nav-number">4.</span> <span class="nav-text">typeof para</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-prototype-toString-call-para"><span class="nav-number">5.</span> <span class="nav-text">Object.prototype.toString.call(para)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断结果比较表"><span class="nav-number">6.</span> <span class="nav-text">判断结果比较表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结方法"><span class="nav-number">7.</span> <span class="nav-text">总结方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数字-非严格"><span class="nav-number">7.0.1.</span> <span class="nav-text">判断数字(非严格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数字-严格"><span class="nav-number">7.0.2.</span> <span class="nav-text">判断数字(严格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断字符串（非严格）"><span class="nav-number">7.0.3.</span> <span class="nav-text">判断字符串（非严格）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断字符串（严格）"><span class="nav-number">7.0.4.</span> <span class="nav-text">判断字符串（严格）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断一般数据类型-即非引用类型"><span class="nav-number">7.0.5.</span> <span class="nav-text">判断一般数据类型(即非引用类型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断是否为null-不能识别’’"><span class="nav-number">7.0.6.</span> <span class="nav-text">判断是否为null(不能识别’’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断是否为空字符串-不包含空格"><span class="nav-number">7.0.7.</span> <span class="nav-text">判断是否为空字符串(不包含空格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断是否为undefined"><span class="nav-number">7.0.8.</span> <span class="nav-text">判断是否为undefined</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断是否为false"><span class="nav-number">7.0.9.</span> <span class="nav-text">判断是否为false</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断对象（非严格1–所有的obejct对象）"><span class="nav-number">7.0.10.</span> <span class="nav-text">判断对象（非严格1–所有的obejct对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断对象（非严格2–除去null的所有object对象）-lt-–-gt-判断引用类型"><span class="nav-number">7.0.11.</span> <span class="nav-text">判断对象（非严格2–除去null的所有object对象）<–> 判断引用类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断对象（严格–只识别-JSON对象）"><span class="nav-number">7.0.12.</span> <span class="nav-text">判断对象（严格–只识别{}JSON对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数组"><span class="nav-number">7.0.13.</span> <span class="nav-text">判断数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断对象"><span class="nav-number">7.0.14.</span> <span class="nav-text">判断对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断可执行函数"><span class="nav-number">7.0.15.</span> <span class="nav-text">判断可执行函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

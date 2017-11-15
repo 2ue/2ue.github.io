@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gulp,webpack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源  ps: 平时在项目中使用它们的机会不多，以下">
+<meta name="keywords" content="gulp,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用webpack + gulp构建项目">
+<meta property="og:url" content="http://2ue.github.io/2016/09/24/use-gulp+webpack-to-bulid-resource/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源  ps: 平时在项目中使用它们的机会不多，以下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用webpack + gulp构建项目">
+<meta name="twitter:description" content="有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源  ps: 平时在项目中使用它们的机会不多，以下">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2016/09/24/use-gulp+webpack-to-bulid-resource/"/>
+
+
+
+
+
+  <title>使用webpack + gulp构建项目 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2016/09/24/use-gulp+webpack-to-bulid-resource/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用webpack + gulp构建项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-24T20:46:41+08:00">
+                2016-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index">
+                    <span itemprop="name">tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>有人说为什么会使用webpack+gulp呢？强大的webpack完全可以摒弃gulp了嘛？话虽如此，但个人觉得webpack配置太繁琐复杂，相对来说gulp更简单一点，并且gulp也能很好的完成我期望的任务。所以我想用webpack来处理js任务（因为它支持AMD和CMD，并且可以直接引入模块），用gulp处理images/css/html等资源</p>
+</blockquote>
+<p>ps: 平时在项目中使用它们的机会不多，以下都是自己项目之外的折腾，如果有错误之处，请不吝指出。</p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>先上<a href="https://github.com/2ue/gulp-webpack-template" target="_blank" rel="external">DEMO</a></p>
+<h2 id="配置webpack"><a href="#配置webpack" class="headerlink" title="配置webpack"></a>配置webpack</h2><p>webpack的有很强大的配置选项，官方中英文文档都已经很详尽。<br><a href="https://doc.webpack-china.org/configuration/" target="_blank" rel="external">中文文档</a><br><a href="https://webpack.js.org/concepts/" target="_blank" rel="external">英文文档</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"><span class="keyword">var</span> commonsPlugin = <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="string">'common.js'</span>); <span class="comment">//公共部分打包到common.js，输出路径为output中的path</span></div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="comment">// devtool: 'cheap-module-eval-source-map', //配置生成Source Maps，选择合适的选项</span></div><div class="line">    <span class="comment">//插件项</span></div><div class="line">    plugins: [commonsPlugin],</div><div class="line">    <span class="comment">//页面入口文件配置</span></div><div class="line">    entry: &#123;</div><div class="line">        <span class="string">'app'</span> : <span class="string">'./src/js/page/app.js'</span>,</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//入口文件输出配置</span></div><div class="line">    output: &#123;</div><div class="line">        path: <span class="string">'./dist/js/page'</span>, <span class="comment">//webpack启动时需要</span></div><div class="line">        filename: <span class="string">'[name].js'</span> <span class="comment">//[name]指向entry中'app',对应关系</span></div><div class="line">    &#125;,</div><div class="line">  	<span class="built_in">module</span>: &#123;</div><div class="line">        <span class="comment">//加载器配置，另外还可以添加额外的css/images等加载器</span></div><div class="line">        loaders: [</div><div class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">loader</span>: <span class="string">'jsx-loader?harmony'</span> &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//其它解决方案配置</span></div><div class="line">    resolve: &#123;</div><div class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>, <span class="string">'.scss'</span>]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面的配置就是对js进行打包处理，当然webpack肯定也可以处理css和images等资源，webpack的强大毋庸置疑，但为什么不用webpack来处理css等任务呢？</p>
+<ul>
+<li>webpack处理css默认情况下会把css合并到js文件，这点很不爽</li>
+<li>如果要把css文件独立处理，则需要额外的配置，有点烦，所以果断用gulp了</li>
+</ul>
+<p>执行<code>webpack</code>，看看效果，可以正常运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123; webpackGulpDeom &#125;  » webpack</div><div class="line">  Hash: 4eeaff8e1f7bda682e10</div><div class="line">  Version: webpack 1.13.3</div><div class="line">  Time: 1141ms</div><div class="line">      Asset     Size  Chunks             Chunk Names</div><div class="line">     app.js   367 kB    0, 1  [emitted]  app</div><div class="line">  common.js  3.54 kB       1  [emitted]  common.js</div><div class="line">      + 5 hidden modules</div><div class="line">&#123; webpackGulpDeom &#125;  »</div></pre></td></tr></table></figure>
+<h2 id="配置gulp"><a href="#配置gulp" class="headerlink" title="配置gulp"></a>配置gulp</h2><p>gulpfile.js同样，gulp的配置文档详情参考官方文档，这里以编译less文档并压缩css文档为例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">    less = <span class="built_in">require</span>(<span class="string">'gulp-less'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> isDev = <span class="literal">true</span>;</div><div class="line"><span class="keyword">var</span> entrySrc = <span class="string">'src/'</span></div><div class="line"><span class="keyword">var</span> pathSrc = isDev ? <span class="string">'dist/'</span> : <span class="string">'online/'</span>;</div><div class="line"></div><div class="line"><span class="comment">//开发环境：编译less和css</span></div><div class="line">gulp.task(<span class="string">'less'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//上线发布：压缩合并css，有less和css，具体看情况</span></div><div class="line">gulp.task(<span class="string">'cssUglify'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(concat(<span class="string">'style.min.css'</span>))</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//开发环境</span></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.watch(entrySrc + <span class="string">'css/*'</span>,[<span class="string">'less'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'File'</span> + event.path + <span class="string">' was '</span> + event.type + <span class="string">', running tasks...'</span>);</div><div class="line">    &#125;).on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//开发，执行gulp</span></div><div class="line">gulp.task(<span class="string">'default'</span>, [<span class="string">'less'</span>,<span class="string">'watch'</span>]);</div><div class="line"><span class="comment">//发布，执行gulp dev</span></div><div class="line">gulp.task(<span class="string">'dev'</span>, [<span class="string">'cssUglify'</span>]);</div></pre></td></tr></table></figure>
+<p>ps：这里只列举了一个编译less的任务。</p>
+<h2 id="在gulp里执行webpack任务"><a href="#在gulp里执行webpack任务" class="headerlink" title="在gulp里执行webpack任务"></a>在gulp里执行webpack任务</h2><p>到了这一步，gulp和webpack任务都编写完成了，如果单单是这样是没有意思的，因为每次启动都需要单独的执行两次命令：一次webpack，一次gulp命令，这样无疑是非常糟糕的。所以我们必须得想办法把gulp和webpack连接起来。怎么连接呢？具体的有两种办法：</p>
+<ul>
+<li>一种是使用gulp-webpack插件。</li>
+<li>另一种是使用gulp-util插件。</li>
+</ul>
+<p>那么我们来重写gulpfile.js和webpack.config.js吧</p>
+<h3 id="利用gulp-webpack插件"><a href="#利用gulp-webpack插件" class="headerlink" title="利用gulp-webpack插件"></a>利用gulp-webpack插件</h3><p>重写<code>gulpfile.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">    less = <span class="built_in">require</span>(<span class="string">'gulp-less'</span>),</div><div class="line">    webpack = <span class="built_in">require</span>(<span class="string">"gulp-webpack"</span>),</div><div class="line">    webpackConfig = <span class="built_in">require</span>(<span class="string">"./webpack.config.js"</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> isDev = <span class="literal">true</span>;</div><div class="line"><span class="keyword">var</span> entrySrc = <span class="string">'src/'</span></div><div class="line"><span class="keyword">var</span> pathSrc = isDev ? <span class="string">'dist/'</span> : <span class="string">'online/'</span>;</div><div class="line"></div><div class="line"><span class="comment">//开发环境：编译less和css</span></div><div class="line">gulp.task(<span class="string">'less'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//上线发布：压缩合并css，有less和css</span></div><div class="line">gulp.task(<span class="string">'cssUglify'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(concat(<span class="string">'style.min.css'</span>))</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//用gulp执行webpack.config.js</span></div><div class="line">gulp.task(<span class="string">'buildJs'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> myConfig = <span class="built_in">Object</span>.create(webpackConfig);</div><div class="line">    <span class="keyword">return</span> gulp</div><div class="line">        .src([entrySrc + <span class="string">'js/page/*.js'</span>])</div><div class="line">        .pipe(webpack(myConfig))</div><div class="line">        .pipe(gulp.dest(<span class="string">'dist/js/page'</span>)); <span class="comment">//出口文件目录，此处配置之后在webpack.config.js中就必须去掉，不然会报错</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//开发环境</span></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.watch(entrySrc + <span class="string">'*/*'</span>,[<span class="string">'less'</span>, <span class="string">'buildJs'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'File'</span> + event.path + <span class="string">' was '</span> + event.type + <span class="string">', running tasks...'</span>);</div><div class="line">    &#125;).on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//开发，执行gulp</span></div><div class="line">gulp.task(<span class="string">'default'</span>, [<span class="string">'less'</span>, <span class="string">'buildJs'</span>, <span class="string">'watch'</span>]);</div><div class="line"><span class="comment">//发布，执行gulp dev</span></div><div class="line">gulp.task(<span class="string">'dev'</span>, [<span class="string">'cssUglify'</span>, <span class="string">'buildJs'</span>]);</div></pre></td></tr></table></figure>
+<p><code>gulpfile.js</code>的变化：</p>
+<ul>
+<li>增加了可以一个buildJs任务来执行webpack.config.js文件的配置</li>
+<li>相应的监听对象扩大了</li>
+</ul>
+<p>现在来重写<code>webpack.config.js</code>，注释掉<code>output</code>项中的path就行了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"><span class="keyword">var</span> commonsPlugin = <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="string">'common.js'</span>); <span class="comment">//公共部分打包到common.js，输出路径为output中的path</span></div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="comment">// devtool: 'cheap-module-eval-source-map', //配置生成Source Maps，选择合适的选项</span></div><div class="line">    <span class="comment">//插件项</span></div><div class="line">    plugins: [commonsPlugin],</div><div class="line">    <span class="comment">//页面入口文件配置</span></div><div class="line">    entry: &#123;</div><div class="line">        <span class="string">'app'</span> : <span class="string">'./src/js/page/app.js'</span>,</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//入口文件输出配置</span></div><div class="line">    output: &#123;</div><div class="line">        <span class="comment">//path: './dist/js/page', //webpack启动时需要</span></div><div class="line">        filename: <span class="string">'[name].js'</span> <span class="comment">//[name]指向entry中'app',对应关系</span></div><div class="line">    &#125;,</div><div class="line">  	<span class="built_in">module</span>: &#123;</div><div class="line">        <span class="comment">//加载器配置，另外还可以添加额外的css/images等加载器</span></div><div class="line">        loaders: [</div><div class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">loader</span>: <span class="string">'jsx-loader?harmony'</span> &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//其它解决方案配置</span></div><div class="line">    resolve: &#123;</div><div class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>, <span class="string">'.scss'</span>]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>webpack.config.js</code>和<code>gulpfile.js</code>都配置好了,那么现在只要执行gulp的相关命令就可以了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123; webpackGulpDeom &#125;  » gulp</div><div class="line">[14:20:43] Using gulpfile D:\wamp64\www\webpackGulpDeom\gulpfile.js</div><div class="line">[14:20:43] Starting 'webpack'...</div><div class="line">[14:20:45] Version: webpack 1.13.3</div><div class="line">    Asset     Size  Chunks             Chunk Names</div><div class="line">   app.js   367 kB    0, 1  [emitted]  app</div><div class="line">common.js  3.54 kB       1  [emitted]  common.js</div><div class="line">[14:20:45] Finished 'webpack' after 1.37 s</div><div class="line">[14:20:45] Starting 'default'...</div><div class="line">[14:20:45] Finished 'default' after 34 μs</div><div class="line">&#123; webpackGulpDeom &#125;  »</div></pre></td></tr></table></figure>
+<h3 id="利用gulp-util插件"><a href="#利用gulp-util插件" class="headerlink" title="利用gulp-util插件"></a>利用gulp-util插件</h3><blockquote>
+<p>这种方案只需要修改gulpfile.js就行了，webpack.config.js理论上来说不需要任何变化</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">    less = <span class="built_in">require</span>(<span class="string">'gulp-less'</span>),</div><div class="line">    gutil = <span class="built_in">require</span>(<span class="string">'gulp-util'</span>),</div><div class="line">    webpackConfig = <span class="built_in">require</span>(<span class="string">"./webpack.config.js"</span>),</div><div class="line">    myDevConfig = <span class="built_in">Object</span>.create(webpackConfig),</div><div class="line">    devCompiler = webpack(myDevConfig);</div><div class="line"></div><div class="line"><span class="keyword">var</span> isDev = <span class="literal">true</span>;</div><div class="line"><span class="keyword">var</span> entrySrc = <span class="string">'src/'</span></div><div class="line"><span class="keyword">var</span> pathSrc = isDev ? <span class="string">'dist/'</span> : <span class="string">'online/'</span>;</div><div class="line"></div><div class="line"><span class="comment">//开发环境：编译less和css</span></div><div class="line">gulp.task(<span class="string">'less'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//上线发布：压缩合并css，有less和css，具体看情况</span></div><div class="line">gulp.task(<span class="string">'cssUglify'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.src([entrySrc + <span class="string">'css/main.less'</span>, entrySrc + <span class="string">'css/*.css'</span>])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(concat(<span class="string">'style.min.css'</span>))</div><div class="line">        .pipe(gulp.dest(pathSrc + <span class="string">'css/'</span>))</div><div class="line">        .on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//引用webpack.config.js对js资源进行打包</span></div><div class="line">gulp.task(<span class="string">"buildJs"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">    devCompiler.run(<span class="function"><span class="keyword">function</span>(<span class="params">err, stats</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(err) <span class="keyword">throw</span> <span class="keyword">new</span> gutil.PluginError(<span class="string">"webpack:buildJs"</span>, err);</div><div class="line">        gutil.log(<span class="string">"[webpack:buildJs]"</span>, stats.toString(&#123;</div><div class="line">            colors: <span class="literal">true</span></div><div class="line">        &#125;));</div><div class="line">        callback();</div><div class="line">    &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//开发环境</span></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">done</span>) </span>&#123;</div><div class="line">    gulp.watch(entrySrc + <span class="string">'*/*'</span>,[<span class="string">'less'</span>, <span class="string">'buildJs'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'File'</span> + event.path + <span class="string">' was '</span> + event.type + <span class="string">', running tasks...'</span>);</div><div class="line">    &#125;).on(<span class="string">'end'</span>, done);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//开发，执行gulp</span></div><div class="line">gulp.task(<span class="string">'default'</span>, [<span class="string">'less'</span>, <span class="string">'buildJs'</span>, <span class="string">'watch'</span>]);</div><div class="line"><span class="comment">//发布，执行gulp dev</span></div><div class="line">gulp.task(<span class="string">'dev'</span>, [<span class="string">'cssUglify'</span>, <span class="string">'buildJs'</span>]);</div></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&#123; webpackGulpDeom &#125;  » gulp</div><div class="line">[14:28:59] Using gulpfile D:\wamp64\www\webpackGulpDeom\gulpfile.js</div><div class="line">[14:28:59] Starting 'buildJs'...</div><div class="line">[14:29:00] [webpack:buildJs] Hash: 4eeaff8e1f7bda682e10</div><div class="line">Version: webpack 1.13.3</div><div class="line">Time: 1232ms</div><div class="line">    Asset     Size  Chunks             Chunk Names</div><div class="line">   app.js   367 kB    0, 1  [emitted]  app</div><div class="line">common.js  3.54 kB       1  [emitted]  common.js</div><div class="line">chunk    &#123;0&#125; app.js (app) 357 kB &#123;1&#125; [rendered]</div><div class="line">    [0] ./src/js/page/app.js 285 bytes &#123;0&#125; [built]</div><div class="line">    [1] ./src/js/common/jquery-1.9.1.min.js 92.6 kB &#123;0&#125; [built]</div><div class="line">    [2] (webpack)/buildin/amd-options.js 42 bytes &#123;0&#125; [built]</div><div class="line">    [3] ./~/vue/dist/vue.common.js 259 kB &#123;0&#125; [built]</div><div class="line">    [4] ./~/process/browser.js 5.3 kB &#123;0&#125; [built]</div><div class="line">chunk    &#123;1&#125; common.js (common.js) 0 bytes [rendered]</div><div class="line">[14:29:00] Finished 'buildJs' after 1.24 s</div><div class="line">[14:29:00] Starting 'default'...</div><div class="line">[14:29:00] Finished 'default' after 7.21 μs</div><div class="line">&#123; webpackGulpDeom &#125;  »</div></pre></td></tr></table></figure>
+<h2 id="两种方案对比"><a href="#两种方案对比" class="headerlink" title="两种方案对比"></a>两种方案对比</h2><p>从以上输出结果可以看出：</p>
+<h3 id="使用gulp-webpack"><a href="#使用gulp-webpack" class="headerlink" title="使用gulp-webpack"></a>使用gulp-webpack</h3><ul>
+<li><code>gulpfile.js</code>与<code>webpack.config.js</code>都要修改</li>
+<li>执行命令打印的信息更少</li>
+<li>编译时间更多？</li>
+</ul>
+<h3 id="使用gulp-util"><a href="#使用gulp-util" class="headerlink" title="使用gulp-util"></a>使用gulp-util</h3><ul>
+<li>只需要修改<code>gulpfile.js</code>,即使以后单独使用其中一个也不需要再做额外修改</li>
+<li>打印信息更丰富</li>
+<li>编译时间更短？</li>
+</ul>
+<p>关于编译时间多少这块，我也没弄太清楚，如果有错误，请读者指出。就个人而言是比较喜欢第二种方案的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gulp/" rel="tag"># gulp</a>
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/05/regex/" rel="next" title="常用正则整理(持续收集)">
+                <i class="fa fa-chevron-left"></i> 常用正则整理(持续收集)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/09/javascript-debris-1/" rel="prev" title="常用javascript碎片(1)">
+                常用javascript碎片(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#demo"><span class="nav-number">1.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置webpack"><span class="nav-number">2.</span> <span class="nav-text">配置webpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置gulp"><span class="nav-number">3.</span> <span class="nav-text">配置gulp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在gulp里执行webpack任务"><span class="nav-number">4.</span> <span class="nav-text">在gulp里执行webpack任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用gulp-webpack插件"><span class="nav-number">4.1.</span> <span class="nav-text">利用gulp-webpack插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用gulp-util插件"><span class="nav-number">4.2.</span> <span class="nav-text">利用gulp-util插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种方案对比"><span class="nav-number">5.</span> <span class="nav-text">两种方案对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用gulp-webpack"><span class="nav-number">5.1.</span> <span class="nav-text">使用gulp-webpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用gulp-util"><span class="nav-number">5.2.</span> <span class="nav-text">使用gulp-util</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

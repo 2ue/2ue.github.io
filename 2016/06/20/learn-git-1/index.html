@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！  安装官网下载最新版本安装，然后查看是否安装成功 12$ git -vgit version 2.7.3.windows.1  //2.7.3为当前版本 全局个人信息配置12$ git config --global user.name &quot;username&quot;$ git config --global user.email">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习之新手入门">
+<meta property="og:url" content="http://2ue.github.io/2016/06/20/learn-git-1/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！  安装官网下载最新版本安装，然后查看是否安装成功 12$ git -vgit version 2.7.3.windows.1  //2.7.3为当前版本 全局个人信息配置12$ git config --global user.name &quot;username&quot;$ git config --global user.email">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-15T12:22:19.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git学习之新手入门">
+<meta name="twitter:description" content="工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！  安装官网下载最新版本安装，然后查看是否安装成功 12$ git -vgit version 2.7.3.windows.1  //2.7.3为当前版本 全局个人信息配置12$ git config --global user.name &quot;username&quot;$ git config --global user.email">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2016/06/20/learn-git-1/"/>
+
+
+
+
+
+  <title>Git学习之新手入门 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2016/06/20/learn-git-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git学习之新手入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-20T15:51:17+08:00">
+                2016-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index">
+                    <span itemprop="name">tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官网下载最新版本安装，然后查看是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git -v</span></div><div class="line">git version 2.7.3.windows.1  //2.7.3为当前版本</div></pre></td></tr></table></figure>
+<h2 id="全局个人信息配置"><a href="#全局个人信息配置" class="headerlink" title="全局个人信息配置"></a>全局个人信息配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"username"</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">"email"</span></span></div></pre></td></tr></table></figure>
+<p>windows环境也可以打开计算机用户文件夹下的.gitconfig编辑</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[user]</div><div class="line">    name = username</div><div class="line">    email = email</div></pre></td></tr></table></figure>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> storage</span></div><div class="line"><span class="meta">$</span><span class="bash"> git init //初始化当前目录为本地仓库</span></div><div class="line">Initialized empty Git repository in D:/storages/.git/  //初始化了一个空的目录为本地仓库</div></pre></td></tr></table></figure>
+<h3 id="第一次提交-提交到本地"><a href="#第一次提交-提交到本地" class="headerlink" title="第一次提交(提交到本地)"></a>第一次提交(提交到本地)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git add README.md</span></div><div class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"添加项目文档简介"</span>  //-m 参数后面跟表示对当前提交的一个简单说明</span></div></pre></td></tr></table></figure>
+<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><p>查看当前文件处于何种状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git status</span></div></pre></td></tr></table></figure>
+<h3 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h3><p>当你<code>add</code>或<code>commit</code>了错误的文件时，可以使用以下命令来撤回<code>add</code>或者<code>commit</code>;<br>那么你必须首先明白工作区和暂存区是什么？<br>直白的说.git文件夹所在的目录(即<code>git init</code>初始化的目录)为当前工作区<br>当<code>add</code>之后，<code>add</code>的文件就会进入暂存区<br>当<code>commit</code>之后，暂存区就会清空，<code>commit</code>的文件就会进入本地当前的分支(如master分支)<br>PS：关于工作区和暂存区更详细的解释可以去看廖雪峰<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013745374151782eb658c5a5ca454eaa451661275886c6000" target="_blank" rel="external">工作区和暂存区</a></p>
+<h3 id="丢弃工区的修改"><a href="#丢弃工区的修改" class="headerlink" title="丢弃工区的修改"></a>丢弃工区的修改</h3><p>命令<code>git checkout -- filename</code>可以把<code>filename</code>文件在工作区的修改全部撤销</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git checkout -- README.md</span></div></pre></td></tr></table></figure>
+<h3 id="撤销暂存区的修改"><a href="#撤销暂存区的修改" class="headerlink" title="撤销暂存区的修改"></a>撤销暂存区的修改</h3><p>命令<code>git reset HEAD filename</code>可以把<code>filename</code>文件在暂存区的修改全部撤销</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git reset HEAD README.md</span></div><div class="line"><span class="meta">$</span><span class="bash"> git checkout -- README.md //--参数不能省</span></div><div class="line"><span class="meta">$</span><span class="bash"> git status</span></div><div class="line">On branch master</div><div class="line">Your branch is up-to-date with 'origin/master'.</div><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
+<p>当然<code>reset</code> 命令,不仅能够撤销暂存区的内容，还能回退版本，即使你错误提交，也可以用<code>reset</code>回滚到之前的版本<br>如果你提交了错误文件，可以使用以下命令来回退;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git reset --hard HEAD^</span></div></pre></td></tr></table></figure>
+<p><code>git reset --hard HEAD^</code>表示回退到上一个版本，<code>HEAD</code>后面的参数可以跟<code>commit ID</code>，这个ID可以通过以下命令获得</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span></span></div><div class="line">commit 97c8460bc1cda8233866686d9cae270e0e0113f1</div><div class="line">Author: 2ue &lt;jie746635835@163.com&gt;</div><div class="line">Date:   Mon Jun 20 15:44:01 2016 +0800</div><div class="line"></div><div class="line">    update README.md</div><div class="line"></div><div class="line">.....(中间有10条日志)</div><div class="line"></div><div class="line">commit 2d936223341333384dd41533dd44ba8e0640493c</div><div class="line">Author: 2ue &lt;jie746635835@163.com&gt;</div><div class="line">Date:   Mon Jun 01 13:16:22 2016 +0800</div><div class="line"></div><div class="line">    README.md</div></pre></td></tr></table></figure>
+<p><code>commit 97c8460bc1cda8233866686d9cae270e0e0113f1</code>，这一长串就是我们所需的ID,一般情况下，只需要前7位就够了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git reset --hard HEAD 2d93622 //回退到commit 2d936223341333384dd41533dd44ba8e0640493c</span></div><div class="line"><span class="meta">$</span><span class="bash"> git reset --hard HEAD~12 //回退到往上第12个版本，也是2d93622这个版本</span></div></pre></td></tr></table></figure>
+<h3 id="提交到服务器"><a href="#提交到服务器" class="headerlink" title="提交到服务器"></a>提交到服务器</h3><p>当<code>commit</code>后，你做出的修改只是提交到了暂存区，下一步就需要把代码提交到服务器。这里的服务器，可以自己搭建，也可以是公司的，或者第三方的。这里我们将代码提交到<code>github</code>上(假设你是已经有一个<code>github</code>账户，并创建了一个仓库)。</p>
+<h3 id="本地生成SSH-KEY"><a href="#本地生成SSH-KEY" class="headerlink" title="本地生成SSH KEY"></a>本地生成SSH KEY</h3><p><code>SSH KEY</code>就是连通本地与<code>github</code>的桥梁，钥匙，使用以下命令来生成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span></div></pre></td></tr></table></figure>
+<p>然后回车，中途会提示设置密码，可以设置也可以不设置，如果设置密码，以后每次提交需要输入密码。<br>然后在用户主目录（例如：C:\Users\Administrator.ssh）找到<code>.ssh</code>，其中<code>id_rsa</code>表示私钥不能泄露和<code>id_rsa.pub</code>表示公钥，用于对外，可以公开。</p>
+<h3 id="github设置本地公钥"><a href="#github设置本地公钥" class="headerlink" title="github设置本地公钥"></a>github设置本地公钥</h3><p>打开<code>id_rsa.pub</code>，复制里面的全部内容；<br>进入<code>github</code>账户；<br>找到 <code>setting</code>；<br>打开<code>SSH KEYS</code>新建一个<code>SSH KEY</code>，名字随便取，然后粘贴<code>id_rsa.pub</code>的内容，保存；</p>
+<h3 id="测试是否连通"><a href="#测试是否连通" class="headerlink" title="测试是否连通"></a>测试是否连通</h3><p>理论上讲，上一步操作无特殊错误，就已经和<code>github</code>连通的，为了放心，我们可以测试一下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ssh -T git@github.com</span></div><div class="line">Enter passphrase for key '/c/Users/Administrator/.ssh/id_rsa':  //如果设置了密码，此处将会提示你输入密码</div><div class="line">Hi 2ue! You've successfully authenticated, but GitHub does not provide shell access.</div></pre></td></tr></table></figure>
+<p>上面就是成功的提示</p>
+<h3 id="github仓库和本地仓库关联"><a href="#github仓库和本地仓库关联" class="headerlink" title="github仓库和本地仓库关联"></a>github仓库和本地仓库关联</h3><p>有两种方式把本地仓库和<code>github</code>仓库关联起来</p>
+<h4 id="方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样"><a href="#方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样" class="headerlink" title="方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样"></a>方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样</h4><p>登陆账号，新建仓库(new repository)；<br>进入仓库主页，找到按钮<code>clone or download</code>按钮，复制里面的<code>git@github.com:userName/repositoryName.git</code>;<br>打开<code>git bash</code>，clone；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> git@github.com:userName/repositoryName.git</span></div></pre></td></tr></table></figure>
+<p>就会把这个项目克隆到你当前目录下。此时你就可以顺畅的像<code>github</code>推送你的东西了。</p>
+<h4 id="方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样"><a href="#方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样" class="headerlink" title="方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样"></a>方法二：利用命令关联仓库，本地仓库名可以和<code>github</code>的仓库名不一样</h4><p>假设你github上有一个项目，<code>git@github.com:userName/repositoryName.git</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mkdir testRepository  //新建目录testRepository</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> testRepository  //切换到这个目录</span></div><div class="line"><span class="meta">$</span><span class="bash"> git init  //初始化当前目录</span></div><div class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:userName/repositoryName.git</span></div><div class="line">// origin为本地暂存区的名字，为了语义化，建议默认为它</div><div class="line">// 注意github上的repositoryName与本地的testRepository可以不一样</div></pre></td></tr></table></figure>
+<h2 id="提交-push"><a href="#提交-push" class="headerlink" title="提交(push)"></a>提交(push)</h2><h3 id="第一次提交"><a href="#第一次提交" class="headerlink" title="第一次提交"></a>第一次提交</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git push -u origin master</span></div></pre></td></tr></table></figure>
+<h3 id="第二次及以后"><a href="#第二次及以后" class="headerlink" title="第二次及以后"></a>第二次及以后</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></div></pre></td></tr></table></figure>
+<p>第一次提交带参数<code>-u</code>是为了让你本地和<code>github</code>的仓库保持同步。</p>
+<h3 id="更新代码-pull"><a href="#更新代码-pull" class="headerlink" title="更新代码(pull)"></a>更新代码(pull)</h3><p>当我们在一台设备上对<code>github</code>提交(push)代码之后，在另外的设备上修改这个项目时就必须先从<code>github</code>更新代码，以保持代码的同步</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git pull</span></div></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。"><a href="#至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。" class="headerlink" title="至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。"></a>至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。</h3><p><code>github</code>上创建一个新的项目<br><code>github repositoryName</code>：testGit<br><code>github userName</code>：2ue</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> makdir testGit   //创建一个空文件夹testGit(名字任意取)，做仓库</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> testGit    //切换到目录testGit</span></div><div class="line"><span class="meta">$</span><span class="bash"> git init    //初始化testGit为本地仓库</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'this repository is localhost'</span> &gt; README.md</span></div><div class="line">//创建文件README.md，并写入'this repository is localhost'</div><div class="line">//在window下以上操作的第一步和第四步可以在图形化界面中完成</div><div class="line"><span class="meta">$</span><span class="bash"> git add README.md</span></div><div class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">'add README.md'</span>//提交更新，并注释信息“add README.md”</span></div><div class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:2ue/testGit.git   //关联github上的项目</span></div><div class="line"><span class="meta">$</span><span class="bash"> git push -u origin master   //提交到github</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/15/get-url-values/" rel="next" title="利用javascrit获取url传递的参数">
+                <i class="fa fa-chevron-left"></i> 利用javascrit获取url传递的参数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/11/javascript-array-method/" rel="prev" title="Javascript系列 - Javascript数组方法">
+                Javascript系列 - Javascript数组方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局个人信息配置"><span class="nav-number">2.</span> <span class="nav-text">全局个人信息配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">3.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化本地仓库"><span class="nav-number">3.1.</span> <span class="nav-text">初始化本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一次提交-提交到本地"><span class="nav-number">3.2.</span> <span class="nav-text">第一次提交(提交到本地)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看状态"><span class="nav-number">3.3.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回退"><span class="nav-number">3.4.</span> <span class="nav-text">回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#丢弃工区的修改"><span class="nav-number">3.5.</span> <span class="nav-text">丢弃工区的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销暂存区的修改"><span class="nav-number">3.6.</span> <span class="nav-text">撤销暂存区的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交到服务器"><span class="nav-number">3.7.</span> <span class="nav-text">提交到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地生成SSH-KEY"><span class="nav-number">3.8.</span> <span class="nav-text">本地生成SSH KEY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github设置本地公钥"><span class="nav-number">3.9.</span> <span class="nav-text">github设置本地公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试是否连通"><span class="nav-number">3.10.</span> <span class="nav-text">测试是否连通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github仓库和本地仓库关联"><span class="nav-number">3.11.</span> <span class="nav-text">github仓库和本地仓库关联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样"><span class="nav-number">3.11.1.</span> <span class="nav-text">方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样"><span class="nav-number">3.11.2.</span> <span class="nav-text">方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交-push"><span class="nav-number">4.</span> <span class="nav-text">提交(push)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一次提交"><span class="nav-number">4.1.</span> <span class="nav-text">第一次提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二次及以后"><span class="nav-number">4.2.</span> <span class="nav-text">第二次及以后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新代码-pull"><span class="nav-number">4.3.</span> <span class="nav-text">更新代码(pull)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。"><span class="nav-number">5.1.</span> <span class="nav-text">至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
