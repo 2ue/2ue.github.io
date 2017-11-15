@@ -1,6 +1,6 @@
 ---
 title: vue踩坑记（一）
-date: 2017-5-18 20:14:23
+date: 2017-5-18 22:10:55
 author: J.2ue
 tags:
 - vue
