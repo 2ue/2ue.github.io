@@ -196,4 +196,6 @@ categories:
 
 ## 最后
 
-在使用scoped一定要谨慎这个巨坑，已提[issue](https://github.com/vuejs/vue/issues/7067)。如果大家有好的解决方案或者其他发现希望一起交流
+~~ 在使用scoped一定要谨慎这个巨坑，已提[issue](https://github.com/vuejs/vue/issues/7067) ~~。
+`issue`已被干掉，`scoped`设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，所以如果要修改其他组件的样式，那么必定不能加`scoped`属性
+如果大家有好的解决方案或者其他发现希望一起交流
