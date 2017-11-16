@@ -15,7 +15,8 @@ categories:
 
 通过查看DOM结构发现：`vue`通过在DOM结构以及`css`样式上加唯一不重复的标记，以保证唯一，达到样式私有化模块化的目的。具体的渲染结果是怎样的，通过一个例子来说明。
 
-###　公共组件button组件
+### 公共组件button组件
+
 一个公共组件`button`，为了样式模块化，给其加上`scoped`属性，
 
 ``` vue
@@ -39,6 +40,7 @@ categories:
 ```
 
 ### 浏览器渲染button组件
+
 `button`组件在浏览器渲染出的`html`部分和`css`部分分别为：
 
 ``` html
@@ -196,6 +198,6 @@ categories:
 
 ## 最后
 
-~~ 在使用scoped一定要谨慎这个巨坑，已提[issue](https://github.com/vuejs/vue/issues/7067) ~~。
+<del> 在使用scoped一定要谨慎这个巨坑，已提[issue](https://github.com/vuejs/vue/issues/7067) </del>
 `issue`已被干掉，`scoped`设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，所以如果要修改其他组件的样式，那么必定不能加`scoped`属性
 如果大家有好的解决方案或者其他发现希望一起交流

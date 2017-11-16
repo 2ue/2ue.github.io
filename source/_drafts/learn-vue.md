@@ -8,7 +8,7 @@ categories:
 - vue
 ---
 
-> <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=530 height=86 src="//music.163.com/outchain/player?type=2&id=22677433&auto=1&height=66"></iframe>
+> <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=530 height=86 src="//music.163.com/outchain/player?type=2&id=22677433&auto=0&height=66"></iframe>
 
 # 发端
 从使用vue以来，断断续续已有半年，期间写过几个简单的demo，还厚颜无耻的放到了我的github上。直到最近，在项目中运用了vue，才发现以前自己对他的运用和理解真的很浅薄（-_- 现在也很浅薄），我觉得有必要记录一些使用心得（其实就是坑）。
@@ -34,7 +34,7 @@ categories:
     - 路由切换不刷新页面产生的影响以及解决方案
     - 前端如何实现重定向到404路由
     - 路由嵌套及继承（在子路由中使用'/'会发生什么）
-    -
+    - ...
 
 - 额外的周边工具的使用
     - webpack的配置
