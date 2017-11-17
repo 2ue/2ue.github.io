@@ -26,6 +26,7 @@ ps: 感谢伟大的开源贡献者
 - [[2017-11-15 19:09:16 - vue中慎用style的scoped属性](https://2ue.github.io/2017/11/15/vue-style-scoped/)]
 - [[2017-11-2 10:08:43 - 如何写一个日历组件](https://2ue.github.io/2017/11/2/how-to-make-a-kalendar/)]
 - [[2017-10-27 14:43:12 - 慎重用for...in与for...of](https://2ue.github.io/2017/10/27/for-in-and-for-of/)]
+- [[2017-10-16 10:16:37 - H5的Notification特性 - Web的桌面通知功能](https://2ue.github.io/2017/10/16/desktop-notification/)]
 - [[2017-10-10 11:06:52 - mocha+chai使用记录](https://2ue.github.io/2017/10/10/mocha+chai/)]
 - [[2017-10-10 10:06:30 - 前端测试探索](https://2ue.github.io/2017/10/10/fed-test/)]
 - [[2017-8-21 14:02:36 - node和npm版本管理器nvm的安装和使用](https://2ue.github.io/2017/8/21/nvm-node-version-manager/)]
