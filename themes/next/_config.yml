@@ -28,7 +28,7 @@ favicon:
   #ms_browserconfig: /images/browserconfig.xml
 
 # Set default keywords (Use a comma to separate)
-keywords: "FED，前端"
+keywords: "FED,前端,2ue"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -127,9 +127,10 @@ scheme: Pisces
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  Github: https://github.com/2ue
-  Weibo: http://weibo.com/Tonicof
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  Github: https://github.com/2ue || github
+  Weibo: http://weibo.com/Tonicof || weibo
+  E-Mail: mailto:jie746635835@163.com || envelope
+  Segment: https://segmentfault.com/u/j2ue
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -169,7 +170,7 @@ toc:
   number: true
 
   # If true, all words will placed on next lines if header width longer then sidebar width.
-  wrap: false
+  wrap: true
 
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/
@@ -364,31 +365,31 @@ han: false
 #duoshuo_shortname:
 
 # Disqus
-disqus:
-  enable: false
-  shortname:
-  count: true
+# disqus:
+#   enable: false
+#   shortname:
+#   count: true
 
 # Hypercomments
 #hypercomments_id:
 
 # changyan
-changyan:
-  enable: false
-  appid:
-  appkey:
+# changyan:
+#   enable: false
+#   appid:
+#   appkey:
 
 
 # Valine.
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://github.com/xCss/Valine
-valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
-  notify: false # mail notifier , https://github.com/xCss/Valine/wiki
-  verify: false # Verification code
-  placeholder: Comment input placeholder
+# valine:
+#   enable: false
+#   appid:  # your leancloud application appid
+#   appkey:  # your leancloud application appkey
+#   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
+#   verify: false # Verification code
+#   placeholder: Comment input placeholder
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
