@@ -1972,7 +1972,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff7321;
+  background: #e81882;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3179,7 +3179,7 @@ pre .javascript .function {
   border-bottom: 0;
 }
 .my_post_copyright a:hover {
-  color: #a3d2a3;
+  color: #fc6423;
   text-decoration: underline;
 }
 .my_post_copyright:hover .fa-clipboard {
@@ -3190,7 +3190,7 @@ pre .javascript .function {
 }
 .my_post_copyright .copy-path {
   margin-left: 1em;
-  width: 1em;
+  color: #fc6423;
 }
 @media (max-width: 767px) {
   .my_post_copyright .copy-path {
