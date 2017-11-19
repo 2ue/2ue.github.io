@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,Notification," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="目前，web网页使用桌面通知功能的越来越多，包括微博，腾讯视频等大厂站，桌面通知功能是H5的一个API - Notifications。它允许网页或应用程序可以发出通知，通知将被显示在页面之外的系统层面上（通常使用操作系统的标准通知机制，但是在不同的平台和浏览器上的表现会有差异），这样即使应用程序空闲或在后台也可以向用户发送信息。  应用场景Notifications的诞生简化了网站或者应用与用">
+<meta name="keywords" content="javascript,Notification">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H5的Notification特性 - Web的桌面通知功能">
+<meta property="og:url" content="http://2ue.github.io/2017/10/16/desktop-notification/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="目前，web网页使用桌面通知功能的越来越多，包括微博，腾讯视频等大厂站，桌面通知功能是H5的一个API - Notifications。它允许网页或应用程序可以发出通知，通知将被显示在页面之外的系统层面上（通常使用操作系统的标准通知机制，但是在不同的平台和浏览器上的表现会有差异），这样即使应用程序空闲或在后台也可以向用户发送信息。  应用场景Notifications的诞生简化了网站或者应用与用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://2ue.github.io/images/posts/notify-jianrong-pc.png">
+<meta property="og:image" content="http://2ue.github.io/images/posts/notify-jianrong-mobile.png">
+<meta property="og:updated_time" content="2017-11-19T02:48:53.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="H5的Notification特性 - Web的桌面通知功能">
+<meta name="twitter:description" content="目前，web网页使用桌面通知功能的越来越多，包括微博，腾讯视频等大厂站，桌面通知功能是H5的一个API - Notifications。它允许网页或应用程序可以发出通知，通知将被显示在页面之外的系统层面上（通常使用操作系统的标准通知机制，但是在不同的平台和浏览器上的表现会有差异），这样即使应用程序空闲或在后台也可以向用户发送信息。  应用场景Notifications的诞生简化了网站或者应用与用">
+<meta name="twitter:image" content="http://2ue.github.io/images/posts/notify-jianrong-pc.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2017/10/16/desktop-notification/"/>
+
+
+
+
+
+  <title>H5的Notification特性 - Web的桌面通知功能 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2017/10/16/desktop-notification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">H5的Notification特性 - Web的桌面通知功能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T10:16:37+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>目前，<code>web</code>网页使用桌面通知功能的越来越多，包括微博，腾讯视频等大厂站，桌面通知功能是<code>H5</code>的一个<code>API</code> - <code>Notifications</code>。它允许网页或应用程序可以发出通知，通知将被显示在页面之外的系统层面上（通常使用操作系统的标准通知机制，但是在不同的平台和浏览器上的表现会有差异），这样即使应用程序空闲或在后台也可以向用户发送信息。</p>
+</blockquote>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p><code>Notifications</code>的诞生简化了网站或者应用与用户之间的沟通成本（时间成本和开发成本），增强用户黏性（减少了用户离开应用的可能）。传统的通知方式，大多是通过站内信（消息），邮件，短信等方式，它们通常需要刷新（跳转）页面、离开应用打开其他应用或终端来查看消息；而桌面通知功能大大的简化了这个过程，消息的传递基本不消耗时间（如果不设置<code>setTimeout</code>，用时基本不会超过<code>1s</code>），并且用户不需要离开应用，这都带来了极大的方便。可以预见，<code>Notifications</code>将会在很多网页或应用中被大量使用。当然<code>Notifications</code>也具有它的局限性：无法存档、即看即毁<br>那么，这个功能到底能用在哪些场景呢？只能说能应用的场景很多：</p>
+<ul>
+<li>社交类网站</li>
+<li>资讯类网站</li>
+<li>网页版邮件服务</li>
+<li>即时通知类网站</li>
+<li>…</li>
+</ul>
+<h2 id="用户权限-Notification-permission"><a href="#用户权限-Notification-permission" class="headerlink" title="用户权限 - Notification.permission"></a>用户权限 - Notification.permission</h2><p><code>Notification.permission</code>是一个静态方法，可以获取用户当前的通知权限状态，返回一个<code>String</code>，可以根据返回值判断用户是否授予了通知权限。返回值有三种情况：</p>
+<ul>
+<li>default<ul>
+<li>用户还未被询问是否授权，所以通知不会被显示。</li>
+</ul>
+</li>
+<li>granted<ul>
+<li>表示之前已经询问过用户，并且用户已经授予了显示通知的权限。</li>
+</ul>
+</li>
+<li>denied<ul>
+<li>用户已经明确的拒绝了显示通知的权限。</li>
+</ul>
+</li>
+</ul>
+<p>当值为<code>default</code>或者<code>denied</code>时都不会显示通知消息，只有明确的被设置成<code>granted</code>才会显示通知消息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> permission = Notification.permission;</div><div class="line"><span class="keyword">if</span>(permission === <span class="string">'granted'</span>)&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'已经授权通知，可以进行你的通知啦！'</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'用户还未授权，请先授权！'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="请求权限-Notification-requestPermission-CALLBACK"><a href="#请求权限-Notification-requestPermission-CALLBACK" class="headerlink" title="请求权限 - Notification.requestPermission(CALLBACK)"></a>请求权限 - Notification.requestPermission(CALLBACK)</h2><p>应用发送通知之前必须要取得发送通知的权限，才能成功进行通知。<code>Notification.requestPermission(CALLBACK)</code>是请求获取权限的方法（有点类似<code>javascript</code>的<code>confirm</code>弹窗窗），允许传入一个回调，回调会返回用户选择的何种权限，返回两个值，<code>granted</code>代表允许，<code>denied</code>代表拒绝。并且<code>Notification.requestPermission()</code>支持<code>then</code>方式的链式调用，也就意味着可以异步调用它。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Notification.requestPermission(<span class="function"><span class="keyword">function</span> (<span class="params">permission</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'用户是否允许通知： '</span>,permission === <span class="string">'granted'</span> ? <span class="string">'允许'</span> : <span class="string">'拒绝'</span>);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//两种方式是等价的</span></div><div class="line">Notification.requestPermission().then(<span class="function"><span class="keyword">function</span> (<span class="params">permission</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'用户是否允许通知： '</span>,permission === <span class="string">'granted'</span> ? <span class="string">'允许'</span> : <span class="string">'拒绝'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="创建通知-new-Notification-TITLE-OPTIONS"><a href="#创建通知-new-Notification-TITLE-OPTIONS" class="headerlink" title="创建通知 - new Notification(TITLE, OPTIONS)"></a>创建通知 - new Notification(TITLE, OPTIONS)</h2><p><code>new Notification(TITLE, OPTIONS)</code>方法创建可以创建一个通知实例，允许参入参数两个参数<code>TITLE</code>和<code>OPTIONS</code>。注意默认情况下（实际可以通过<code>OPTIONS</code>中的<code>timestamp</code>参数控制）一旦通知实例被创建出来，它会立即被显示出来。</p>
+<h3 id="TITLE参数"><a href="#TITLE参数" class="headerlink" title="TITLE参数"></a>TITLE参数</h3><p><code>TITLE</code>表示通知的标题。必须参数，允许数字、字符串和空</p>
+<h3 id="OPTIONS参数"><a href="#OPTIONS参数" class="headerlink" title="OPTIONS参数"></a>OPTIONS参数</h3><p><code>OPTIONS</code>是非必须参数，必须为一个对象，它包含：<br>ps: 部分参数在某些浏览器可能会不生效，建议使用最新版的谷歌浏览器。以下某些内容从<a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank" rel="external">Notification-MDN-EN</a>结合谷歌翻译得来，很有可能翻译不准确，如有，请提出。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    //通知显示正文。非必须，默认为空</div><div class="line">    body: '你的好友XX上线了！',</div><div class="line">    //通知显示正文的图片地址。非必须，默认为空</div><div class="line">    image: 'imgae url',</div><div class="line">    //通知左侧图标。非必须，默认为空</div><div class="line">    icon: 'imgae url',</div><div class="line">    //通知的分类标记（ID）。非必须，默认为空</div><div class="line">    tag: 'test',</div><div class="line">    //通知相关联的数据，通常用于方法的回调，传参。非必须，默认为空</div><div class="line">    data: '可以是任意数据类型',</div><div class="line">    //通知显示延迟的时间。非必须，默认通知实例创建完成就显示</div><div class="line">    timestamp: '',</div><div class="line">    //通知主体内容的水平展示顺序，有点类似direction属性。非必须，默认值是auto, 可以是ltr或rtl</div><div class="line">    dir: 'auto',</div><div class="line">    //当没有足够的空间来显示通知本身时，用于表示通知的图像的URL。非必须，默认为空</div><div class="line">    badge: 'xxx',</div><div class="line">    //通知的语言。非必须默认为空</div><div class="line">    lang: '',</div><div class="line">    //通知显示时，设备的振动模式。非必须，默认为空</div><div class="line">    vibrate: [200, 100, 200],</div><div class="line">    //新通知出现是否覆盖旧的通知，覆盖（true）则永远只显示一条通知，不覆盖（false）则会多条通知重叠。非必须，默认为true</div><div class="line">    renotify: true,</div><div class="line">    //通知是否静音。非必须，默认为false，表示无声</div><div class="line">    silent: false,</div><div class="line">    //通知声源文件地址。非必须，默认为空</div><div class="line">    sound: 'mp3',</div><div class="line">    //是否不在屏幕上显示通知信息。非必须，默认为false表示要显示</div><div class="line">    noscreen: false,</div><div class="line">    //指定通知是否应该粘滞性，即不容易被用户清理。非必须，默认false表示不具粘滞性</div><div class="line">    sticky: false,</div><div class="line">    //指定通知是否保持活性，知道用户点击或关闭。非必须，默认为false</div><div class="line">    requireInteraction: false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="事件及事件钩子"><a href="#事件及事件钩子" class="headerlink" title="事件及事件钩子"></a>事件及事件钩子</h3><p>当通知被创建成功后：</p>
+<ul>
+<li>通知实例具有一个静态方法可以用来关闭通知</li>
+<li>通知实例具有四个事件钩子，来跟踪通知当前的状态。这些事件可以通过事件处理跟踪<code>onshow</code>、<code>onclick</code>、<code>onclose</code>和<code>onerror</code>。因为<code>Notification</code>同样继承自<code>EventTarget</code>，因此可以对它调用<code>addEventListener()</code>方法。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> n = <span class="keyword">new</span> Notification(<span class="string">'XX网站消息通知'</span>, &#123;</div><div class="line">    body: <span class="string">'你的朋友有新状态啦，快去围观吧！'</span>,</div><div class="line">    tag: <span class="string">'2ue'</span>,</div><div class="line">    icon: <span class="string">'https://2ue.github.io/images/common/avatar.png'</span>,</div><div class="line">    data: &#123;</div><div class="line">        url: <span class="string">'https://2ue.github.io'</span></div><div class="line">    &#125;,</div><div class="line">    timestamp: <span class="number">3000</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line">n.onshow = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'通知显示了！'</span>);</div><div class="line">&#125;</div><div class="line">n.onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="comment">//可以直接通过实例的方式获取data内自定义的数据</span></div><div class="line">    <span class="comment">//也可以通过访问回调参数e来获取data的数据</span></div><div class="line">    <span class="built_in">window</span>.open(n.data.url, <span class="string">'_blank'</span>);</div><div class="line">    n.close();</div><div class="line">&#125;</div><div class="line">n.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'你墙壁了我！！！'</span>);</div><div class="line">&#125;</div><div class="line">n.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'出错了，小伙子在检查一下吧'</span>);</div><div class="line">    <span class="keyword">throw</span> err;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>写一个简单的例子，可以打开页面体验一下，建议用最新版谷歌浏览器打开~ <a href="https://codepen.io/2ue/pen/rYYzwB" target="_blank" rel="external">Notification.js</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> NotificationInstance = Notification || <span class="built_in">window</span>.Notification;</div><div class="line"><span class="keyword">if</span> (!!NotificationInstance) &#123;</div><div class="line">    <span class="keyword">const</span> permissionNow = NotificationInstance.permission;</div><div class="line">    <span class="keyword">if</span> (permissionNow === <span class="string">'granted'</span>) &#123;<span class="comment">//允许通知</span></div><div class="line">        CreatNotification();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (permissionNow === <span class="string">'denied'</span>) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'用户拒绝了你!!!'</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        setPermission();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setPermission</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="comment">//请求获取通知权限</span></div><div class="line">        NotificationInstance.requestPermission(<span class="function"><span class="keyword">function</span> (<span class="params">PERMISSION</span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span> (PERMISSION === <span class="string">'granted'</span>) &#123;</div><div class="line">                CreatNotification();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'用户无情残忍的拒绝了你!!!'</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">CreatNotification</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">const</span> n = <span class="keyword">new</span> NotificationInstance(<span class="string">'XX网站消息通知'</span>, &#123;</div><div class="line">            body: <span class="string">'你的朋友有新状态啦，快去围观吧！'</span>,</div><div class="line">            tag: <span class="string">'2ue'</span>,</div><div class="line">            icon: <span class="string">'https://2ue.github.io/images/common/avatar.png'</span>,</div><div class="line">            data: &#123;</div><div class="line">                url: <span class="string">'https://2ue.github.io'</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        n.onshow = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'通知显示了！'</span>);</div><div class="line">        &#125;</div><div class="line">        n.onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">            <span class="comment">//可以直接通过实例的方式获取data内自定义的数据</span></div><div class="line">            <span class="comment">//也可以通过访问回调参数e来获取data的数据</span></div><div class="line">            <span class="built_in">window</span>.open(n.data.url, <span class="string">'_blank'</span>);</div><div class="line">            n.close();</div><div class="line">        &#125;</div><div class="line">        n.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'你墙壁了我！！！'</span>);</div><div class="line">        &#125;</div><div class="line">        n.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'出错了，小伙子在检查一下吧'</span>);</div><div class="line">            <span class="keyword">throw</span> err;</div><div class="line">        &#125;</div><div class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            n.close();</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="兼容"><a href="#兼容" class="headerlink" title="兼容"></a>兼容</h2><p><code>Notifications</code>是<code>H5</code>的新特性，毫无疑问，它的兼容肯定是一篇哀嚎.<br><img src="/images/posts/notify-jianrong-pc.png" alt="Notifications PC端兼容性"><br><img src="/images/posts/notify-jianrong-mobile.png" alt="Notifications 移动端兼容性"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank" rel="external">Notification-MDN-EN</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/notification" target="_blank" rel="external">Notification-MDN-CN</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/Notification/" rel="tag"># Notification</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/mocha+chai/" rel="next" title="mocha+chai使用记录">
+                <i class="fa fa-chevron-left"></i> mocha+chai使用记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/27/for-in-and-for-of/" rel="prev" title="慎重用for...in与for...of">
+                慎重用for...in与for...of <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-github"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jie746635835@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/j2ue" target="_blank" title="Segment">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Segment</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">1.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户权限-Notification-permission"><span class="nav-number">2.</span> <span class="nav-text">用户权限 - Notification.permission</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求权限-Notification-requestPermission-CALLBACK"><span class="nav-number">3.</span> <span class="nav-text">请求权限 - Notification.requestPermission(CALLBACK)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建通知-new-Notification-TITLE-OPTIONS"><span class="nav-number">4.</span> <span class="nav-text">创建通知 - new Notification(TITLE, OPTIONS)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TITLE参数"><span class="nav-number">4.1.</span> <span class="nav-text">TITLE参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OPTIONS参数"><span class="nav-number">4.2.</span> <span class="nav-text">OPTIONS参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件及事件钩子"><span class="nav-number">4.3.</span> <span class="nav-text">事件及事件钩子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demo"><span class="nav-number">5.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容"><span class="nav-number">6.</span> <span class="nav-text">兼容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
