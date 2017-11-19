@@ -18,8 +18,6 @@
 
 //my-post-copyright.styl
 .my_post_copyright {
-  // width: 100%;
-  // max-width: 45em;
   margin: 2.8em auto 0;
   padding: 0.5em 1.0em;
   border: 1px solid #d3d3d3;
@@ -44,7 +42,7 @@
   border-bottom:0;
 }
 .my_post_copyright a:hover {
-  color: #a3d2a3;
+  color: $orange;
   text-decoration: underline;
 }
 .my_post_copyright:hover .fa-clipboard {
@@ -55,7 +53,8 @@
 }
 .my_post_copyright .copy-path {
   margin-left: 1em;
-  width: 1em;
+  // width: 1em;
+  color: $orange;
   +mobile(){display:none;}
 }
 .my_post_copyright .copy-path:hover {
