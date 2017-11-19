@@ -13,3 +13,4 @@ public/
 .vscode
 .project
 .log
+package-lock.json
