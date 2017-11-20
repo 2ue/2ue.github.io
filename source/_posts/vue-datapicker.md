@@ -13,7 +13,7 @@ categories:
 
 ## 效果预览([demo](https://2ue.github.io/vue-datepicker))
 
- ![vue-datepicker](/images/posts/vue-datepicker2.gif)
+![vue-datepicker](/images/posts/vue-datepicker2.gif)
 
 ## 项目构建
 

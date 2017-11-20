@@ -91,9 +91,13 @@ var urlStr = window.location.search;
 console.log(urlStr.toObj()) //{itemtype:'sport',active:'basketball',time:'20160614'}
 console.log(urlStr.toObj('active'))  //basketball
 ```
+
 ## 利用正则表达式来获取参数
+
 强大的正则总是让人心生向往，利用正则无疑是最简洁优雅的一种方法
+
 ### 获取指定某个参数
+
 ``` javascript
     function getUrlParam(url,name){
         if(!name) return;
@@ -106,7 +110,9 @@ console.log(urlStr.toObj('active'))  //basketball
         }
     }
 ```
+
 ### 获取所有的参数
+
 ``` javascript
     function parse_url(url){
         if(!url) return;
@@ -118,6 +124,7 @@ console.log(urlStr.toObj('active'))  //basketball
         return parames;
     }
 ```
+
 ## 参数的利用
 
 在项目中这些参数有哪些用处呢，下面列举几个比较常用的用处
@@ -125,8 +132,6 @@ console.log(urlStr.toObj('active'))  //basketball
 - 导航定位
 - 更改状态
 - ...
-
-
 
 ### 导航定位
 

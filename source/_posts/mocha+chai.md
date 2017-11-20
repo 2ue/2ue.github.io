@@ -22,14 +22,14 @@ categories:
 >`mocha`是一个测试工具库，它只纯粹对测试行为(过程)进行描述；而`chai`是一个断言（推断）库，它可以将测试结果进行各种判断，以此推断是否符合预期，因此两者常常进行组合使用
 ### 安装
 
-``` shell
+``` bash
 //全局安装
 $ npm install -g mocha
 ```
 
 ps: 全局安装之后，`mocha`命令将会在全局注册，可以在任何地方使用`mocha`命令
 
-``` shell
+``` bash
 //安装项目依赖
 $ npm install mocha chai
 ```
@@ -38,7 +38,7 @@ $ npm install mocha chai
 
 ### 目录结构
 
-``` shell
+``` bash
 ├── test //测试用例
 │   ├── hooks.js //生命钩子
 │   ├── test.js //入口文件
@@ -75,7 +75,7 @@ describe('加法函数', function () {
 });
 ```
 
-``` shell
+``` bash
 $ mocha mocha/unit/add
   加法函数
     √ 1 + 3 = 4
@@ -94,7 +94,7 @@ $ mocha mocha/unit/add
 
 ## 通配符
 
-``` shell
+``` bash
 //test/unit目录下add.js和minus.js
 $ mocha test/unit/{add,minus}.js
 //test/unit目录下所有js后缀的文件
@@ -129,7 +129,7 @@ $ mocha test/unit/*.js
 `mocha.opts`放在`test`目录下，执行`mocha`命令时回去读取里面的配置
 命令行参数可以写在`mocha.opts`文件内,如
 
-``` shell
+``` bash
 $ mocha --reporter tap --recursive -t 3000
 ```
 
@@ -142,8 +142,7 @@ $ mocha --reporter tap --recursive -t 3000
 -t 13000
 ```
 
-``` shell
-
+``` bash
 $ mocha
 ```
 

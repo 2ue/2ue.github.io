@@ -292,7 +292,7 @@ gulp.task('dev', ['cssUglify', 'buildJs']);
 
 执行结果：
 
-``` shell
+``` bash
 { webpackGulpDeom }  » gulp
 [14:28:59] Using gulpfile D:\wamp64\www\webpackGulpDeom\gulpfile.js
 [14:28:59] Starting 'buildJs'...

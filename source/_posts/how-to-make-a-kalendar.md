@@ -46,7 +46,6 @@ function getMonthDays(year, month){
 
 getMonthDays(2016,2) //29
 getMonthDays(2017,2) //28
-
 ```
 
 ### 获取星期几
@@ -78,7 +77,6 @@ function getweeksInMonth(year, month){
     var FirstDayWeekday = getWeekday(year, month, 1);
     return Math.ceil(days + FirstDayWeekday);
 }
-
 ```
 
 ### 循环生成月份对象
@@ -141,7 +139,6 @@ getMonthDaysArray(year, month, day， type) {
     };
     return dayArrays;
 }
-
 ```
 
 ### 格式化时间

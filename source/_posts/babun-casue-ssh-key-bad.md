@@ -71,4 +71,3 @@ Hi 2ue! You've successfully authenticated, but GitHub does not provide shell acc
 
 1.https://github.com/Babun/Babun/issues/327
 2.http://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
-
