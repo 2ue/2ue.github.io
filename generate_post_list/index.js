@@ -1,7 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 
-var remotePath = path.join(__dirname, '../source/_posts');
+var sourcePath = path.join(__dirname, '../source');
+var remotePath = path.join(sourcePath, '_posts');
 var readmePath = path.join(__dirname, '../README.md');
 //markdown模板
 var readmeDemoPath = path.join(__dirname, '../README.demo.md');
@@ -50,6 +51,10 @@ console.log('====== 开始写入数据 ======\n', resText, '\n');
 
 // 写入文章列表
 fs.writeFile(readmePath, demoText.replace('[POST_LIST]', resText), 'utf-8', (err) => {
+    if (err) throw err;
+    console.log('======The file has been saved!======');
+});
+fs.writeFile(path.join(sourcePath, 'README.md'), demoText.replace('[POST_LIST]', resText), 'utf-8', (err) => {
     if (err) throw err;
     console.log('======The file has been saved!======');
 });
