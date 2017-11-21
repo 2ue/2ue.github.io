@@ -6,6 +6,7 @@
 - `posts`分支为文章和主题资源
 
 # 构建说明
+
 基于github的github-page
 使用开源项目[hexo](https://hexo.io)构建托管于`github`上的静态博客
 主题采用的是@iissnan贡献的[hexo-theme-next](https://github.com/iissnan/hexo-theme-next)
