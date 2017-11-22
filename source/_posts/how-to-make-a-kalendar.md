@@ -11,9 +11,15 @@ categories:
 
 > 众所周知，虽然`javascript`中关于时间的API有不少，我们可以通过方法单独的获取年、月、日、时、分、秒、毫秒...貌似很多，最近写了一个日历（以前写的，但写得很烂，最近优化一下），所以下面简单的记录一下如何写一个日历，列出了一些我在写日历过程中自己封装的一些方法
 
+## 效果图
+
+先来一张效果图，由于没有UI设计，所以就自己简单的设计了一个样式（好歹我也是设计专业的，虽然已不做设计很多年），虽然略丑，但重要的是功能！！！
+
+![datepicker](/images/posts/datepicker.gif)
+
 ## 思路
 
-一个日历到底是怎样用代码生成的？其实观察一下现有的日历展现形式，可以很快的形成思路，就是：根据计算把号数对应到正确的星期几上，并按照顺序逐一输出。
+一个日历到底是怎样用代码生成的？其实观察一下现有的日历展现形式，可以很快的形成思路，就是：根据计算把日期号数对应到正确的星期几上，并按照顺序逐一输出。
 以下是我的思路:
 - 取得月份的天数
 - 取得月份第一天是星期几
@@ -197,5 +203,6 @@ var time3 = formate("MM-DD-YYYY", time2); //11-2-2017
 
 ## 最后
 
+附上这些方法的源码[datepicker](https://github.com/2ue/vui/blob/master/src/utils/datepicker.js)
+基于vue实现的一个demo[vue-datepicker](https://2ue.github.io/vui/#/DatePicker)
 当然这只是最简单的日历输出，思路也是超级简单（感觉有点Low），如果有大神愿意分享它的经验欢迎，来邮~
-最后附上[datepicker.js](https://github.com/2ue/vui/blob/master/src/utils/datepicker.js)
