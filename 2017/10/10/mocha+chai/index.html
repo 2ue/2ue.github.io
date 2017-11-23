@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="前端路上">
 <meta property="og:description" content="mocha+chai是比较流行的测试框架‘套装’，能实现一些基本的前端测试如函数功能测试，模拟登陆，异步测试,流程测试等  官方文档mochachai基本用法 mocha是一个测试工具库，它只纯粹对测试行为(过程)进行描述；而chai是一个断言（推断）库，它可以将测试结果进行各种判断，以此推断是否符合预期，因此两者常常进行组合使用 安装 12//全局安装$ npm install -g moch">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-14T15:19:55.005Z">
+<meta property="og:updated_time" content="2017-11-20T10:13:56.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mocha+chai使用记录">
 <meta name="twitter:description" content="mocha+chai是比较流行的测试框架‘套装’，能实现一些基本的前端测试如函数功能测试，模拟登陆，异步测试,流程测试等  官方文档mochachai基本用法 mocha是一个测试工具库，它只纯粹对测试行为(过程)进行描述；而chai是一个断言（推断）库，它可以将测试结果进行各种判断，以此推断是否符合预期，因此两者常常进行组合使用 安装 12//全局安装$ npm install -g moch">
@@ -384,21 +384,21 @@
 <h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><h3 id="mocha"><a href="#mocha" class="headerlink" title="mocha"></a><a href="http://mochajs.org/" target="_blank" rel="external">mocha</a></h3><h3 id="chai"><a href="#chai" class="headerlink" title="chai"></a><a href="http://chaijs.com/" target="_blank" rel="external">chai</a></h3><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><blockquote>
 <p><code>mocha</code>是一个测试工具库，它只纯粹对测试行为(过程)进行描述；而<code>chai</code>是一个断言（推断）库，它可以将测试结果进行各种判断，以此推断是否符合预期，因此两者常常进行组合使用</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3></blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//全局安装</div><div class="line"><span class="meta">$</span><span class="bash"> npm install -g mocha</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//全局安装</div><div class="line">$ npm install -g mocha</div></pre></td></tr></table></figure>
 <p>ps: 全局安装之后，<code>mocha</code>命令将会在全局注册，可以在任何地方使用<code>mocha</code>命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//安装项目依赖</div><div class="line"><span class="meta">$</span><span class="bash"> npm install mocha chai</span></div></pre></td></tr></table></figure>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">├── test //测试用例</div><div class="line">│   ├── hooks.js //生命钩子</div><div class="line">│   ├── test.js //入口文件</div><div class="line">│   └── unit //测试单例</div><div class="line">│       ├── add.js</div><div class="line">│       └── ...</div><div class="line">└── src //业务代码</div><div class="line">    ├── add.js</div><div class="line">    └── ...</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//安装项目依赖</div><div class="line">$ npm install mocha chai</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">├── <span class="built_in">test</span> //测试用例</div><div class="line">│   ├── hooks.js //生命钩子</div><div class="line">│   ├── test.js //入口文件</div><div class="line">│   └── unit //测试单例</div><div class="line">│       ├── add.js</div><div class="line">│       └── ...</div><div class="line">└── src //业务代码</div><div class="line">    ├── add.js</div><div class="line">    └── ...</div></pre></td></tr></table></figure>
 <p>所有测试代码都在test目录，所有的业务代码都在src目录</p>
 <h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//src/add.js</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div><div class="line"><span class="built_in">module</span>.exports = add;</div></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//test/unit/add.js</span></div><div class="line"><span class="keyword">var</span> add = <span class="built_in">require</span>(<span class="string">'../../src/add.js'</span>);</div><div class="line"><span class="keyword">var</span> expect = <span class="built_in">require</span>(<span class="string">'chai'</span>).expect;</div><div class="line"></div><div class="line">describe(<span class="string">'加法函数'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    it(<span class="string">'1 + 3 = 4'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        expect(add(<span class="number">1</span>, <span class="number">3</span>)).to.be.equal(<span class="number">4</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mocha mocha/unit/add</span></div><div class="line">  加法函数</div><div class="line">    √ 1 + 3 = 4</div><div class="line">  1 passing (16ms)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ mocha mocha/unit/add</div><div class="line">  加法函数</div><div class="line">    √ 1 + 3 = 4</div><div class="line">  1 passing (16ms)</div></pre></td></tr></table></figure>
 <h2 id="Expect-Should-Assert"><a href="#Expect-Should-Assert" class="headerlink" title="Expect/Should/Assert"></a>Expect/Should/Assert</h2><pre><code>The Expect / Should API covers the BDD assertion styles.
 The Assert API covers the TDD assertion style.
 </code></pre><h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><ul>
 <li>非<code>promise</code>异步一定要带上<code>done()</code>，用于通知<code>mocha</code>该测试已经完成</li>
 <li>异步通常和参数<code>-t</code>结合一起用</li>
 </ul>
-<h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//test/unit目录下add.js和minus.js</div><div class="line"><span class="meta">$</span><span class="bash"> mocha <span class="built_in">test</span>/unit/&#123;add,minus&#125;.js</span></div><div class="line">//test/unit目录下所有js后缀的文件</div><div class="line"><span class="meta">$</span><span class="bash"> mocha <span class="built_in">test</span>/unit/*.js</span></div></pre></td></tr></table></figure>
+<h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//<span class="built_in">test</span>/unit目录下add.js和minus.js</div><div class="line">$ mocha <span class="built_in">test</span>/unit/&#123;add,minus&#125;.js</div><div class="line">//<span class="built_in">test</span>/unit目录下所有js后缀的文件</div><div class="line">$ mocha <span class="built_in">test</span>/unit/*.js</div></pre></td></tr></table></figure>
 <p><code>mocha</code>支持<code>shell</code>和<code>node</code>的通配符匹配规则，更多通配符规则可以查看各自的文档</p>
 <h2 id="命令行参数与配置文件mocha-opts"><a href="#命令行参数与配置文件mocha-opts" class="headerlink" title="命令行参数与配置文件mocha.opts"></a>命令行参数与配置文件mocha.opts</h2><h3 id="常用的命令行"><a href="#常用的命令行" class="headerlink" title="常用的命令行"></a>常用的命令行</h3><ul>
 <li>–recursive</li>
@@ -420,10 +420,10 @@ The Assert API covers the TDD assertion style.
 <li>–hlep,-h</li>
 </ul>
 <p>查看有哪些命令<br><code>mocha.opts</code>放在<code>test</code>目录下，执行<code>mocha</code>命令时回去读取里面的配置<br>命令行参数可以写在<code>mocha.opts</code>文件内,如</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mocha --reporter tap --recursive -t 3000</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mocha --reporter tap --recursive -t 3000</div></pre></td></tr></table></figure>
 <p>等价于<br><code>test/mocha.opts</code>文件内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">--reporter tap</div><div class="line">--recursive</div><div class="line">-t 13000</div></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">$</span><span class="bash"> mocha</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mocha</div></pre></td></tr></table></figure>
 <h2 id="hooks（钩子）"><a href="#hooks（钩子）" class="headerlink" title="hooks（钩子）"></a>hooks（钩子）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">describe(<span class="string">'hooks'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">  before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在本区块的所有测试用例之前执行</span></div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  after(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在本区块的所有测试用例之后执行</span></div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  beforeEach(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在本区块的每个测试用例之前执行</span></div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  afterEach(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在本区块的每个测试用例之后执行</span></div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="comment">// test cases</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>可以写在测试用例内（每个<code>describe</code>块内），此时只对当前测试用例有效<br>也可以写在外部，此时对所有的测试用例有效</p>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
@@ -494,7 +494,7 @@ The Assert API covers the TDD assertion style.
   <p><span>本文标题:</span><a href="/2017/10/10/mocha+chai/">mocha+chai使用记录</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年10月10日 - 11:10</p>
-  <p><span>最后更新:</span>2017年11月14日 - 23:11</p>
+  <p><span>最后更新:</span>2017年11月20日 - 18:11</p>
   <p><span>原始链接:</span><a href="/2017/10/10/mocha+chai/" title="mocha+chai使用记录">http://2ue.github.io/2017/10/10/mocha+chai/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/10/10/mocha+chai/"  aria-label="复制成功！"></i></span>
   </p>
@@ -641,7 +641,7 @@ The Assert API covers the TDD assertion style.
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -652,7 +652,7 @@ The Assert API covers the TDD assertion style.
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -769,7 +769,7 @@ The Assert API covers the TDD assertion style.
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共24.5k字</span>
+    <span class="post-count">共24.7k字</span>
   </div>
 </div>
 
