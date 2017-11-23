@@ -22,6 +22,14 @@ categories:
 - 即时通知类网站
 - ...
 
+举个例子，当你打开微博页面，你可能会看到（使用新版浏览器）如下图的通知：
+![desktop-notification1](/images/posts/desktop-notification1.png)
+
+这就是网站使用了桌面通知功能，当你选择允许，那么当网站有推送消息或者你登陆账号有新的消息将会在桌面的右下角出现一个小弹窗通知，如下：
+![desktop-notification2](/images/posts/desktop-notification2.png)
+
+感觉有点酷酷的！！！
+
 ## 用户权限 - Notification.permission
 
 `Notification.permission`是一个静态方法，可以获取用户当前的通知权限状态，返回一个`String`，可以根据返回值判断用户是否授予了通知权限。返回值有三种情况：

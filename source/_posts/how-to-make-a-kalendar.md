@@ -204,5 +204,8 @@ var time3 = formate("MM-DD-YYYY", time2); //11-2-2017
 ## 最后
 
 附上这些方法的源码[datepicker](https://github.com/2ue/vui/blob/master/src/utils/datepicker.js)
-基于vue实现的一个demo[vue-datepicker](https://2ue.github.io/vui/#/DatePicker)
+基于vue实现的一个日历：
+- demo[vue-datepicker](https://2ue.github.io/vui/#/DatePicker)
+- 源码[datePickerPanel.vue](https://github.com/2ue/vui/blob/master/src/components/datePicker/datePickerPanel.vue)
+
 当然这只是最简单的日历输出，思路也是超级简单（感觉有点Low），如果有大神愿意分享它的经验欢迎，来邮~
