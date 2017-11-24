@@ -1,30 +1,26 @@
 ---
-title: 开发中html的转义和反转义与javascript的转码和解码？
-date: 2017-10-17 9:44:42
+title: 深入了解字符串的转义反转义与转码和解码
+date: 2017-11-24 9:04:49
 author: J.2ue
 tags:
 - 转义
+- 反转义
 - 转码
 - 解码
-- javascript
 categories:
-- tips
+- javascript
 ---
 
-> 如果数据库需要存储一段前端相关的代码，通常在存储之前我们往往需要转义或转码。当我们再次从数据库得到数据插入到页面时，可能也要转义和转码。
+> 开发过程中，常常涉及到前后端数据交互，当前端向后端发送数据时，出于某些目的（下面具体说）我们常常会对数据中的某些字符串进行转义或转码；当前端从后端拿到数据后，对应被转义或转码的字符也要转义回来，已保证和用户的期望一致。
 
 ## 目的
 
 通常而言，转义和转码的目的不同。
-
 转义通常是为了保持信息的完整度和存储一致性：
-
-- 像`<`和`>`这类符号已经用来表示`HTML`标签，因此就不能直接当作文本中的符号来使用。为了在`HTML`文档中使用这些符号，就需要定义它的转义字符串，当解释程序遇到这类字符串时就把它解释为真实的字符。
-- 有些字符在`ASCII`字符集中没有定义，因此需要使用转义字符串来表示
-
+* 像`<`和`>`这类符号已经用来表示`HTML`标签，因此就不能直接当作文本中的符号来使用。为了在`HTML`文档中使用这些符号，就需要定义它的转义字符串，当解释程序遇到这类字符串时就把它解释为真实的字符。
+* 有些字符在`ASCII`字符集中没有定义，因此需要使用转义字符串来表示
 转码通常是对于`javascript`代码，一般是为了安全
-
-- 为了防止注入攻击（`XSS`），需要转义
+* 为了防止注入攻击（`XSS`），需要转义
 
 ## 转义字符串的组成
 
@@ -50,11 +46,11 @@ categories:
 ``` javascript
 
 this.HTML_DECODE = {
-    "<"  : "<", 
-    ">"  : ">", 
-    "&" : "&", 
-    " ": " ", 
-    """: "\"", 
+    "<"  : "<",
+    ">"  : ">",
+    "&" : "&",
+    " ": " ",
+    """: "\"",
     "©": "©"
 };
 (function getSTr(str){
@@ -115,13 +111,13 @@ function htmlDecode(str) {
     return _html;
 };
 
-//获取Html转义字符  
+//获取Html转义字符
 function htmlEncode(html) {
   return document.createElement('a').appendChild(document.createTextNode(html)).parentNode.innerHTML;
 };
-//获取Html   
+//获取Html
 function htmlDecode(html) {
   var a = document.createElement('a');
-  a.innerHTML = html;  
-  return a.textContent;  
+  a.innerHTML = html;
+  return a.textContent;
 };
