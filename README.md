@@ -31,6 +31,7 @@ ps: 感谢伟大的开源贡献者
 如何生成文章列表？
 执行`npm run g`或者`node generate_post_list`
 
+- [[2017-11-24 9:57:10 - 一道小小的题目引发对javascript支持正则表达式相关方法的探讨](https://2ue.github.io/2017/11/24/regex-to-something/)]
 - [[2017-11-15 19:09:16 - vue中慎用style的scoped属性](https://2ue.github.io/2017/11/15/vue-style-scoped/)]
 - [[2017-11-2 10:08:43 - 如何写一个日历组件](https://2ue.github.io/2017/11/2/how-to-make-a-kalendar/)]
 - [[2017-10-27 14:43:12 - 慎重用for...in与for...of](https://2ue.github.io/2017/10/27/for-in-and-for-of/)]
