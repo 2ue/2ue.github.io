@@ -105,18 +105,18 @@
 
 
 
-<meta name="description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+<meta name="description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，使代码变得更优雅，也使实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
 <meta name="keywords" content="正则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用正则整理(持续收集)">
 <meta property="og:url" content="http://2ue.github.io/2016/09/05/regex/index.html">
 <meta property="og:site_name" content="前端路上">
-<meta property="og:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+<meta property="og:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，使代码变得更优雅，也使实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-15T12:22:19.916Z">
+<meta property="og:updated_time" content="2017-11-24T10:41:28.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用正则整理(持续收集)">
-<meta name="twitter:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
+<meta name="twitter:description" content="正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，使代码变得更优雅，也使实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅  1234567891011121314151617181920212223242526272829303132333435var regex = window.regex || (function (document, $) &amp;#123;">
 
 
 
@@ -379,7 +379,7 @@
 
       
         <blockquote>
-<p>正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，是代码变得更优雅，也是实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅</p>
+<p>正则的魅力在于使用很简洁的方式解决一些比较复杂的方式，使代码变得更优雅，也使实现的过程变得更简单透明。本文搜集整理一些常用正则，记录以便查阅</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="built_in">window</span>.regex || (<span class="function"><span class="keyword">function</span> (<span class="params">document, $</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> _reg = &#123;&#125;;</div><div class="line">        <span class="comment">/* 'pwd':/^[\@A-Za-z0-9\!\#\$\%\^\&amp;\*\.\~]&#123;6,16&#125;$/,//密码 */</span></div><div class="line">        <span class="comment">//验证数字</span></div><div class="line">        $.extend(_reg, &#123;</div><div class="line">            <span class="string">'num'</span>: <span class="regexp">/^\d+$/</span>, <span class="comment">//数字</span></div><div class="line">            <span class="string">'znum'</span>: <span class="regexp">/^[1-9](\d+)?$/</span>, <span class="comment">//  大于0的数字</span></div><div class="line">            <span class="string">'float'</span>: <span class="regexp">/^[-]&#123;0,1&#125;(\d+)[\.]+(\d+)$/</span>, <span class="comment">//浮点数</span></div><div class="line">            <span class="string">'money'</span>: <span class="regexp">/^\d&#123;1,12&#125;(?:\.\d&#123;1,3&#125;)?$/</span>, <span class="comment">// money</span></div><div class="line">            <span class="string">'idCard'</span>: <span class="regexp">/^\d&#123;15&#125;$|^\d&#123;18&#125;$|^\d&#123;17&#125;[xX]$/</span>, <span class="comment">//身份证</span></div><div class="line">            <span class="string">'idCardStrict'</span>:<span class="regexp">/^(\d&#123;6&#125;)([1-2])(\d&#123;3&#125;)((?:0[1-9])|(?:1[0-2]))((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))(\d&#123;3&#125;)(\d&#123;1&#125;)$/</span>,</div><div class="line">            <span class="string">'qq'</span>: <span class="regexp">/^[1-9]\d&#123;4,15&#125;$/</span>, <span class="comment">//QQ</span></div><div class="line">            <span class="string">'pwd'</span>: <span class="regexp">/^[\@A-Za-z0-9]&#123;6,16&#125;$/</span>, <span class="comment">//密码</span></div><div class="line">            <span class="string">'areacode'</span>: <span class="regexp">/^(0[1,2]&#123;1&#125;\d&#123;1&#125;)$|^(0[3-9]&#123;1&#125;\d&#123;2&#125;)$/</span>, <span class="comment">//区号</span></div><div class="line">            <span class="string">'tel'</span>: <span class="regexp">/^\d&#123;7,8&#125;$/</span>, <span class="comment">// 固话格式</span></div><div class="line">            <span class="string">'mobile'</span>: <span class="regexp">/^((\+86)|(\(\+86\)))?-?(13|14|15|18|17)[0-9]&#123;9&#125;$/</span>, <span class="comment">//验证手机号码</span></div><div class="line">            <span class="string">'telephone'</span>: <span class="regexp">/^(((\+)?86)|(\(\+86\)))?-?((((0)?[1,2]&#123;1&#125;\d&#123;1&#125;)?-?\d&#123;8&#125;)|((0[3-9]&#123;1&#125;\d&#123;2&#125;)?-?\d&#123;7,12&#125;))-?(\d&#123;1,8&#125;)?$/</span>, <span class="comment">//验证固定电话</span></div><div class="line">            <span class="string">'phone'</span>: <span class="regexp">/^((\+86)|(\(\+86\)))?-?(13|14|15|18|17)[0-9]&#123;9&#125;$|^((\+86)|(\(\+86\)))?-?(((0[1,2]&#123;1&#125;\d&#123;1&#125;)?-?\d&#123;8&#125;)|((0[3-9]&#123;1&#125;\d&#123;2&#125;)?-?\d&#123;7,8&#125;))$/</span>, <span class="comment">//手机号码和固定电话</span></div><div class="line">            <span class="string">'zipcode'</span>: <span class="regexp">/^\d&#123;6&#125;$/</span> <span class="comment">//验证邮编</span></div><div class="line">        &#125;);</div><div class="line">        <span class="comment">//验证字符串</span></div><div class="line">        $.extend(_reg, &#123;</div><div class="line">            <span class="string">'email'</span>: <span class="regexp">/^\w&#123;1,16&#125;([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/</span>, <span class="comment">//邮箱</span></div><div class="line">            <span class="string">'chinese'</span>: <span class="regexp">/^[\u4E00-\u9FA5]+$/</span>, <span class="comment">//仅汉字</span></div><div class="line">            <span class="string">'char'</span>: <span class="regexp">/^[A-Za-z]+$/</span>, <span class="comment">//仅仅是字母</span></div><div class="line">            <span class="string">'charn'</span>: <span class="regexp">/^[A-Za-z0-9]+$/</span>, <span class="comment">//数字加字母</span></div><div class="line">            <span class="string">'nospecial'</span>: <span class="regexp">/^[\u4E00-\u9FA5A-Za-z0-9]+$/</span>, <span class="comment">// 不包含特殊字符</span></div><div class="line">            <span class="string">'url'</span>: <span class="regexp">/^((http|https|ftp):\/\/)?(\w(\:\w)?@)?([0-9a-z_-]+\.)*?([a-z0-9-]+\.[a-z]&#123;2,6&#125;(\.[a-z]&#123;2&#125;)?(\:[0-9]&#123;2,6&#125;)?)((\/[^?#&lt;&gt;\/\\*":]*)+(\?[^#]*)?(#.*)?)?$/</span>,</div><div class="line">            <span class="string">'loginName'</span>: <span class="regexp">/^(13|14|15|18|17)[0-9]&#123;9&#125;$|^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/</span>, <span class="comment">// 用户名</span></div><div class="line">            <span class="string">'userName'</span>: <span class="regexp">/^[\u4e00-\u9fa5]&#123;2`,4&#125;$|[a-zA-Z]&#123;4,20&#125;$/</span>, <span class="comment">//真实姓名</span></div><div class="line">            <span class="string">'nickName'</span>: <span class="regexp">/^([a-zA-Z\u4e00-\u9fa5]&#123;1&#125;[a-zA-Z0-9_\u4e00-\u9fa5]&#123;3,19&#125;)$/</span> <span class="comment">//昵称</span></div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> _reg;</div><div class="line">    &#125;)(<span class="built_in">document</span>, <span class="built_in">window</span>.jQuery);</div><div class="line"><span class="built_in">window</span>.regex = regex;</div></pre></td></tr></table></figure>
 
@@ -446,7 +446,7 @@
   <p><span>本文标题:</span><a href="/2016/09/05/regex/">常用正则整理(持续收集)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2016年09月05日 - 12:09</p>
-  <p><span>最后更新:</span>2017年11月15日 - 20:11</p>
+  <p><span>最后更新:</span>2017年11月24日 - 18:11</p>
   <p><span>原始链接:</span><a href="/2016/09/05/regex/" title="常用正则整理(持续收集)">http://2ue.github.io/2016/09/05/regex/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2016/09/05/regex/"  aria-label="复制成功！"></i></span>
   </p>
@@ -571,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -593,7 +593,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -694,7 +694,7 @@
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共24.7k字</span>
+    <span class="post-count">共27.6k字</span>
   </div>
 </div>
 
