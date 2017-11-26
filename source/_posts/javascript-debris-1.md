@@ -1,6 +1,6 @@
 ---
-title: 常用javascript碎片(1)
-date: 2016-11-9 10:02:30
+title: 常用javascript代码片段
+date: 2017-11-26 22:37:45
 author: J.2ue
 tags:
 - sinpats
@@ -8,21 +8,23 @@ categories:
 - javascript
 ---
 
-> 轮子很多，但并不是所有的轮子都适合自己的业务，并且有时候为了精简代码，也不想引入一个完整的库，所有搜集整理一些项目中常用的代码片段，给自己也给大家造轮子提供参考。造自己的轮子，让别人去说吧！
+> 下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是尽量拒绝引入臃肿的（功能太多，也许我它的几十个功能我只会用到其中一个）三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！
 
 ## placeholder属性支持
 
+有时候项目中placeholder也许要兼容某些特殊的浏览器，所以才有了下面这段代码。这种方案有一个缺点就是：如果你恰好要对这个输入框绑定focus事件并操作它的值，必须要小心处理
+
 ```javascript
 //修复不支持placeholder属性 start
-var isSurportPlder = "placeholder" in document.createElement("input"); // 判断浏览器是否支持 placeholder
+const isSurportPlder = "placeholder" in document.createElement("input"); // 判断浏览器是否支持 placeholder
 if (!isSurportPlder) {
   $("[placeholder]").focus(function () {
-    var _this = $(this);
+    const _this = $(this);
     if (_this.val() == _this.attr("placeholder")) {
       _this.val('');
     }
   }).blur(function () {
-    var _this = $(this);
+    const _this = $(this);
     if (_this.val() == '' || _this.val() == _this.attr("placeholder")) {
       _this.val(_this.attr("placeholder"));
     }
@@ -30,69 +32,117 @@ if (!isSurportPlder) {
 };
 ```
 
-## 转换时间，输出2016-08-02格式日期
+## 格式化时间
+
+关于格式化时间有很多插件，其中比较有名的就可以列很大一堆出来，比如老牌的[moment.js](https://github.com/moment/moment)，最近比较多star的[luxon.js](https://github.com/moment/luxon); 对于为什么不选择他么，上面已经说了原因了。
 
 ```javascript
-function formatDate(date) {
+formate(fmt, date) {
+    date = new Date(date).toString() === 'Invalid Date' ? new Date() : new Date(date);
+    const _rules = [{
+        rule: '[yY]{4}',
+        value: date.getFullYear()
+    }, {
+        rule: 'M+',
+        value: date.getMonth() + 1
+    }, {
+        rule: '[dD]+',
+        value: date.getDate()
+    }, {
+        rule: 'h+',
+        value: date.getHours()
+    }, {
+        rule: 'm+',
+        value: date.getMinutes()
+    }, {
+        rule: 's+',
+        value: date.getSeconds()
+    }, {
+        rule: 'ms{1,2}',
+        value: date.getMilliseconds()
+    }];
 
-  var resDate = '';
-  var _val = !date ? new Date() : new Date(date); //没传入时间则默认为当前系统时间
-  var year = _val.getFullYear(),
-      month = _val.getMonth() + 1,
-      day = _val.getDate();
-
-  month = (month < 10) ? ('0' + month) : month;
-  day = (day < 10) ? ('0' + day) : day;
-  resDate = year + '-' + month + '-' + day;
-
-  return resDate;
-
-};
+    _rules.forEach((_r) => {
+        const rule = _r.rule, val = _r.value;
+        fmt = fmt.replace(new RegExp(rule), function ($1) {
+            const rLen = val.toString().length, fLen = $1.length;
+            return (fLen !== 2 || rLen >= fLen) ? val : ['00', val].join('').substr(rLen);
+        });
+    });
+    return fmt;
+}
 ```
 
 ## 判断浏览器版本(PC)
 
-```javascript
-function BrowserType() {
-  var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-  var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
-  var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
-  var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE; //判断是否IE的Edge浏览器
-  var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
-  var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
-  var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+浏览器的判断涉及到很多复杂的变量和参数，所以偷懒选取了一个比较好的库，如果大家有更好的库，请推荐过来！
 
-  if (isIE) {
-    var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-    reIE.test(userAgent);
-    var fIEVersion = parseFloat(RegExp["$1"]);
-    return fIEVersion;
-  } //isIE end
-
-  if (isFF) {
-    return "FF";
-  }
-  if (isOpera) {
-    return "Opera";
-  }
-  if (isSafari) {
-    return "Safari";
-  }
-  if (isChrome) {
-    return "Chrome";
-  }
-  if (isEdge) {
-    return "Edge";
-  }
-  return 'Others';
-}
-```
+[browser.js](https://github.com/mumuy/browser)
 
 ## 数字转换成千分位格式(如：123,456,9.89)
 
 ```javascript
 function translateThree(num) {
-  var newNum = num.split('').reverse().join('').replace(/(\d{3}(?=\d)(?!\d+\.|$))/g, '$1,').split('').reverse().join('');
-  return newNum;
+  return num.split('').reverse().join('').replace(/(\d{3}(?=\d)(?!\d+\.|$))/g, '$1,').split('').reverse().join('');
 }
 ```
+
+## 判断任意数据的类型
+
+精准的判断类型，`'2'`会识别成`string`类型，`2`会识别成`number`类型
+
+``` javascript
+function tryType(para) {
+    const type = typeof para;
+    if (type === "number" && isNaN(para)) return "NaN";
+    if (type !== "object") return type;
+    return Object.prototype.toString
+        .call(para)
+        .replace(/[\[\]]/g, "")
+        .split(" ")[1]
+        .toLowerCase();
+}
+```
+
+## 判断是不是一个可计算的数字
+
+上面的`tryType`方法会将`'2'`和`2`区别成两种类型，而这个方法将忽略这种区别
+
+``` javascript
+function isNumber(para) {
+    if (window.isNumber) return window.isNumber(para);
+    if (Number.isNumber) return Number.isNumber(para);
+    return typeof para !== "undefined" && !isNaN(para);
+}
+```
+
+## 深度取值防止代码挂掉
+
+以前在代码中经常写`a[2].list[3].name`，这种代码很不可靠，很容易由于数据的一点小错误，导致js代码挂掉，出的问题多了自然就会思考问题的解决方案，正好当时时隔不久看到一篇文章[如何优雅安全地在深层数据结构中取值](http://www.jianshu.com/p/11fc75f28302)。
+分析了一下博主的思路，没有像原博主那样使用`xs && xs[x]`判断来打断取值，是因为这种情况可能会把`0`这种类型的值误伤
+
+``` javascript
+function getValueFromDeepData (props, target){
+    if (!props || !target) return undefined;
+    return props.reduce((pre, nxt) => (typeof pre === 'undefined' || typeof pre[nxt] === 'undefined' ? undefined : pre[nxt]), target);
+}
+```
+
+## 反转义字符串
+
+何谓反转义字符串？就是后端在传输HTML代码的时候往往会对字符串处理：把一些特殊符号转义了；当我们拿到HTML渲染到页面希望他按照HTML代码的格式来显示，而不是按照转义的字符串显示成文本，所以我们需要对这段字符串反转义！
+网上看到很多解决方案是通过正则的方式一一替换过来，但是个人觉得这样不好维护。后面发现一种浏览器自动转换的办法，利用这一特性，可以通过js创建一个虚拟的DOM节点，然后把需要转义的字符串使用innerHTML方法放进去，再通过nodeValue方法取出来。
+但这种方法需要注意的是：`e.childNodes`是一个数组，它将`_html`分段（每65536字符分一段）存储到`e.childNodes[i]`中，使用`e.childNodes`方法取得反转义后的字符串需要循环`e.childNodes`数组。我看到网上很多方法都是直接取的`e.childNodes[0].nodeValue`，这样在内容过多的时候，是无法把数据取完整的
+
+``` javascript
+function htmlDecode(str) {
+    const e = document.createElement('div'), _html = '';
+    e.innerHTML = str;
+    for (let i = 0; i < e.childNodes.length; i++) {
+        _html += e.childNodes[i].nodeValue;
+    };
+    return _html;
+};
+```
+
+## 未完

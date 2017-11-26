@@ -1,16 +1,15 @@
 ---
-title: 在项目中的vue实践与踩坑
-date: 2017-5-18 22:10:55
+title: vue项目中通过router自动生成导航菜单
+date: 2017-11-26 21:36:49
 author: J.2ue
 tags:
-- vue
+- vue-router
 - javascript
 categories:
 - vue
 ---
 
-> <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=530 height=86 src="//music.163.com/outchain/player?type=2&id=22677433&auto=0&height=66"></iframe>
-从昨年开始，自己折腾vue也很久了，最近半年在项目中大量使用了vue，深深体会到了vue框架的便捷，高效。但由于开发模式的转变以及框架某些方面的限制也踩了不少坑，由此记录下来一些解决方案或者坑，最后发现仔细读官方文档会少踩很多坑。
+> <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=530 height=86 src="//music.163.com/outchain/player?type=2&id=22677433&auto=0&height=66"></iframe>从昨年开始，自己折腾vue也很久了，最近半年在项目中大量使用了vue，深深体会到了vue框架的便捷，高效。但由于开发模式的转变以及框架某些方面的限制也踩了不少坑，由此记录下来一些解决方案或者坑，最后发现仔细读官方文档会少踩很多坑。
 
 ## 谨慎箭头函数
 

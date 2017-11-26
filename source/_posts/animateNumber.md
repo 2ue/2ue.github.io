@@ -9,15 +9,13 @@ categories:
 - javascript
 ---
 
-> 利用jquery.animateNumber插件实现一个简单的数字滚动效果
+> 利用jquery的插件jquery.animateNumber实现一个简单的数字滚动效果
 
 ## 需求分析
 
-1. 后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据；
+1. 处理数据：因为数据是后端提供，所以有可能格式不是我们想要的，所以也许需要格式化数据；
 2. 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串
-
-![animateNumber_01](/images/posts/animateNumber_01.png)
-
+    ![animateNumber_01](/images/posts/animateNumber_01.png)
 3. 每一个数字进行滚动变化
 4. 最后，在项目中，我选取了插件[jquery.animateNumber](http://aishek.github.io/jquery-animateNumber/)来实现滚动效果。这个插件的使用方式很简单，在官方有很详尽的文档来展示各个案例，就不一一赘述了。
 
