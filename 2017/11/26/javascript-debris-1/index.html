@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="sinpats," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是尽量拒绝引入臃肿的（功能太多，也许我它的几十个功能我只会用到其中一个）三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指">
+<meta name="keywords" content="sinpats">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用javascript代码片段">
+<meta property="og:url" content="http://2ue.github.io/2017/11/26/javascript-debris-1/index.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是尽量拒绝引入臃肿的（功能太多，也许我它的几十个功能我只会用到其中一个）三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-26T14:49:39.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用javascript代码片段">
+<meta name="twitter:description" content="下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是尽量拒绝引入臃肿的（功能太多，也许我它的几十个功能我只会用到其中一个）三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://2ue.github.io/2017/11/26/javascript-debris-1/"/>
+
+
+
+
+
+  <title>常用javascript代码片段 | 前端路上</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端路上</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万物皆有裂缝</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://2ue.github.io/2017/11/26/javascript-debris-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2ue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/common/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用javascript代码片段</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">J.2ue发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T22:37:45+08:00">
+                2017-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是尽量拒绝引入臃肿的（功能太多，也许我它的几十个功能我只会用到其中一个）三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！</p>
+</blockquote>
+<h2 id="placeholder属性支持"><a href="#placeholder属性支持" class="headerlink" title="placeholder属性支持"></a>placeholder属性支持</h2><p>有时候项目中placeholder也许要兼容某些特殊的浏览器，所以才有了下面这段代码。这种方案有一个缺点就是：如果你恰好要对这个输入框绑定focus事件并操作它的值，必须要小心处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//修复不支持placeholder属性 start</span></div><div class="line"><span class="keyword">const</span> isSurportPlder = <span class="string">"placeholder"</span> <span class="keyword">in</span> <span class="built_in">document</span>.createElement(<span class="string">"input"</span>); <span class="comment">// 判断浏览器是否支持 placeholder</span></div><div class="line"><span class="keyword">if</span> (!isSurportPlder) &#123;</div><div class="line">  $(<span class="string">"[placeholder]"</span>).focus(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> _this = $(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">if</span> (_this.val() == _this.attr(<span class="string">"placeholder"</span>)) &#123;</div><div class="line">      _this.val(<span class="string">''</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;).blur(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> _this = $(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">if</span> (_this.val() == <span class="string">''</span> || _this.val() == _this.attr(<span class="string">"placeholder"</span>)) &#123;</div><div class="line">      _this.val(_this.attr(<span class="string">"placeholder"</span>));</div><div class="line">    &#125;</div><div class="line">  &#125;).blur();</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="格式化时间"><a href="#格式化时间" class="headerlink" title="格式化时间"></a>格式化时间</h2><p>关于格式化时间有很多插件，其中比较有名的就可以列很大一堆出来，比如老牌的<a href="https://github.com/moment/moment" target="_blank" rel="external">moment.js</a>，最近比较多star的<a href="https://github.com/moment/luxon" target="_blank" rel="external">luxon.js</a>; 对于为什么不选择他么，上面已经说了原因了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">formate(fmt, date) &#123;</div><div class="line">    date = <span class="keyword">new</span> <span class="built_in">Date</span>(date).toString() === <span class="string">'Invalid Date'</span> ? <span class="keyword">new</span> <span class="built_in">Date</span>() : <span class="keyword">new</span> <span class="built_in">Date</span>(date);</div><div class="line">    <span class="keyword">const</span> _rules = [&#123;</div><div class="line">        rule: <span class="string">'[yY]&#123;4&#125;'</span>,</div><div class="line">        value: date.getFullYear()</div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'M+'</span>,</div><div class="line">        value: date.getMonth() + <span class="number">1</span></div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'[dD]+'</span>,</div><div class="line">        value: date.getDate()</div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'h+'</span>,</div><div class="line">        value: date.getHours()</div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'m+'</span>,</div><div class="line">        value: date.getMinutes()</div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'s+'</span>,</div><div class="line">        value: date.getSeconds()</div><div class="line">    &#125;, &#123;</div><div class="line">        rule: <span class="string">'ms&#123;1,2&#125;'</span>,</div><div class="line">        value: date.getMilliseconds()</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    _rules.forEach(<span class="function">(<span class="params">_r</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">const</span> rule = _r.rule, val = _r.value;</div><div class="line">        fmt = fmt.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(rule), <span class="function"><span class="keyword">function</span> (<span class="params">$<span class="number">1</span></span>) </span>&#123;</div><div class="line">            <span class="keyword">const</span> rLen = val.toString().length, fLen = $<span class="number">1.</span>length;</div><div class="line">            <span class="keyword">return</span> (fLen !== <span class="number">2</span> || rLen &gt;= fLen) ? val : [<span class="string">'00'</span>, val].join(<span class="string">''</span>).substr(rLen);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> fmt;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断浏览器版本-PC"><a href="#判断浏览器版本-PC" class="headerlink" title="判断浏览器版本(PC)"></a>判断浏览器版本(PC)</h2><p>浏览器的判断涉及到很多复杂的变量和参数，所以偷懒选取了一个比较好的库，如果大家有更好的库，请推荐过来！</p>
+<p><a href="https://github.com/mumuy/browser" target="_blank" rel="external">browser.js</a></p>
+<h2 id="数字转换成千分位格式-如：123-456-9-89"><a href="#数字转换成千分位格式-如：123-456-9-89" class="headerlink" title="数字转换成千分位格式(如：123,456,9.89)"></a>数字转换成千分位格式(如：123,456,9.89)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">translateThree</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> num.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>).replace(<span class="regexp">/(\d&#123;3&#125;(?=\d)(?!\d+\.|$))/g</span>, <span class="string">'$1,'</span>).split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断任意数据的类型"><a href="#判断任意数据的类型" class="headerlink" title="判断任意数据的类型"></a>判断任意数据的类型</h2><p>精准的判断类型，<code>&#39;2&#39;</code>会识别成<code>string</code>类型，<code>2</code>会识别成<code>number</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">tryType</span>(<span class="params">para</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> type = <span class="keyword">typeof</span> para;</div><div class="line">    <span class="keyword">if</span> (type === <span class="string">"number"</span> &amp;&amp; <span class="built_in">isNaN</span>(para)) <span class="keyword">return</span> <span class="string">"NaN"</span>;</div><div class="line">    <span class="keyword">if</span> (type !== <span class="string">"object"</span>) <span class="keyword">return</span> type;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString</div><div class="line">        .call(para)</div><div class="line">        .replace(<span class="regexp">/[\[\]]/g</span>, <span class="string">""</span>)</div><div class="line">        .split(<span class="string">" "</span>)[<span class="number">1</span>]</div><div class="line">        .toLowerCase();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断是不是一个可计算的数字"><a href="#判断是不是一个可计算的数字" class="headerlink" title="判断是不是一个可计算的数字"></a>判断是不是一个可计算的数字</h2><p>上面的<code>tryType</code>方法会将<code>&#39;2&#39;</code>和<code>2</code>区别成两种类型，而这个方法将忽略这种区别</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNumber</span>(<span class="params">para</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.isNumber) <span class="keyword">return</span> <span class="built_in">window</span>.isNumber(para);</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Number</span>.isNumber) <span class="keyword">return</span> <span class="built_in">Number</span>.isNumber(para);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para !== <span class="string">"undefined"</span> &amp;&amp; !<span class="built_in">isNaN</span>(para);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="深度取值防止代码挂掉"><a href="#深度取值防止代码挂掉" class="headerlink" title="深度取值防止代码挂掉"></a>深度取值防止代码挂掉</h2><p>以前在代码中经常写<code>a[2].list[3].name</code>，这种代码很不可靠，很容易由于数据的一点小错误，导致js代码挂掉，出的问题多了自然就会思考问题的解决方案，正好当时时隔不久看到一篇文章<a href="http://www.jianshu.com/p/11fc75f28302" target="_blank" rel="external">如何优雅安全地在深层数据结构中取值</a>。<br>分析了一下博主的思路，没有像原博主那样使用<code>xs &amp;&amp; xs[x]</code>判断来打断取值，是因为这种情况可能会把<code>0</code>这种类型的值误伤</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValueFromDeepData</span> (<span class="params">props, target</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span> (!props || !target) <span class="keyword">return</span> <span class="literal">undefined</span>;</div><div class="line">    <span class="keyword">return</span> props.reduce(<span class="function">(<span class="params">pre, nxt</span>) =&gt;</span> (<span class="keyword">typeof</span> pre === <span class="string">'undefined'</span> || <span class="keyword">typeof</span> pre[nxt] === <span class="string">'undefined'</span> ? <span class="literal">undefined</span> : pre[nxt]), target);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="反转义字符串"><a href="#反转义字符串" class="headerlink" title="反转义字符串"></a>反转义字符串</h2><p>何谓反转义字符串？就是后端在传输HTML代码的时候往往会对字符串处理：把一些特殊符号转义了；当我们拿到HTML渲染到页面希望他按照HTML代码的格式来显示，而不是按照转义的字符串显示成文本，所以我们需要对这段字符串反转义！<br>网上看到很多解决方案是通过正则的方式一一替换过来，但是个人觉得这样不好维护。后面发现一种浏览器自动转换的办法，利用这一特性，可以通过js创建一个虚拟的DOM节点，然后把需要转义的字符串使用innerHTML方法放进去，再通过nodeValue方法取出来。<br>但这种方法需要注意的是：<code>e.childNodes</code>是一个数组，它将<code>_html</code>分段（每65536字符分一段）存储到<code>e.childNodes[i]</code>中，使用<code>e.childNodes</code>方法取得反转义后的字符串需要循环<code>e.childNodes</code>数组。我看到网上很多方法都是直接取的<code>e.childNodes[0].nodeValue</code>，这样在内容过多的时候，是无法把数据取完整的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">htmlDecode</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> e = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>), _html = <span class="string">''</span>;</div><div class="line">    e.innerHTML = str;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; e.childNodes.length; i++) &#123;</div><div class="line">        _html += e.childNodes[i].nodeValue;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> _html;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h2>
+      
+    </div>
+    
+    
+    
+
+    
+    
+      
+  <div class="post_end_word">
+    <p>THE END&nbsp;<i class="fa fa-fw fa-heart"></i>&nbsp;THANKS FOR YOU READING</p>
+  </div>
+
+
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/reward/wechat-reward-image.png" alt="2ue 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript"  src="https://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="https://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/11/26/javascript-debris-1/">常用javascript代码片段</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
+  <p><span>发布时间:</span>2017年11月26日 - 22:11</p>
+  <p><span>最后更新:</span>2017年11月26日 - 22:11</p>
+  <p><span>原始链接:</span><a href="/2017/11/26/javascript-debris-1/" title="常用javascript代码片段">http://2ue.github.io/2017/11/26/javascript-debris-1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/11/26/javascript-debris-1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>&nbsp;&nbsp;&nbsp;&nbsp;转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          html: false,
+          timer: 500,
+          showConfirmButton: false
+        });
+      });
+    }));
+</script>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sinpats/" rel="tag"># sinpats</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/24/regex-to-something/" rel="next" title="一道小小的题目引发对javascript支持正则表达式相关方法的探讨">
+                <i class="fa fa-chevron-left"></i> 一道小小的题目引发对javascript支持正则表达式相关方法的探讨
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/common/avatar.png"
+                alt="2ue" />
+            
+              <p class="site-author-name" itemprop="name">2ue</p>
+              <p class="site-description motion-element" itemprop="description">前端不是终点！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/2ue" target="_blank" title="Github">
+                    
+                      <i class="fa fa-fw fa-github"></i>Github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/Tonicof" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jie746635835@163.com" target="_blank" title="EMail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>EMail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/j2ue" target="_blank" title="Segment">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Segment</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#placeholder属性支持"><span class="nav-number">1.</span> <span class="nav-text">placeholder属性支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化时间"><span class="nav-number">2.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断浏览器版本-PC"><span class="nav-number">3.</span> <span class="nav-text">判断浏览器版本(PC)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字转换成千分位格式-如：123-456-9-89"><span class="nav-number">4.</span> <span class="nav-text">数字转换成千分位格式(如：123,456,9.89)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断任意数据的类型"><span class="nav-number">5.</span> <span class="nav-text">判断任意数据的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断是不是一个可计算的数字"><span class="nav-number">6.</span> <span class="nav-text">判断是不是一个可计算的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度取值防止代码挂掉"><span class="nav-number">7.</span> <span class="nav-text">深度取值防止代码挂掉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转义字符串"><span class="nav-number">8.</span> <span class="nav-text">反转义字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完"><span class="nav-number">9.</span> <span class="nav-text">未完</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2ue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+<span class="post-meta-divider">|</span>
+<div class="theme-info">
+  <a class="theme-link" target="_blank" href="https://github.com/2ue">2ue</a> 改造
+</div>
+
+
+
+<div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">共28.4k字</span>
+  </div>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

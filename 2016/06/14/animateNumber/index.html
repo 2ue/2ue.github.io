@@ -105,19 +105,19 @@
 
 
 
-<meta name="description" content="利用jquery.animateNumber插件实现一个简单的数字滚动效果  需求分析 后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串    每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方有很详">
+<meta name="description" content="利用jquery的插件jquery.animateNumber实现一个简单的数字滚动效果  需求分析 处理数据：因为数据是后端提供，所以有可能格式不是我们想要的，所以也许需要格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串  每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方">
 <meta name="keywords" content="animation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实现数字滚动变化以及延伸">
 <meta property="og:url" content="http://2ue.github.io/2016/06/14/animateNumber/index.html">
 <meta property="og:site_name" content="前端路上">
-<meta property="og:description" content="利用jquery.animateNumber插件实现一个简单的数字滚动效果  需求分析 后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串    每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方有很详">
+<meta property="og:description" content="利用jquery的插件jquery.animateNumber实现一个简单的数字滚动效果  需求分析 处理数据：因为数据是后端提供，所以有可能格式不是我们想要的，所以也许需要格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串  每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://2ue.github.io/images/posts/animateNumber_01.png">
-<meta property="og:updated_time" content="2017-11-15T12:22:19.899Z">
+<meta property="og:updated_time" content="2017-11-26T13:46:05.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现数字滚动变化以及延伸">
-<meta name="twitter:description" content="利用jquery.animateNumber插件实现一个简单的数字滚动效果  需求分析 后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串    每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方有很详">
+<meta name="twitter:description" content="利用jquery的插件jquery.animateNumber实现一个简单的数字滚动效果  需求分析 处理数据：因为数据是后端提供，所以有可能格式不是我们想要的，所以也许需要格式化数据； 根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串  每一个数字进行滚动变化 最后，在项目中，我选取了插件jquery.animateNumber来实现滚动效果。这个插件的使用方式很简单，在官方">
 <meta name="twitter:image" content="http://2ue.github.io/images/posts/animateNumber_01.png">
 
 
@@ -381,14 +381,11 @@
 
       
         <blockquote>
-<p>利用jquery.animateNumber插件实现一个简单的数字滚动效果</p>
+<p>利用jquery的插件jquery.animateNumber实现一个简单的数字滚动效果</p>
 </blockquote>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
-<li>后台传过来的值是123,989,90或者9,123.00这样的数据，所以必须格式化数据；</li>
-<li>根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串</li>
-</ol>
-<p><img src="/images/posts/animateNumber_01.png" alt="animateNumber_01"></p>
-<ol>
+<li>处理数据：因为数据是后端提供，所以有可能格式不是我们想要的，所以也许需要格式化数据；</li>
+<li>根据页面设计的效果图（如图），需要把数字字符串拆分成单个数字字符串<br> <img src="/images/posts/animateNumber_01.png" alt="animateNumber_01"></li>
 <li>每一个数字进行滚动变化</li>
 <li>最后，在项目中，我选取了插件<a href="http://aishek.github.io/jquery-animateNumber/" target="_blank" rel="external">jquery.animateNumber</a>来实现滚动效果。这个插件的使用方式很简单，在官方有很详尽的文档来展示各个案例，就不一一赘述了。</li>
 </ol>
@@ -467,7 +464,7 @@
   <p><span>本文标题:</span><a href="/2016/06/14/animateNumber/">实现数字滚动变化以及延伸</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2016年06月14日 - 12:06</p>
-  <p><span>最后更新:</span>2017年11月15日 - 20:11</p>
+  <p><span>最后更新:</span>2017年11月26日 - 21:11</p>
   <p><span>原始链接:</span><a href="/2016/06/14/animateNumber/" title="实现数字滚动变化以及延伸">http://2ue.github.io/2016/06/14/animateNumber/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2016/06/14/animateNumber/"  aria-label="复制成功！"></i></span>
   </p>
@@ -619,7 +616,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -736,7 +733,7 @@
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共27.6k字</span>
+    <span class="post-count">共28.4k字</span>
   </div>
 </div>
 

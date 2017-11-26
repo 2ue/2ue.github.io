@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://2ue.github.io/2017/11/26/javascript-debris-1/</loc>
+    
+    <lastmod>2017-11-26T14:49:39.891Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://2ue.github.io/2016/06/14/animateNumber/</loc>
+    
+    <lastmod>2017-11-26T13:46:05.089Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://2ue.github.io/2016/12/31/2016-to-2017/</loc>
+    
+    <lastmod>2017-11-26T13:41:01.679Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://2ue.github.io/2017/11/24/regex-to-something/</loc>
     
     <lastmod>2017-11-25T03:28:40.639Z</lastmod>
@@ -30,6 +51,13 @@
   </url>
   
   <url>
+    <loc>http://2ue.github.io/2016/06/20/learn-git-1/</loc>
+    
+    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://2ue.github.io/2016/09/24/use-gulp+webpack-to-bulid-resource/</loc>
     
     <lastmod>2017-11-20T10:13:56.567Z</lastmod>
@@ -51,28 +79,14 @@
   </url>
   
   <url>
-    <loc>http://2ue.github.io/2016/06/15/get-url-values/</loc>
-    
-    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://2ue.github.io/2017/08/21/nvm-node-version-manager/</loc>
-    
-    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://2ue.github.io/2016/06/20/learn-git-1/</loc>
-    
-    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://2ue.github.io/2017/10/10/mocha+chai/</loc>
+    
+    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://2ue.github.io/2016/06/15/get-url-values/</loc>
     
     <lastmod>2017-11-20T10:13:56.567Z</lastmod>
     
@@ -86,9 +100,9 @@
   </url>
   
   <url>
-    <loc>http://2ue.github.io/2016/12/31/2016-to-2017/</loc>
+    <loc>http://2ue.github.io/2017/08/21/nvm-node-version-manager/</loc>
     
-    <lastmod>2017-11-19T04:48:56.478Z</lastmod>
+    <lastmod>2017-11-20T10:13:56.567Z</lastmod>
     
   </url>
   
@@ -128,13 +142,6 @@
   </url>
   
   <url>
-    <loc>http://2ue.github.io/2016/11/09/javascript-debris-1/</loc>
-    
-    <lastmod>2017-11-15T12:22:19.907Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://2ue.github.io/2016/08/11/javascript-array-method/</loc>
     
     <lastmod>2017-11-15T12:22:19.905Z</lastmod>
@@ -152,13 +159,6 @@
     <loc>http://2ue.github.io/2017/03/15/babun/</loc>
     
     <lastmod>2017-11-15T12:22:19.902Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://2ue.github.io/2016/06/14/animateNumber/</loc>
-    
-    <lastmod>2017-11-15T12:22:19.899Z</lastmod>
     
   </url>
   
