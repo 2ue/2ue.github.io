@@ -31,6 +31,7 @@ ps: 感谢伟大的开源贡献者
 如何生成文章列表？
 执行`npm run g`或者`node generate_post_list`
 
+- [[2017-11-26 22:37:45 - 常用javascript代码片段](https://2ue.github.io/2017/11/26/javascript-sinpats/)]
 - [[2017-11-24 9:57:10 - 一道小小的题目引发对javascript支持正则表达式相关方法的探讨](https://2ue.github.io/2017/11/24/regex-to-something/)]
 - [[2017-11-15 19:09:16 - vue中慎用style的scoped属性](https://2ue.github.io/2017/11/15/vue-style-scoped/)]
 - [[2017-11-2 10:08:43 - 如何写一个日历组件](https://2ue.github.io/2017/11/2/how-to-make-a-kalendar/)]
@@ -46,7 +47,6 @@ ps: 感谢伟大的开源贡献者
 - [[2017-01-05 23:03:29 - 使用vue框架造了一个日历控件](https://2ue.github.io/2017/01/05/vue-datapicker/)]
 - [[2016-12-31 23:33:08 - <2016/><2017>](https://2ue.github.io/2016/12/31/2016-to-2017/)]
 - [[2016-11-22 15:39:04 - 移动端适配方案](https://2ue.github.io/2016/11/22/Mobile-terminal-adapter/)]
-- [[2016-11-9 10:02:30 - 常用javascript碎片(1)](https://2ue.github.io/2016/11/9/javascript-debris-1/)]
 - [[2016-9-24 20:46:41 - 使用webpack + gulp构建项目](https://2ue.github.io/2016/9/24/use-gulp+webpack-to-bulid-resource/)]
 - [[2016-09-05 12:12:24 - 常用正则整理(持续收集)](https://2ue.github.io/2016/09/05/regex/)]
 - [[2016-8-11 21:22:35 - Javascript系列 - Javascript数组方法](https://2ue.github.io/2016/8/11/javascript-array-method/)]
