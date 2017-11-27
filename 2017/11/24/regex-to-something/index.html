@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="前端路上">
 <meta property="og:description" content="以前对于正则是非常惧怕的，因为看不懂和学不会。但最近项目中频繁的使用到了正则，因此强迫自己去学习了解，慢慢的体会到了他的魅力与强大。当然学习正则初入门的时候有些枯燥难懂，但越学越觉得轻松。本文不准备说关于正则本身的事儿，而是说一说关于javascript中关于正则的几个方法中被很多人忽略的地方。  工具说到正则，很多人都是从抄到改到自己写，这个过程可能有时候很漫长。如一些工具能帮助你快速分析和学">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-25T03:28:40.639Z">
+<meta property="og:updated_time" content="2017-11-27T10:31:09.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道小小的题目引发对javascript支持正则表达式相关方法的探讨">
 <meta name="twitter:description" content="以前对于正则是非常惧怕的，因为看不懂和学不会。但最近项目中频繁的使用到了正则，因此强迫自己去学习了解，慢慢的体会到了他的魅力与强大。当然学习正则初入门的时候有些枯燥难懂，但越学越觉得轻松。本文不准备说关于正则本身的事儿，而是说一说关于javascript中关于正则的几个方法中被很多人忽略的地方。  工具说到正则，很多人都是从抄到改到自己写，这个过程可能有时候很漫长。如一些工具能帮助你快速分析和学">
@@ -386,11 +386,9 @@
 <li><a href="https://regexper.com" target="_blank" rel="external">regexper</a> 我最常用的一个，个人觉得UI做得比其他好</li>
 <li><a href="https://jex.im/regulex/" target="_blank" rel="external">regulex</a> 备选，他有一个很舒心的功能，可以提供一段js，嵌套到你的网站，生成正则可视化图</li>
 </ul>
-<iframe frameborder="0" width="334" height="145" src="https://jex.im/regulex/#!embed=true&flags=&re=%5B1-9%5D0%2B%24"></iframe>
-
 <h2 id="一道小小的题目"><a href="#一道小小的题目" class="headerlink" title="一道小小的题目"></a>一道小小的题目</h2><p>这道题目是在群里日常闲聊时，公司同事抛出来的，具体是出自哪里本人没去考察。先先说说题目：</p>
 <blockquote>
-<p>写一个方法把一个数字末尾的连续0变成9，如1230000变成1239999</p>
+<p>写一个方法使得数字末尾的连续0变成9，如1230000变成1239999</p>
 </blockquote>
 <p>一道很简单的题目，直接正则就能搞定，也许你会写：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">zoreToNine</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> (num + <span class="string">''</span>).replace(<span class="regexp">/0/g</span>,<span class="number">9</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//或者</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">zoreToNine</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> (num + <span class="string">''</span>).replace(<span class="regexp">/[1-9]0+$/</span>,<span class="number">9</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -420,7 +418,7 @@
 <p>注意：除了匹配的开始位置是<code>Number</code>类型外，其余的都是<code>String</code>类型</p>
 <h3 id="非常规类型参数"><a href="#非常规类型参数" class="headerlink" title="非常规类型参数"></a>非常规类型参数</h3><p>如果参数类型不是上述两种情况，会发生什么呢？看看下面的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a.replace(<span class="number">0</span>,<span class="literal">null</span>); <span class="comment">//123null9800</span></div><div class="line">a.replace(<span class="number">0</span>,<span class="literal">undefined</span>); <span class="comment">//123null9800</span></div><div class="line">a.replace(<span class="number">0</span>,[]); <span class="comment">//1239800</span></div><div class="line">a.replace(<span class="number">0</span>,<span class="built_in">Array</span>); <span class="comment">//1230,3,123098009800</span></div><div class="line">b.replace(&#123;&#125;,<span class="number">5</span>); <span class="comment">//123098005</span></div><div class="line">c.replace(&#123;&#125;,<span class="number">5</span>); <span class="comment">//'12309800&#123;&#125;'</span></div><div class="line">a.replace(<span class="number">0</span>,&#123;&#125;); <span class="comment">//123[object Object]9800</span></div><div class="line">a.replace(<span class="number">0</span>,<span class="built_in">Object</span>); <span class="comment">//12309800</span></div></pre></td></tr></table></figure>
-<p>由上面的例子可以看出，如果非正则也非字符串，则有以下规则:<br>    <code>null</code>变量，则会转换成<code>&#39;null&#39;</code>字符串;<br>    <code>undefined</code>变量，则会转换成<code>&#39;undefined&#39;</code>字符串;<br>    <code>[]</code>变量，则会调用<code>join()</code>方法转换成字符串，默认以<code>,</code>分割，值得注意的是空数组将会被转换成空字符串（没有任何字符），通常会被匹配源字符串的开始位置（默认开始位置为空字符串）;<br>    ‘Array’变量，则会先转成成一个匹配的数组，形如<code>[完整匹配的字符串,$1,$2,...,$n,匹配的开始位置,原始字符串]</code>,然后对它调用<code>join()</code>方法转换成字符串，默认以<code>,</code>分割;<br>    <code>{}</code>变量，则会调用<code>Object.protype.toString.call()</code>方法把<code>{}</code>转换成<code>[object Object]</code>;<br>    <code>Object</code>变量，则貌似什么都没做</p>
+<p>由上面的例子可以看出，如果非正则也非字符串，则有以下规则:<br>    <code>null</code>变量，则会转换成<code>&#39;null&#39;</code>字符串;<br>    <code>undefined</code>变量，则会转换成<code>&#39;undefined&#39;</code>字符串;<br>    <code>[]</code>变量，则会调用<code>join()</code>方法转换成字符串，默认以<code>,</code>分割，值得注意的是空数组将会被转换成空字符串（没有任何字符），通常会被匹配源字符串的开始位置（默认开始位置为空字符串）;<br>    <code>Array</code>变量，则会先转成成一个匹配的数组，形如<code>[完整匹配的字符串,$1,$2,...,$n,匹配的开始位置,原始字符串]</code>,然后对它调用<code>join()</code>方法转换成字符串，默认以<code>,</code>分割;<br>    <code>{}</code>变量，则会调用<code>Object.protype.toString.call()</code>方法把<code>{}</code>转换成<code>[object Object]</code>;<br>    <code>Object</code>变量，则貌似什么都没做</p>
 <p>虽然可以传入这些非正常参数，但大多数情况下这些类型的参数对实际是毫无意义的，所以不建议传入以上类型的参数。同上面的<code>正则匹配分割规则</code>一样，为了方便使用称呼，姑且我把上面的转换规则称为<code>正则匹配参数转换规则</code></p>
 <h2 id="match-rule-regex-substr"><a href="#match-rule-regex-substr" class="headerlink" title="match(rule[regex/substr])"></a>match(rule[regex/substr])</h2><p><code>match</code>方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。<br>该方法类似<code>indexOf</code>和<code>lastIndexOf</code>，但是它返回指定的值，而不是字符串的位置；</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数的传递除了常规的正则和字符串以外，其余所有类型的参数都会按照上述的<code>正则匹配参数转换规则</code>转换成字符串形式来匹配。</p>
@@ -442,7 +440,7 @@
 <blockquote>
 <p>有一段加密的后的密码，我们需要分离出字符串’12a344gg333tt445656ffa6778ii99’中的前三组数字，通过某种计算才能得出正确的密码</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'12a344gg333tt445656ffa6778ii99'</span>.split(<span class="regexp">/[a-zA-Z]+/g</span>,<span class="number">3</span>);<span class="comment">//['12','334','333']</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'12a344gg333tt445656ffa6778ii99'</span>.split(<span class="regexp">/[a-zA-Z]+/g</span>,<span class="number">3</span>); <span class="comment">//['12','334','333']</span></div></pre></td></tr></table></figure>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>写了这么多，突然发现以前仅仅是在用这些方法，了解得很不够深入。越是学习才发现其中的奥秘！学无止境，与诸君共勉！<br>以上内容如有错误之处，希望诸君不吝指出！</p>
 
       
@@ -508,11 +506,11 @@
   <p><span>本文标题:</span><a href="/2017/11/24/regex-to-something/">一道小小的题目引发对javascript支持正则表达式相关方法的探讨</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年11月24日 - 09:11</p>
-  <p><span>最后更新:</span>2017年11月25日 - 11:11</p>
+  <p><span>最后更新:</span>2017年11月27日 - 18:11</p>
   <p><span>原始链接:</span><a href="/2017/11/24/regex-to-something/" title="一道小小的题目引发对javascript支持正则表达式相关方法的探讨">http://2ue.github.io/2017/11/24/regex-to-something/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/11/24/regex-to-something/"  aria-label="复制成功！"></i></span>
   </p>
-  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>&nbsp;&nbsp;&nbsp;&nbsp;转载请保留原文链接及作者。</p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>&nbsp;&nbsp;&nbsp;&nbsp;转载请保留原文链接及作者。</p>
 </div>
 <script>
     var clipboard = new Clipboard('.fa-clipboard');
