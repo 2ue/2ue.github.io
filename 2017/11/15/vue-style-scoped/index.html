@@ -105,18 +105,18 @@
 
 
 
-<meta name="description" content="在vue组件中，为了使样式私有化（模块化），不对全局造成污染，可以在style标签上添加scoped属性以表示它的只属于当下的模块，这是一个非常好的举措，但是为什么要慎用呢？因为在我们需要修改公共组件（三方库或者项目定制的组件）的样式的时候，scoped往往会造成更多的困难，需要增加额外的复杂度。  scoped实现私有化样式的原理为什么会说，会增加复杂度？那么我们先从的实现模块的原理说起。为了">
+<meta name="description" content="在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。  何为谨慎使用谨慎使用不是不用，而是持一">
 <meta name="keywords" content="javascript,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue中慎用style的scoped属性">
 <meta property="og:url" content="http://2ue.github.io/2017/11/15/vue-style-scoped/index.html">
 <meta property="og:site_name" content="前端路上">
-<meta property="og:description" content="在vue组件中，为了使样式私有化（模块化），不对全局造成污染，可以在style标签上添加scoped属性以表示它的只属于当下的模块，这是一个非常好的举措，但是为什么要慎用呢？因为在我们需要修改公共组件（三方库或者项目定制的组件）的样式的时候，scoped往往会造成更多的困难，需要增加额外的复杂度。  scoped实现私有化样式的原理为什么会说，会增加复杂度？那么我们先从的实现模块的原理说起。为了">
+<meta property="og:description" content="在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。  何为谨慎使用谨慎使用不是不用，而是持一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-27T12:40:33.680Z">
+<meta property="og:updated_time" content="2017-11-28T10:35:46.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue中慎用style的scoped属性">
-<meta name="twitter:description" content="在vue组件中，为了使样式私有化（模块化），不对全局造成污染，可以在style标签上添加scoped属性以表示它的只属于当下的模块，这是一个非常好的举措，但是为什么要慎用呢？因为在我们需要修改公共组件（三方库或者项目定制的组件）的样式的时候，scoped往往会造成更多的困难，需要增加额外的复杂度。  scoped实现私有化样式的原理为什么会说，会增加复杂度？那么我们先从的实现模块的原理说起。为了">
+<meta name="twitter:description" content="在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。  何为谨慎使用谨慎使用不是不用，而是持一">
 
 
 
@@ -379,8 +379,15 @@
 
       
         <blockquote>
-<p>在vue组件中，为了使样式私有化（模块化），不对全局造成污染，可以在style标签上添加scoped属性以表示它的只属于当下的模块，这是一个非常好的举措，但是为什么要慎用呢？因为在我们需要修改公共组件（三方库或者项目定制的组件）的样式的时候，scoped往往会造成更多的困难，需要增加额外的复杂度。</p>
+<p>在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。</p>
 </blockquote>
+<h2 id="何为谨慎使用"><a href="#何为谨慎使用" class="headerlink" title="何为谨慎使用"></a>何为谨慎使用</h2><p>谨慎使用不是不用，而是持一种审视的目光去看待它。<code>scoped</code>肯定是解决了样式私有化的问题，但同时也引入了新的问题—样式不易（可）修改，而很多时候，我们是需要对公共组件的样式做微调的。所以我才说要谨慎使用</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>首先要说明的问题是，最开始我以为这是一个<code>BUG</code>或者说一个弊端(因为当时没有搞明白scoped的真正作用)，就很英勇的去提了一个<code>issue</code>，然后理所当然的被关闭了，关闭的理由是：<code>scoped</code>设计的初衷就是让样式变得不可修改。但是由于我在业务中经常遇到需要修改有<code>scoped</code>属性的组件，我就写了一篇文章记录一下这个问题，希望大家谨慎的使用这个属性。<br>然而事实再一次证明了我的愚蠢，在<code>vue-loader</code>的文档中已经详细的对这个问题做了分析，并且对我遇到这种问题给出了解决方法：vue-loader的深度作用选择器。<br>因为我并没有去深入了解这些问题，所以注定这篇文章被大伙拍砖，😂😂😂😂😂😂</p>
+<p>解决方案：<a href="https://vue-loader.vuejs.org/zh-cn/features/scoped-css.html" target="_blank" rel="external">vue-loader之scoped-css</a></p>
+<h3>鉴于此，虽然这篇文章没有什么价值，但为了提醒我自己深究的意义，我对后面的内容做了保留，以下内容是最开始文章的原文，请大家忽略，上面的内容才是正文，没错，正文就是这么少。</h3>
+
+<p>——————————–<b>正文分割线，以下是无营养的内容</b>——————————–</p>
+<hr>
 <h2 id="scoped实现私有化样式的原理"><a href="#scoped实现私有化样式的原理" class="headerlink" title="scoped实现私有化样式的原理"></a>scoped实现私有化样式的原理</h2><p>为什么会说，会增加复杂度？那么我们先从的实现模块的原理说起。为了方便称呼，我们假设把这种组件叫做<code>模块私有组件</code>，其他的未加<code>scoped</code>的叫做<code>模块一般组件</code>。<br>通过查看<code>DOM</code>结构发现：<code>vue</code>通过在DOM结构以及<code>css</code>样式上加唯一不重复的标记，以保证唯一，达到样式私有化模块化的目的。具体的渲染结果是怎样的，通过一个例子来说明。</p>
 <h3 id="公共组件button组件"><a href="#公共组件button组件" class="headerlink" title="公共组件button组件"></a>公共组件button组件</h3><p>一个公共组件<code>button</code>，为了样式模块化，给其加上<code>scoped</code>属性，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//button.vue</div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div class=&quot;button-warp&quot;&gt;</div><div class="line">        &lt;button class=&quot;button&quot;&gt;text&lt;/button&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">...</div><div class="line">&lt;style scoped&gt;</div><div class="line">    .button-warp&#123;</div><div class="line">        display:inline-block;</div><div class="line">    &#125;</div><div class="line">    .button&#123;</div><div class="line">        padding: 5px 10px;</div><div class="line">        font-size: 12px;</div><div class="line">        border-radus: 2px;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
@@ -413,9 +420,9 @@
 <li>在每句<code>css</code>选择器的末尾（编译后的生成的css语句）加一个当前组件的<code>data</code>属性选择器（如[data-v-2311c06a]）来私有化样式</li>
 <li>如果组件内部包含有其他组件，只会给其他组件的最外层标签加上当前组件的data属性</li>
 </ul>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>对于引用的三方库，如果对方使用了<code>scoped</code>，我们无力改变什么，如果确实需要修改他的样式最能在不加<code>scoped</code>的组件中修改样式，或者全局样式直接修改，这很粗暴！<br>对于自己维护的组件，一定要想清楚，组件的样式能否满足所有的情况。如果确实需要加，无疑会增加使用这个组件的开发同学的工作！</p>
+<h2 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h2><p>对于引用的三方库，如果对方使用了<code>scoped</code>，我们无力改变什么，如果确实需要修改他的样式最能在不加<code>scoped</code>的组件中修改样式，或者全局样式直接修改，这很粗暴！<br>对于自己维护的组件，一定要想清楚，组件的样式能否满足所有的情况。如果确实需要加，无疑会增加使用这个组件的开发同学的工作！</p>
 <p>当然对于这个问题，如果诸君有更好的解决方案，请诸君TELL ME一下下！</p>
-<h2 id="趣事"><a href="#趣事" class="headerlink" title="趣事"></a>趣事</h2><p><del> 在使用scoped一定要谨慎scoped的这个特性，本人以为这是一个BUG，就去提了<a href="https://github.com/vuejs/vue/issues/7067" target="_blank" rel="external">issue</a> </del>，结果尤大很霸气的回复<br><code>scoped</code>设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，因为设计如此。所以理所当然的这个<code>issue</code>已被干掉。。。😂😂😂😂😂😂</p>
+<h2 id="趣事"><a href="#趣事" class="headerlink" title="趣事"></a>趣事</h2><p>在使用scoped一定要谨慎scoped的这个特性，本人以为这是一个BUG，就去提了<a href="https://github.com/vuejs/vue/issues/7067" target="_blank" rel="external">issue</a> ，结果尤大很霸气的回复<br><code>scoped</code>设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，因为设计如此。所以理所当然的这个<code>issue</code>已被干掉。。。😂😂😂😂😂😂</p>
 
       
     </div>
@@ -480,7 +487,7 @@
   <p><span>本文标题:</span><a href="/2017/11/15/vue-style-scoped/">vue中慎用style的scoped属性</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年11月15日 - 19:11</p>
-  <p><span>最后更新:</span>2017年11月27日 - 20:11</p>
+  <p><span>最后更新:</span>2017年11月28日 - 18:11</p>
   <p><span>原始链接:</span><a href="/2017/11/15/vue-style-scoped/" title="vue中慎用style的scoped属性">http://2ue.github.io/2017/11/15/vue-style-scoped/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/11/15/vue-style-scoped/"  aria-label="复制成功！"></i></span>
   </p>
@@ -616,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -627,7 +634,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -638,7 +645,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -699,7 +706,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#scoped实现私有化样式的原理"><span class="nav-number">1.</span> <span class="nav-text">scoped实现私有化样式的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公共组件button组件"><span class="nav-number">1.1.</span> <span class="nav-text">公共组件button组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器渲染button组件"><span class="nav-number">1.2.</span> <span class="nav-text">浏览器渲染button组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他组件引用button组件"><span class="nav-number">2.</span> <span class="nav-text">其他组件引用button组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块一般组件（未添加scoped）引用模块私有组件"><span class="nav-number">2.1.</span> <span class="nav-text">模块一般组件（未添加scoped）引用模块私有组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块私有组件（添加scoped）引用模块私有组件"><span class="nav-number">2.2.</span> <span class="nav-text">模块私有组件（添加scoped）引用模块私有组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结scoped的渲染规则"><span class="nav-number">3.</span> <span class="nav-text">总结scoped的渲染规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#趣事"><span class="nav-number">5.</span> <span class="nav-text">趣事</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为谨慎使用"><span class="nav-number">1.</span> <span class="nav-text">何为谨慎使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">鉴于此，虽然这篇文章没有什么价值，但为了提醒我自己深究的意义，我对后面的内容做了保留，以下内容是最开始文章的原文，请大家忽略，上面的内容才是正文，没错，正文就是这么少。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scoped实现私有化样式的原理"><span class="nav-number">3.</span> <span class="nav-text">scoped实现私有化样式的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公共组件button组件"><span class="nav-number">3.1.</span> <span class="nav-text">公共组件button组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器渲染button组件"><span class="nav-number">3.2.</span> <span class="nav-text">浏览器渲染button组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他组件引用button组件"><span class="nav-number">4.</span> <span class="nav-text">其他组件引用button组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块一般组件（未添加scoped）引用模块私有组件"><span class="nav-number">4.1.</span> <span class="nav-text">模块一般组件（未添加scoped）引用模块私有组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块私有组件（添加scoped）引用模块私有组件"><span class="nav-number">4.2.</span> <span class="nav-text">模块私有组件（添加scoped）引用模块私有组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结scoped的渲染规则"><span class="nav-number">5.</span> <span class="nav-text">总结scoped的渲染规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-1"><span class="nav-number">6.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#趣事"><span class="nav-number">7.</span> <span class="nav-text">趣事</span></a></li></ol></div>
             
 
           </div>
@@ -755,7 +762,7 @@
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共28.9k字</span>
+    <span class="post-count">共29.7k字</span>
   </div>
 </div>
 
