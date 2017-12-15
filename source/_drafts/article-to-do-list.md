@@ -176,3 +176,28 @@ if (navigator.geolocation) {
         window.longitude = position.coords.longitude;//经度
     });
 }
+
+关闭IOS键盘首字母自动大写
+<input type="text" autocapitalize="off">
+
+
+http://zee.kim/post/40/
+
+漂亮的CONSOLE.LOG
+
+var args = [
+    '\n %c %c %c JINZHE.NET 1.0 - ✰  %c ' + ' %c ' + ' http://jinzhe.net/  %c %c ♥%c♥%c♥ \n\n',
+    'background: #ff66a5; padding:5px 0;',
+    'background: #ff66a5; padding:5px 0;',
+    'color: #ff66a5; background: #030307; padding:5px 0;',
+    'background: #ff66a5; padding:5px 0;',
+    'background: #ffc3dc; padding:5px 0;',
+    'background: #ff66a5; padding:5px 0;',
+    'color: #ff2424; background: #fff; padding:5px 0;',
+    'color: #ff2424; background: #fff; padding:5px 0;',
+    'color: #ff2424; background: #fff; padding:5px 0;'
+];
+console.log.apply(console, args);
+
+获取DOM计算后的样式
+window.getComputedStyle(document.body).overflow
