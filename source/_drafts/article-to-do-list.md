@@ -201,3 +201,11 @@ console.log.apply(console, args);
 
 获取DOM计算后的样式
 window.getComputedStyle(document.body).overflow
+
+
+
+## npm发布流程
+https://www.cnblogs.com/zuojiayi/p/6893330.html
+https://www.cnblogs.com/zhoudaozhang/p/4730070.html
+http://blog.csdn.net/gamesdev/article/details/49018629
+https://segmentfault.com/a/1190000006250554
