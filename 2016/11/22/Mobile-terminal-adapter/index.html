@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="前端路上">
 <meta property="og:description" content="移动端越来越被大众所接收，那么相应的技术就越来越向它靠拢，这是一种不可阻挡的趋势，也是万物发展的规律。移动端有三大难题：兼容、调试和适配。这三大问题就好像三座无法逾越的大山阻挡者我们前进的步伐，此文将记录我在项目中关于移动端适配的一些方式，供大家参考  分析移动端适配的根本原因  屏幕窗口的大小 设备像素比(devicepixelratio，简称dpr)  很多地方介绍设备像素比的，这里就不做具">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-15T12:22:19.896Z">
+<meta property="og:updated_time" content="2018-01-01T11:55:06.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端适配方案">
 <meta name="twitter:description" content="移动端越来越被大众所接收，那么相应的技术就越来越向它靠拢，这是一种不可阻挡的趋势，也是万物发展的规律。移动端有三大难题：兼容、调试和适配。这三大问题就好像三座无法逾越的大山阻挡者我们前进的步伐，此文将记录我在项目中关于移动端适配的一些方式，供大家参考  分析移动端适配的根本原因  屏幕窗口的大小 设备像素比(devicepixelratio，简称dpr)  很多地方介绍设备像素比的，这里就不做具">
@@ -401,7 +401,7 @@
 <p>这样当页面展示在<code>750</code>的屏幕上时，html的<code>font-size</code>为<code>50px</code>，那么当设置为2rem的元素显示的尺寸就为<code>2*50px=100px</code>。在其他尺寸的设备也会根据媒体查询设置的不同<code>font-size</code>进行自动缩放适配。<br>当然上面也提到了，在<code>css</code>中也是可以获取到<code>devicePixelRatio</code>的值，那么为了更精确在写媒体查询的时候可以把它也加上去，这里就不展开了。</p>
 <h2 id="纯css实现方式-–-计算属性"><a href="#纯css实现方式-–-计算属性" class="headerlink" title="纯css实现方式 – 计算属性"></a>纯css实现方式 – 计算属性</h2><p>当然除了媒体查询，还有一种更潮的方式就是利用css3的一些新属性：计算属性和<code>vw</code>属性来实现自动设置根字体大小的目的</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html&#123;font-size:calc(100vw/6.4)&#125; //6.4为psd设计稿尺寸/100</div></pre></td></tr></table></figure>
-<p>这套方案几乎是目前最简洁的方案了，并且<code>calc</code>和<code>vw</code>在移动端的支持也不错哟。期待ing</p>
+<p>这套方案几乎是目前最简洁的方案了，并且<code>calc</code>和<code>vw</code>在移动端的支持也不错哟。</p>
 <h2 id="js的实现方式"><a href="#js的实现方式" class="headerlink" title="js的实现方式"></a>js的实现方式</h2><p>js的实现方式，参考了<code>网易</code>和<code>淘宝</code>的实现方式，对他们进行了整合。并且修复了手机端<code>1px问题</code>。</p>
 <ul>
 <li><code>网易实现方式</code>是通过设备尺寸动态的设置DOM的根元素字体大小，没有考虑devicePixelRatio的因素;</li>
@@ -479,7 +479,7 @@
   <p><span>本文标题:</span><a href="/2016/11/22/Mobile-terminal-adapter/">移动端适配方案</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2016年11月22日 - 15:11</p>
-  <p><span>最后更新:</span>2017年11月15日 - 20:11</p>
+  <p><span>最后更新:</span>2018年01月01日 - 19:01</p>
   <p><span>原始链接:</span><a href="/2016/11/22/Mobile-terminal-adapter/" title="移动端适配方案">http://2ue.github.io/2016/11/22/Mobile-terminal-adapter/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2016/11/22/Mobile-terminal-adapter/"  aria-label="复制成功！"></i></span>
   </p>
@@ -719,7 +719,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

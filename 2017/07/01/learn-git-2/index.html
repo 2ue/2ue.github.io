@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="前端路上">
 <meta property="og:description" content="虽然有了git的图形化工具，但个人还是喜欢命令行，并且结合alias功能，也能非常快速的完成很多功能。记录一些项目中常用的git命令，方便查阅  查看状态可以查看工作区(edit即add之前)和暂存区(add之后，commit之前) 1git status 提交到暂存区123456//提交某个文件git add fileName//提交所有修改文件的三种写法git add *git add .g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-20T10:13:56.567Z">
+<meta property="og:updated_time" content="2018-01-01T11:51:13.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git学习之常用命令">
 <meta name="twitter:description" content="虽然有了git的图形化工具，但个人还是喜欢命令行，并且结合alias功能，也能非常快速的完成很多功能。记录一些项目中常用的git命令，方便查阅  查看状态可以查看工作区(edit即add之前)和暂存区(add之后，commit之前) 1git status 提交到暂存区123456//提交某个文件git add fileName//提交所有修改文件的三种写法git add *git add .g">
@@ -392,6 +392,10 @@
 <h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//删除本地分支</div><div class="line">git branch -d name</div><div class="line">//删除远程分支两种方法</div><div class="line">git push origin :name //冒号不能省</div><div class="line">git branch -r -d origin/name</div></pre></td></tr></table></figure>
 <h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout name //如果分支不存在则创建一个名为name的新分支</div></pre></td></tr></table></figure>
 <h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//例如：合并分支dev到master</div><div class="line">//首先保持dev和master分支最新，即在本地切换到对应分支，各pull一次</div><div class="line">//然后切换分支到最终要合并的分支上（此处为master）</div><div class="line">git checkout master</div><div class="line">//执行本地合并（合并dev到master）</div><div class="line">git merge dev</div><div class="line">//推送合并到远程</div><div class="line">git push origin master</div></pre></td></tr></table></figure>
+<h3 id="放弃本地修改强制更新"><a href="#放弃本地修改强制更新" class="headerlink" title="放弃本地修改强制更新"></a>放弃本地修改强制更新</h3><blockquote>
+<p>git fetch只是下载远程的库的内容，不做任何的合并；git reset把HEAD指向刚刚下载的最新的版本</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git fetch --all</div><div class="line">git reset --hard origin/master</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -456,7 +460,7 @@
   <p><span>本文标题:</span><a href="/2017/07/01/learn-git-2/">Git学习之常用命令</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年07月01日 - 13:07</p>
-  <p><span>最后更新:</span>2017年11月20日 - 18:11</p>
+  <p><span>最后更新:</span>2018年01月01日 - 19:01</p>
   <p><span>原始链接:</span><a href="/2017/07/01/learn-git-2/" title="Git学习之常用命令">http://2ue.github.io/2017/07/01/learn-git-2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/07/01/learn-git-2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -673,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看状态"><span class="nav-number">1.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到暂存区"><span class="nav-number">2.</span> <span class="nav-text">提交到暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存在本地仓库"><span class="nav-number">3.</span> <span class="nav-text">保存在本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到远程仓库"><span class="nav-number">4.</span> <span class="nav-text">提交到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">5.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">5.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">5.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">5.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">5.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">5.5.</span> <span class="nav-text">合并分支</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看状态"><span class="nav-number">1.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到暂存区"><span class="nav-number">2.</span> <span class="nav-text">提交到暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存在本地仓库"><span class="nav-number">3.</span> <span class="nav-text">保存在本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到远程仓库"><span class="nav-number">4.</span> <span class="nav-text">提交到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">5.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">5.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">5.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">5.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">5.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">5.5.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#放弃本地修改强制更新"><span class="nav-number">5.6.</span> <span class="nav-text">放弃本地修改强制更新</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -694,7 +698,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
