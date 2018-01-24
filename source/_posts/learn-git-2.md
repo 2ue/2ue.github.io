@@ -100,3 +100,14 @@ git push origin master
 git fetch --all
 git reset --hard origin/master
 ```
+
+### 回退到某个历史版本
+
+> 首先使用git log命令获取某个历史版本的ID，假设ID是c3470ee7edf566cc359b666d3e27a38220abaf66
+
+``` bash
+//在本地回退到c3470ee7edf566cc359b666d3e27a38220abaf66版本
+git reset --hard c3470ee7edf566cc359b666d3e27a38220abaf66
+//推送到远程分支，注意：由于本地版本旧于远程仓库版本，这里需要使用-f参数，强制推送
+git push -f origin master
+```
