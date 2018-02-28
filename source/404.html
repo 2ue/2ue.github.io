@@ -53,6 +53,7 @@
     <!-- <script src="js/jquery-1.10.2.js"></script> -->
     <script type="text/javascript" src="/lib/jquery/index.js"></script>
     <script>
+        "use strict";
         function countUp(target, startVal, endVal, decimals, duration, options) {
 
             // default options
@@ -192,7 +193,6 @@
             self.d.innerHTML = self.formatNumber(self.startVal.toFixed(self.decimals));
         };
         (function ($) {
-            "use strict";
             var mainApp = {
                 main_fun: function () {
                     var count = new countUp("error-link", 10, 404, 0, 5); //CHANGE 404 TO THE ERROR VALUE AS YOU WANT

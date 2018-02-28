@@ -93,7 +93,7 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
-  about: https://2ue.github.io/aboutMe/dist/index.html
+  about: /about-me/dist/index.html
 
 # Enable/Disable menu icons.
 menu_icons:
