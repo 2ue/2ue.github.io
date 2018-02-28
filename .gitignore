@@ -11,6 +11,4 @@ public/
 .history/
 .history
 .vscode
-.project
-.log
 package-lock.json
