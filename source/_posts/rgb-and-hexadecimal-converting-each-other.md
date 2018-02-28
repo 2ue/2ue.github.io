@@ -6,6 +6,7 @@ comments: true
 tags:
 - RGB
 - 16进制
+- 颜色
 categories:
 - javascript
 ---
@@ -13,7 +14,9 @@ categories:
 > 颜色的表达有多种方式：RGB、RGBA、CMYK、16进制、HSL、HSLA、HSB、LAB...在web或者app开发中，出场率最高的当然非RGB和16进制莫属了，另外在css3中新增的RGBA，由于其支持透明特性，也在逐渐变得流行起来。本次主要探讨一下RGB和16进制的互相转换
 
 
-## 色值的本质
+## 关于颜色值的转换
+首先明确一个概念，不同的模式，所能表达的色彩种类（总数）可能存在差别，所以并不是所有的颜色都能进行转换或者正确转换（对应的值可能不唯一）。
+
 RGB色值本质可以看做是10进制的数字，每个数值的范围是0~255
 16进制色值，不用说，肯定是和16进制数有关，但它并非一个简单的16进制数，而是由#，加上三个16进制数拼接而成的
 
@@ -22,8 +25,8 @@ RGB色值本质可以看做是10进制的数字，每个数值的范围是0~255
 * @function 16进制(Hexadecimal)色值转换成RGB色值
 * @return 返回形如rgb(0,0,0)的RGB色值
 */
-String.prototype.colorToRgb = function () {
-    var color = this.toLowerCase(), reg = /^#([0-9a-f]{3}|[0-9a-f]{6})$/, match = color.match(reg), matchVal, len, dis;
+function colorToRgb (colorVal) {
+    var color = colorVal.toLowerCase(), reg = /^#([0-9a-f]{3}|[0-9a-f]{6})$/, match = color.match(reg), matchVal, len, dis;
     if(match){
     	var res = ['rgb(',',',',','',')'];
         matchVal = match[1].split('');
@@ -43,8 +46,8 @@ String.prototype.colorToRgb = function () {
 * @params {Boolean} 是否简写，默认为true
 * @return 返回形如#ff0000或#f00的16进制色值
 */
-String.prototype.colorToHexadecimal = function (short) {
-    var color = this.toLowerCase().replace(/\s/g, ''), reg = /^rgb\(([0-9]{1,3}\,){2}([0-9]{1,3})\)\;?$/, match = color.match(reg);
+function colorToHexadecimal (colorVal, short) {
+    var color = colorVal.toLowerCase().replace(/\s/g, ''), reg = /^rgb\(([0-9]{1,3}\,){2}([0-9]{1,3})\)\;?$/, match = color.match(reg);
     //首先验证是否符合格式，允许空格存在
 	//形如rgb(0,255,0)或者rgb(0,255,0);
     if(match){
