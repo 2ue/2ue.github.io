@@ -87,7 +87,6 @@ index_with_subtitle: false
 menu:
   home: / || home
   tags: /tags/ || tags
-  test: /test/ || tags
   #categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
