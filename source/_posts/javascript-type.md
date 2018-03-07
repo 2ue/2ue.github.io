@@ -1,5 +1,5 @@
 ---
-title: Javascript常用见问题之判断类型
+title: Javascript常用见问题之变量类型判断终极篇
 date: 2017-3-31 17:05:06
 author: J.2ue
 comments: true
@@ -14,7 +14,7 @@ categories:
 
 ## 变量的基本类型
 
-众所周知，`JavaScript`中变量可能包含两种不同的数据类型的值：**基本类型**和**引用类型**。基本类型是指简单的数据段，有`Number`、`String`、`Boolean`、`Udefined`、`Null`，而引用类型指那些可能包含多个值的对象，有`Object`、`Array`、`Date`、`RegExp`、`Function`。在`JavaScript`中，我们通过`var`来声明变量，由于`JavaScript`是若语言类型，我们无法在申明的时候规定他的类型，`JavaScript`变量的类型是随变量的值改变而改变的。所以我们要判断变量值的类型。下图列举一些常见的类型：
+`JavaScript`变量包含两种不同的数据类型的值：**基本类型**和**引用类型**。基本类型是指简单的数据，有`Number`、`String`、`Boolean`、`Udefined`、`Null`(null可以算作是一个特殊的基本数据类型)，而引用类型指那些可能包含多个值的对象，有`Object`、`Array`、`Date`、`RegExp`、`Function`等。在`JavaScript`中，我们通过`var`来声明变量，由于`JavaScript`是若语言类型，我们无法在申明的时候规定他的类型，`JavaScript`变量的类型是随变量的值改变而改变的。为了代码的安全性，在有些情况下我们要判断变量值的类型，如何正确的判断变量的类型就成了一个比较有深度的问题。下图列举一些常见的类型：
 
 |      类型      |       举例        |
 | :----------: | :-------------: |
@@ -27,12 +27,14 @@ categories:
 |  **Object**  | {}、new Object() |
 | **Function** |  function(){}   |
 
-读到这里也许你会问，这有什么棘手的，就这几种类型背下来不就行了么？然而我想告诉你：**在大胆猜测的同时，也要用实践去证明你的猜测**。然后你当你用`typeof`去检测它们的类型时，你就崩溃了：明明是`Null`为什么结果却是`oject`，明明是`Array`为什么还是`obejct`？...所以除了使用`typeof`方法外我们必须药寻找其他的方法，那么这些方法有哪些呢？请继续往下读(`para`表示要判断的变量)：
+判断他们的类型，第一时间可能你会想到用`typeof`去检测它们的类型，然后你就崩溃了：明明是`Null`为什么结果却是`oject`，明明是`Array`为什么还是`obejct`？...因此可以看出`typeof`方法不是很可靠，我们必须寻找一种行之有效的方法来解决这个问题？请继续往下读(为了方便阅读，下文中所有的`para`表示要判断的变量)：
 
 - isNaN(para)
 - !para
 - typeof para
 - Object.prototype.toString.call(para);
+
+除了上面这些方法，未来可能会有更多方法来增强变量的约束和判断，比如`isNumber`等
 
 ## isNaN(para)
 
@@ -44,11 +46,17 @@ categories:
 
 ## typeof para
 
-事实证明typeof并不是万能的，在对除Null以外的**基本类型**变量是相当有威力的，但是对**引用类型变量**和`null`时都会被识别成`object`
+事实证明`typeof`并不是万能的，在对除`Null`以外的**基本类型**变量是相当有威力的，但是对**引用类型变量**和`Null`时都会被识别成`object`，但是请注意：
+
+```javascript
+typeof {}; //object
+typeof Object; //Function
+```
+为什么会出现这样的情况呢？因为`Object`是一个构造函数，而不是`object`数据类型对象，同理`Array`，`Date`，`Function`等都是属于构造函数
 
 ## Object.prototype.toString.call(para)
 
-前面的`typeof`死在半路，无法打探到**引用类型变量**和`null`的真实情报，但是我们得出了另一个情报：**他们都是`obejct`**。那么我们就完全可以利用`Object`原型上的`toString()`方法来判断
+前面的`typeof`死在半路，无法打探到**引用类型变量**和`null`的真实情报，但是我们得出了另一个情报：**他们都是`obejct`**。别慌，我们另外一个强大的武器，可以直指要害，`Object.prototype.toString.call(para)`
 
 ## 判断结果比较表
 
