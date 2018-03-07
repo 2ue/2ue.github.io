@@ -105,18 +105,18 @@
 
 
 
-<meta name="description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+<meta name="description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型JavaScript变量包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据，有Number、String、Boolean、Udefined">
 <meta name="keywords" content="typeof,object">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript常用见问题之判断类型">
+<meta property="og:title" content="Javascript常用见问题之变量类型判断终极篇">
 <meta property="og:url" content="http://2ue.github.io/2017/03/31/javascript-type/index.html">
 <meta property="og:site_name" content="前端路上">
-<meta property="og:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+<meta property="og:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型JavaScript变量包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据，有Number、String、Boolean、Udefined">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-15T12:22:19.908Z">
+<meta property="og:updated_time" content="2018-03-07T02:33:15.180Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript常用见问题之判断类型">
-<meta name="twitter:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型众所周知，JavaScript中变量可能包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据段，有Number、String、Boolean">
+<meta name="twitter:title" content="Javascript常用见问题之变量类型判断终极篇">
+<meta name="twitter:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型JavaScript变量包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据，有Number、String、Boolean、Udefined">
 
 
 
@@ -152,7 +152,7 @@
 
 
 
-  <title>Javascript常用见问题之判断类型 | 前端路上</title>
+  <title>Javascript常用见问题之变量类型判断终极篇 | 前端路上</title>
   
 
 
@@ -248,7 +248,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+          <a href="/about-me/dist/index.html" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Javascript常用见问题之判断类型</h1>
+          <h1 class="post-title" itemprop="name headline">Javascript常用见问题之变量类型判断终极篇</h1>
         
 
         <div class="post-meta">
@@ -381,7 +381,7 @@
         <blockquote>
 <p>类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。<br>本文所有的如果没特指，都是基于ES5的原生javascript</p>
 </blockquote>
-<h2 id="变量的基本类型"><a href="#变量的基本类型" class="headerlink" title="变量的基本类型"></a>变量的基本类型</h2><p>众所周知，<code>JavaScript</code>中变量可能包含两种不同的数据类型的值：<strong>基本类型</strong>和<strong>引用类型</strong>。基本类型是指简单的数据段，有<code>Number</code>、<code>String</code>、<code>Boolean</code>、<code>Udefined</code>、<code>Null</code>，而引用类型指那些可能包含多个值的对象，有<code>Object</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>。在<code>JavaScript</code>中，我们通过<code>var</code>来声明变量，由于<code>JavaScript</code>是若语言类型，我们无法在申明的时候规定他的类型，<code>JavaScript</code>变量的类型是随变量的值改变而改变的。所以我们要判断变量值的类型。下图列举一些常见的类型：</p>
+<h2 id="变量的基本类型"><a href="#变量的基本类型" class="headerlink" title="变量的基本类型"></a>变量的基本类型</h2><p><code>JavaScript</code>变量包含两种不同的数据类型的值：<strong>基本类型</strong>和<strong>引用类型</strong>。基本类型是指简单的数据，有<code>Number</code>、<code>String</code>、<code>Boolean</code>、<code>Udefined</code>、<code>Null</code>(null可以算作是一个特殊的基本数据类型)，而引用类型指那些可能包含多个值的对象，有<code>Object</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>等。在<code>JavaScript</code>中，我们通过<code>var</code>来声明变量，由于<code>JavaScript</code>是若语言类型，我们无法在申明的时候规定他的类型，<code>JavaScript</code>变量的类型是随变量的值改变而改变的。为了代码的安全性，在有些情况下我们要判断变量值的类型，如何正确的判断变量的类型就成了一个比较有深度的问题。下图列举一些常见的类型：</p>
 <table>
 <thead>
 <tr>
@@ -424,17 +424,20 @@
 </tr>
 </tbody>
 </table>
-<p>读到这里也许你会问，这有什么棘手的，就这几种类型背下来不就行了么？然而我想告诉你：<strong>在大胆猜测的同时，也要用实践去证明你的猜测</strong>。然后你当你用<code>typeof</code>去检测它们的类型时，你就崩溃了：明明是<code>Null</code>为什么结果却是<code>oject</code>，明明是<code>Array</code>为什么还是<code>obejct</code>？…所以除了使用<code>typeof</code>方法外我们必须药寻找其他的方法，那么这些方法有哪些呢？请继续往下读(<code>para</code>表示要判断的变量)：</p>
+<p>判断他们的类型，第一时间可能你会想到用<code>typeof</code>去检测它们的类型，然后你就崩溃了：明明是<code>Null</code>为什么结果却是<code>oject</code>，明明是<code>Array</code>为什么还是<code>obejct</code>？…因此可以看出<code>typeof</code>方法不是很可靠，我们必须寻找一种行之有效的方法来解决这个问题？请继续往下读(为了方便阅读，下文中所有的<code>para</code>表示要判断的变量)：</p>
 <ul>
 <li>isNaN(para)</li>
 <li>!para</li>
 <li>typeof para</li>
 <li>Object.prototype.toString.call(para);</li>
 </ul>
+<p>除了上面这些方法，未来可能会有更多方法来增强变量的约束和判断，比如<code>isNumber</code>等</p>
 <h2 id="isNaN-para"><a href="#isNaN-para" class="headerlink" title="isNaN(para)"></a>isNaN(para)</h2><p>用来判断是否为<code>number</code>类型的专有方法。但是需要注意的是，如果使用<code>typeof</code>判断那么结果会是<code>number</code>。</p>
 <h2 id="para"><a href="#para" class="headerlink" title="!para"></a>!para</h2><p>常用来判断一个变量是否存在，面对<code>Arry</code>、<code>Object</code>等<strong>引用类型变量</strong>时无论是否为空都会被转换成<code>true</code></p>
-<h2 id="typeof-para"><a href="#typeof-para" class="headerlink" title="typeof para"></a>typeof para</h2><p>事实证明typeof并不是万能的，在对除Null以外的<strong>基本类型</strong>变量是相当有威力的，但是对<strong>引用类型变量</strong>和<code>null</code>时都会被识别成<code>object</code></p>
-<h2 id="Object-prototype-toString-call-para"><a href="#Object-prototype-toString-call-para" class="headerlink" title="Object.prototype.toString.call(para)"></a>Object.prototype.toString.call(para)</h2><p>前面的<code>typeof</code>死在半路，无法打探到<strong>引用类型变量</strong>和<code>null</code>的真实情报，但是我们得出了另一个情报：<strong>他们都是<code>obejct</code></strong>。那么我们就完全可以利用<code>Object</code>原型上的<code>toString()</code>方法来判断</p>
+<h2 id="typeof-para"><a href="#typeof-para" class="headerlink" title="typeof para"></a>typeof para</h2><p>事实证明<code>typeof</code>并不是万能的，在对除<code>Null</code>以外的<strong>基本类型</strong>变量是相当有威力的，但是对<strong>引用类型变量</strong>和<code>Null</code>时都会被识别成<code>object</code>，但是请注意：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typeof</span> &#123;&#125;; <span class="comment">//object</span></div><div class="line"><span class="keyword">typeof</span> <span class="built_in">Object</span>; <span class="comment">//Function</span></div></pre></td></tr></table></figure>
+<p>为什么会出现这样的情况呢？因为<code>Object</code>是一个构造函数，而不是<code>object</code>数据类型对象，同理<code>Array</code>，<code>Date</code>，<code>Function</code>等都是属于构造函数</p>
+<h2 id="Object-prototype-toString-call-para"><a href="#Object-prototype-toString-call-para" class="headerlink" title="Object.prototype.toString.call(para)"></a>Object.prototype.toString.call(para)</h2><p>前面的<code>typeof</code>死在半路，无法打探到<strong>引用类型变量</strong>和<code>null</code>的真实情报，但是我们得出了另一个情报：<strong>他们都是<code>obejct</code></strong>。别慌，我们另外一个强大的武器，可以直指要害，<code>Object.prototype.toString.call(para)</code></p>
 <h2 id="判断结果比较表"><a href="#判断结果比较表" class="headerlink" title="判断结果比较表"></a>判断结果比较表</h2><table>
 <thead>
 <tr>
@@ -648,11 +651,11 @@
   <script type="text/javascript"  src="https://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
   <script src="https://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
-  <p><span>本文标题:</span><a href="/2017/03/31/javascript-type/">Javascript常用见问题之判断类型</a></p>
+  <p><span>本文标题:</span><a href="/2017/03/31/javascript-type/">Javascript常用见问题之变量类型判断终极篇</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年03月31日 - 17:03</p>
-  <p><span>最后更新:</span>2017年11月15日 - 20:11</p>
-  <p><span>原始链接:</span><a href="/2017/03/31/javascript-type/" title="Javascript常用见问题之判断类型">http://2ue.github.io/2017/03/31/javascript-type/</a>
+  <p><span>最后更新:</span>2018年03月07日 - 10:03</p>
+  <p><span>原始链接:</span><a href="/2017/03/31/javascript-type/" title="Javascript常用见问题之变量类型判断终极篇">http://2ue.github.io/2017/03/31/javascript-type/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/03/31/javascript-type/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a>&nbsp;&nbsp;&nbsp;&nbsp;转载请保留原文链接及作者。</p>
@@ -798,7 +801,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -809,7 +812,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -926,7 +929,7 @@
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共29.7k字</span>
+    <span class="post-count">共29.9k字</span>
   </div>
 </div>
 

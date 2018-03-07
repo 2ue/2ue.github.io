@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="前端路上">
 <meta property="og:description" content="虽然有了git的图形化工具，但个人还是喜欢命令行，并且结合alias功能，也能非常快速的完成很多功能。记录一些项目中常用的git命令，方便查阅  查看状态可以查看工作区(edit即add之前)和暂存区(add之后，commit之前) 1git status 提交到暂存区123456//提交某个文件git add fileName//提交所有修改文件的三种写法git add *git add .g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-01T11:51:13.859Z">
+<meta property="og:updated_time" content="2018-02-28T10:13:43.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git学习之常用命令">
 <meta name="twitter:description" content="虽然有了git的图形化工具，但个人还是喜欢命令行，并且结合alias功能，也能非常快速的完成很多功能。记录一些项目中常用的git命令，方便查阅  查看状态可以查看工作区(edit即add之前)和暂存区(add之后，commit之前) 1git status 提交到暂存区123456//提交某个文件git add fileName//提交所有修改文件的三种写法git add *git add .g">
@@ -248,7 +248,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="https://2ue.github.io/aboutMe/dist/index.html" rel="section">
+          <a href="/about-me/dist/index.html" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
@@ -396,6 +396,10 @@
 <p>git fetch只是下载远程的库的内容，不做任何的合并；git reset把HEAD指向刚刚下载的最新的版本</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git fetch --all</div><div class="line">git reset --hard origin/master</div></pre></td></tr></table></figure>
+<h3 id="回退到某个历史版本"><a href="#回退到某个历史版本" class="headerlink" title="回退到某个历史版本"></a>回退到某个历史版本</h3><blockquote>
+<p>首先使用git log命令获取某个历史版本的ID，假设ID是c3470ee7edf566cc359b666d3e27a38220abaf66</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在本地回退到c3470ee7edf566cc359b666d3e27a38220abaf66版本</div><div class="line">git reset --hard c3470ee7edf566cc359b666d3e27a38220abaf66</div><div class="line">//推送到远程分支，注意：由于本地版本旧于远程仓库版本，这里需要使用-f参数，强制推送</div><div class="line">git push -f origin master</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -460,7 +464,7 @@
   <p><span>本文标题:</span><a href="/2017/07/01/learn-git-2/">Git学习之常用命令</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 J.2ue 的个人博客">2ue</a></p>
   <p><span>发布时间:</span>2017年07月01日 - 13:07</p>
-  <p><span>最后更新:</span>2018年01月01日 - 19:01</p>
+  <p><span>最后更新:</span>2018年02月28日 - 18:02</p>
   <p><span>原始链接:</span><a href="/2017/07/01/learn-git-2/" title="Git学习之常用命令">http://2ue.github.io/2017/07/01/learn-git-2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://2ue.github.io/2017/07/01/learn-git-2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -605,7 +609,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -616,7 +620,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看状态"><span class="nav-number">1.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到暂存区"><span class="nav-number">2.</span> <span class="nav-text">提交到暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存在本地仓库"><span class="nav-number">3.</span> <span class="nav-text">保存在本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到远程仓库"><span class="nav-number">4.</span> <span class="nav-text">提交到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">5.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">5.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">5.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">5.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">5.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">5.5.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#放弃本地修改强制更新"><span class="nav-number">5.6.</span> <span class="nav-text">放弃本地修改强制更新</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看状态"><span class="nav-number">1.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到暂存区"><span class="nav-number">2.</span> <span class="nav-text">提交到暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存在本地仓库"><span class="nav-number">3.</span> <span class="nav-text">保存在本地仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到远程仓库"><span class="nav-number">4.</span> <span class="nav-text">提交到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">5.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">5.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">5.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">5.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">5.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">5.5.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#放弃本地修改强制更新"><span class="nav-number">5.6.</span> <span class="nav-text">放弃本地修改强制更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回退到某个历史版本"><span class="nav-number">5.7.</span> <span class="nav-text">回退到某个历史版本</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -733,7 +737,7 @@
   <span class="post-meta-divider">|</span>
   <div class="theme-info">
     <div class="powered-by"></div>
-    <span class="post-count">共29.7k字</span>
+    <span class="post-count">共29.9k字</span>
   </div>
 </div>
 
