@@ -14,12 +14,12 @@ categories:
 
 ## 变量的基本类型
 
-`JavaScript`变量包含两种不同的数据类型的值：**基本类型**和**引用类型**。基本类型是指简单的数据，有`Number`、`String`、`Boolean`、`Udefined`、`Null`(null可以算作是一个特殊的基本数据类型)，而引用类型指那些可能包含多个值的对象，有`Object`、`Array`、`Date`、`RegExp`、`Function`等。在`JavaScript`中，我们通过`var`来声明变量，由于`JavaScript`是若语言类型，我们无法在申明的时候规定他的类型，`JavaScript`变量的类型是随变量的值改变而改变的。为了代码的安全性，在有些情况下我们要判断变量值的类型，如何正确的判断变量的类型就成了一个比较有深度的问题。下图列举一些常见的类型：
+`JavaScript`变量包含两种不同的数据类型的值：**基本类型**和**引用类型**。基本类型是指简单的数据，有`Number`、`String`、`Boolean`、`Undefined`、`Null`(null可以算作是一个特殊的基本数据类型)，而引用类型指那些可能包含多个值的对象，有`Object`、`Array`、`Date`、`RegExp`、`Function`等。在`JavaScript`中，我们通过`var`来声明变量，由于`JavaScript`弱语言类型，我们无法在申明的时候规定他的类型，`JavaScript`变量的类型是随变量的值改变而改变的。为了代码的安全性，在有些情况下我们要判断变量值的类型，如何正确的判断变量的类型就成了一个比较有深度的问题。下图列举一些常见的类型：
 
 |      类型      |       举例        |
 | :----------: | :-------------: |
 |   **Null**   |      null       |
-| **Udefined** | udefined、未赋值的变量 |
+| **Undefined** | undefined、未赋值的变量 |
 | **Boolean**  |   true、false    |
 |  **Number**  |  -1、0 、 1、 NaN  |
 |  **String**  |     '1'、'a'     |
@@ -63,7 +63,7 @@ typeof Object; //Function
 |      类型      |      值       | isNaN(para) |   !para    | typeof para |  toString(para)   |
 | :----------: | :----------: | :---------: | :--------: | :---------: | :---------------: |
 |   **Null**   |     null     |    true     |    true    |   obejct    |   [obejct Null]   |
-| **Udefined** |   udefined   |    true     |    true    |  udefined   | [obejct Udefined] |
+| **Undefined** |   undefined   |    true     |    true    |  undefined   | [obejct Undefined] |
 | **Boolean**  |  true/false  |    true     | false/true |    true     | [obejct Boolean]  |
 |  **Number**  |      -1      |    false    |   false    |   number    |  [obejct Number]  |
 |  **Number**  |      0       |    false    |    true    |   number    |  [obejct Number]  |
