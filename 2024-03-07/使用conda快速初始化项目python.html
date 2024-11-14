@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="python的环境管理方案很多，社区有很多解决方案，本文介绍一种常用的、支持多版本python、多人协作的、方便快捷的环境管理方案：miniforge-conda  环境准备如果你想使用conda来管理你的Python环境和依赖，你需要在你的机器上安装Anaconda或Miniconda。Anaconda包含了conda，Python和150+科学包及其依赖。而Miniconda只包含了cond">
+<meta property="og:type" content="website">
+<meta property="og:title" content="使用conda快速初始化项目python">
+<meta property="og:url" content="https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="python的环境管理方案很多，社区有很多解决方案，本文介绍一种常用的、支持多版本python、多人协作的、方便快捷的环境管理方案：miniforge-conda  环境准备如果你想使用conda来管理你的Python环境和依赖，你需要在你的机器上安装Anaconda或Miniconda。Anaconda包含了conda，Python和150+科学包及其依赖。而Miniconda只包含了cond">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-07T05:15:00.000Z">
+<meta property="article:modified_time" content="2024-03-07T05:15:00.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Anaconda">
+<meta property="article:tag" content="conda">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html","path":"2024-03-07/使用conda快速初始化项目python.html","title":"使用conda快速初始化项目python"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用conda快速初始化项目python | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">53</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">23</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">创建虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%85%A8%E6%96%B0%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">创建全新的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-number">4.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E4%BE%9D%E8%B5%96%E5%8F%8A%E5%8D%8F%E5%90%8C%E5%BC%80%E5%8F%91"><span class="nav-number">5.</span> <span class="nav-text">导出依赖及协同开发</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用conda快速初始化项目python | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用conda快速初始化项目python
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-03-07 13:15:00" itemprop="dateCreated datePublished" datetime="2024-03-07T13:15:00+08:00">2024-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python-Anaconda/" itemprop="url" rel="index"><span itemprop="name">python/Anaconda</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>python的环境管理方案很多，社区有很多解决方案，本文介绍一种常用的、支持多版本python、多人协作的、方便快捷的环境管理方案：miniforge-conda</p>
+</blockquote>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>如果你想使用conda来管理你的Python环境和依赖，你需要在你的机器上安装Anaconda或Miniconda。Anaconda包含了conda，Python和150+科学包及其依赖。而Miniconda只包含了conda和Python，可以参考[[python环境依赖管理方案]]</p>
+<p>但是，由于Anaconda对于商业用户（大型实体、公司和一些研究机构）需要购买许可证，个人用户暂时免费，为了避免后续个人使用也收费需要再次切换，笔者现在已经切换到社区维护版本的<a target="_blank" rel="noopener" href="https://github.com/conda-forge/miniforge"><code>miniforge</code></a>，两者都是使用conda作为包和环境管理工具，使用时命令几乎一样，能够做到无缝迁移</p>
+<h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>为什么需要创建虚拟环境？<br>Python创建虚拟环境的目的是为了在同一台计算机上同时管理和运行多个独立的Python项目。虚拟环境提供了一个隔离的运行环境，使得每个项目可以拥有自己独立的Python解释器和依赖库，而不会相互干扰。</p>
+<p>以下是创建虚拟环境的几个主要目的：</p>
+<ol>
+<li>隔离项目：每个项目都可以在自己的虚拟环境中运行，避免不同项目之间的依赖冲突。这样可以确保每个项目都能够独立地使用所需的特定Python版本和依赖库。</li>
+<li>管理依赖：虚拟环境允许您为每个项目单独安装和管理所需的依赖库。这样可以确保每个项目都使用其特定版本的依赖库，而不会受其他项目的影响。</li>
+<li>简化部署：使用虚拟环境可以更轻松地将项目部署到其他计算机或服务器上。您可以将虚拟环境与项目一起打包，并确保在不同环境中具有一致的运行结果。</li>
+<li>提高可移植性：虚拟环境使得项目在不同操作系统和计算机上的移植更加容易。您可以在不同平台上创建相同的虚拟环境，并确保项目在各个环境中都能够正常运行。</li>
+</ol>
+<p>创建虚拟环境可以提供一个独立、隔离和可管理的Python运行环境，使得多个项目能够在同一台计算机上同时运行，而不会相互干扰。这为项目开发、依赖管理和部署提供了更大的灵活性和可靠性</p>
+<p>注意在生成导出依赖项时，生成的记录文件类型一般是environment.yml或environment.txt，笔者这里是用的environment.yml</p>
+<h2 id="创建全新的项目"><a href="#创建全新的项目" class="headerlink" title="创建全新的项目"></a>创建全新的项目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建新项目</span></span><br><span class="line">mkdir test-python-project &amp;&amp; cd test-python-project</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">选择你需要的python版本来创建虚拟环境</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">conda create --name &#123;envname&#125; python=&#123;version&#125;</span></span><br><span class="line">conda create --name myenv python=3.10</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">激活虚拟环境</span></span><br><span class="line">conda activate myenv</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖: 假设安装request库</span></span><br><span class="line">conda install request</span><br></pre></td></tr></table></figure>
+
+<h2 id="导出依赖及协同开发"><a href="#导出依赖及协同开发" class="headerlink" title="导出依赖及协同开发"></a>导出依赖及协同开发</h2><p>为什么需要导出依赖呢？其实只有一个目的：保证项目在其他机器上能够运行。如果你项目依赖了几十个包，都分散在代码各处，要在其他机器上将这个项目运行起来，是多么的费事！所有我们必须有一个集中的地方将依赖管理起来，conda提供的一些常用的命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">不带--name参数默认为当前项目已经激活的环境</span></span><br><span class="line">conda env export &gt; environment.yml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定导出某个环境的依赖</span></span><br><span class="line">conda env export --name myenv &gt; environment.yml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建一个和项目完全一样的虚拟环境</span></span><br><span class="line">conda env create --file environment.yml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">conda install --file requirements.yml</span><br></pre></td></tr></table></figure>
+
+<p>那么现在就可以愉快的编写代码了~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html" title="使用conda快速初始化项目python">https://blog.imx0.com/2024-03-07/使用conda快速初始化项目python.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/Anaconda/" rel="tag"><i class="fa fa-tag"></i> Anaconda</a>
+              <a href="/tags/conda/" rel="tag"><i class="fa fa-tag"></i> conda</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:38</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"eb984fc7fcd75528bd189ca89f184554"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>
