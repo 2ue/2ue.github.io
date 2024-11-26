@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。  何为谨慎使用谨慎使用不是不用，而是持一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vue中慎用style的scoped属性">
+<meta property="og:url" content="https://blog.imx0.com/2017-11-15/vue-style-scoped">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。  何为谨慎使用谨慎使用不是不用，而是持一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-15T11:09:16.000Z">
+<meta property="article:modified_time" content="2017-11-15T11:09:16.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2017-11-15/vue-style-scoped">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2017-11-15/vue-style-scoped.html","path":"2017-11-15/vue-style-scoped.html","title":"vue中慎用style的scoped属性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue中慎用style的scoped属性 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">何为谨慎使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">鉴于此，虽然这篇文章没有什么价值，但为了提醒我自己深究的意义，我对后面的内容做了保留，以下内容是最开始文章的原文，请大家忽略，上面的内容才是正文，没错，正文就是这么少。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scoped%E5%AE%9E%E7%8E%B0%E7%A7%81%E6%9C%89%E5%8C%96%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">scoped实现私有化样式的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%85%B1%E7%BB%84%E4%BB%B6button%E7%BB%84%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">公共组件button组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93button%E7%BB%84%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">浏览器渲染button组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6%E5%BC%95%E7%94%A8button%E7%BB%84%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">其他组件引用button组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E4%B8%80%E8%88%AC%E7%BB%84%E4%BB%B6%EF%BC%88%E6%9C%AA%E6%B7%BB%E5%8A%A0scoped%EF%BC%89%E5%BC%95%E7%94%A8%E6%A8%A1%E5%9D%97%E7%A7%81%E6%9C%89%E7%BB%84%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">模块一般组件（未添加scoped）引用模块私有组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E7%A7%81%E6%9C%89%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B7%BB%E5%8A%A0scoped%EF%BC%89%E5%BC%95%E7%94%A8%E6%A8%A1%E5%9D%97%E7%A7%81%E6%9C%89%E7%BB%84%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">模块私有组件（添加scoped）引用模块私有组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93scoped%E7%9A%84%E6%B8%B2%E6%9F%93%E8%A7%84%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">总结scoped的渲染规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-1"><span class="nav-number">6.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%A3%E4%BA%8B"><span class="nav-number">7.</span> <span class="nav-text">趣事</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2017-11-15/vue-style-scoped.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue中慎用style的scoped属性 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue中慎用style的scoped属性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-15 19:09:16" itemprop="dateCreated datePublished" datetime="2017-11-15T19:09:16+08:00">2017-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。</p>
+</blockquote>
+<h2 id="何为谨慎使用"><a href="#何为谨慎使用" class="headerlink" title="何为谨慎使用"></a>何为谨慎使用</h2><p>谨慎使用不是不用，而是持一种审视的目光去看待它。<code>scoped</code>肯定是解决了样式私有化的问题，但同时也引入了新的问题—样式不易（可）修改，而很多时候，我们是需要对公共组件的样式做微调的。所以我才说要谨慎使用</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>首先要说明的问题是，最开始我以为这是一个<code>BUG</code>或者说一个弊端(因为当时没有搞明白scoped的真正作用)，就很英勇的去提了一个<code>issue</code>，然后理所当然的被关闭了，关闭的理由是：<code>scoped</code>设计的初衷就是让样式变得私有，让它不会影响其他任何地方的样式。但是由于我在业务中经常遇到需要修改有<code>scoped</code>属性的组件，就写了一篇文章记录一下这个问题，希望大家谨慎的使用这个属性。<br>然而事实再一次证明了我的愚蠢，在<code>vue-loader</code>的文档中已经详细的对这个问题做了分析，并且对我遇到这种问题给出了解决方法：vue-loader的深度作用选择器。<br>因为我并没有去深入了解这些问题，所以注定这篇文章被大伙拍砖，😂😂😂😂😂😂</p>
+<p>解决方案：<span class="exturl" data-url="aHR0cHM6Ly92dWUtbG9hZGVyLnZ1ZWpzLm9yZy96aC1jbi9mZWF0dXJlcy9zY29wZWQtY3NzLmh0bWw=">vue-loader之scoped-css<i class="fa fa-external-link-alt"></i></span></p>
+<h3>鉴于此，虽然这篇文章没有什么价值，但为了提醒我自己深究的意义，我对后面的内容做了保留，以下内容是最开始文章的原文，请大家忽略，上面的内容才是正文，没错，正文就是这么少。</h3>
+
+<p>——————————–<b>正文分割线，以下是无营养的内容</b>——————————–</p>
+<hr>
+<h2 id="scoped实现私有化样式的原理"><a href="#scoped实现私有化样式的原理" class="headerlink" title="scoped实现私有化样式的原理"></a>scoped实现私有化样式的原理</h2><p>为什么会说，会增加复杂度？那么我们先从的实现模块的原理说起。为了方便称呼，我们假设把这种组件叫做<code>模块私有组件</code>，其他的未加<code>scoped</code>的叫做<code>模块一般组件</code>。<br>通过查看<code>DOM</code>结构发现：<code>vue</code>通过在DOM结构以及<code>css</code>样式上加唯一不重复的标记，以保证唯一，达到样式私有化模块化的目的。具体的渲染结果是怎样的，通过一个例子来说明。</p>
+<h3 id="公共组件button组件"><a href="#公共组件button组件" class="headerlink" title="公共组件button组件"></a>公共组件button组件</h3><p>一个公共组件<code>button</code>，为了样式模块化，给其加上<code>scoped</code>属性，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//button.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;button-warp&quot;&gt;</span><br><span class="line">        &lt;button class=&quot;button&quot;&gt;text&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">...</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">    .button-warp&#123;</span><br><span class="line">        display:inline-block;</span><br><span class="line">    &#125;</span><br><span class="line">    .button&#123;</span><br><span class="line">        padding: 5px 10px;</span><br><span class="line">        font-size: 12px;</span><br><span class="line">        border-radus: 2px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="浏览器渲染button组件"><a href="#浏览器渲染button组件" class="headerlink" title="浏览器渲染button组件"></a>浏览器渲染button组件</h3><p><code>button</code>组件在浏览器渲染出的<code>html</code>部分和<code>css</code>部分分别为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button-warp&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span>&gt;</span>text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button-warp</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.button</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border</span>-radus: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的字可以看出，添加了<code>scoped</code>属性的组件，为了达到组件样式模块化，做了两个处理：</p>
+<ul>
+<li>给<code>HTML</code>的<code>DOM</code>节点加一个不重复<code>data</code>属性(形如：data-v-2311c06a)来表示他的唯一性</li>
+<li>在每句<code>css</code>选择器的末尾（编译后的生成的css语句）加一个当前组件的<code>data</code>属性选择器（如[data-v-2311c06a]）来私有化样式</li>
+</ul>
+<p>大家都知道<code>css</code>样式有一个优先级的说法，<code>scoped</code>的这一操作，虽然达到了组件样式模块化的目的，但是会造成一种后果：每个样式的权重加重了：理论上我们要去修改这个样式，需要更高的权重去覆盖这个样式。这是增加复杂度的其中一个维度。</p>
+<h2 id="其他组件引用button组件"><a href="#其他组件引用button组件" class="headerlink" title="其他组件引用button组件"></a>其他组件引用button组件</h2><p>上面分析了单个组件渲染后的结果,那么组件互相调用之后会出现什么样的结果呢？，具体分两种情况：模块一般组件引用模块私有组件（本质和模块私有组件引用模块一般组件一样）；模块私有组件引用模块私有组件。</p>
+<p>举个例子：在组件<code>content.vue</code>中使用了<code>button</code>组件，那么<code>content.vue</code>组件是否添加<code>scoped</code>属性渲染出来的结果有什么区别呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//content.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        &lt;p class=&quot;title&quot;&gt;&lt;/p&gt;</span><br><span class="line">        &lt;!-- v-button假设是上面定义的组件 --&gt;</span><br><span class="line">        &lt;v-button&gt;&lt;/v-button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">...</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .content&#123;</span><br><span class="line">        width: 1200px;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">    &#125;</span><br><span class="line">    .content .button&#123;</span><br><span class="line">        border-raduis: 5px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模块一般组件（未添加scoped）引用模块私有组件"><a href="#模块一般组件（未添加scoped）引用模块私有组件" class="headerlink" title="模块一般组件（未添加scoped）引用模块私有组件"></a>模块一般组件（未添加scoped）引用模块私有组件</h3><p>如果<code>style</code>上没有加<code>scoped</code>属性，那么渲染出来<code>html</code>和<code>css</code>分别就是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;title&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- v-button假设是上面定义的组件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button-warp&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span>&gt;</span>text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*button.vue渲染出来的css*/</span></span><br><span class="line"><span class="selector-class">.button-warp</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.button</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border</span>-radus: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*content.vue渲染出来的css*/</span></span><br><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1200px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> <span class="selector-class">.button</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>-raduis: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，虽然在<code>content</code>组件中，修改了<code>button</code>的<code>border-raduis</code>属性，但是由于权重关系，生效的依然是组件内部的样式（此时是外部的样式被覆盖）。所以如果要达到修改样式的目的，就必须加重我们要修改样式的权重（增加选择器层级，ID选择器，并列选择器，impotant等）</p>
+<h3 id="模块私有组件（添加scoped）引用模块私有组件"><a href="#模块私有组件（添加scoped）引用模块私有组件" class="headerlink" title="模块私有组件（添加scoped）引用模块私有组件"></a>模块私有组件（添加scoped）引用模块私有组件</h3><p>如果加了<code>scoped</code>属性呢？按照开始分析出来的规则（事实也是这么的）：<br>首先是在所有的<code>DOM</code>节点加上<code>data</code>属性<br>然后在css选择器尾部加上<code>data</code>属性选择器</p>
+<p>那么渲染出来<code>html</code>和<code>css</code>分别就是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-57bc25a0</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-v-57bc25a0</span> <span class="attr">class</span>=<span class="string">&quot;title&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- v-button假设是上面定义的组件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-57bc25a0</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button-warp&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-v-2311c06a</span> <span class="attr">class</span>=<span class="string">&quot;button&quot;</span>&gt;</span>text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*button.vue渲染出来的css*/</span></span><br><span class="line"><span class="selector-class">.button-warp</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.button</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border</span>-radus: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*content.vue渲染出来的css*/</span></span><br><span class="line"><span class="selector-class">.content</span><span class="selector-attr">[data-v-57bc25a0]</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1200px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> <span class="selector-class">.button</span><span class="selector-attr">[data-v-57bc25a0]</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>-raduis: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于上面的两种情况，可以明显看出来渲染后的结果大不相同。<br>虽然我们在<code>content</code>添加了想要修改<code>button</code>组件的样式的代码，但是仔细看，由于<code>.content .button</code>这句在末尾加的是<code>content</code>组件的<code>scoped</code>标记，最后这句其实根本作用不到我们想要的<code>DOM</code>节点上，所以这种情况我们在<code>content</code>内部写的任何样式都不会影响到<code>button.vue</code>组件，所以这就尴尬了。。。。<br>当然这个问题也是可以解决的，就是直接加全局样式可以修改到，但这势必会影响全部地方的组件；所以需要另外一种方法在<code>content.vue</code>组件内再加一个不带<code>scoped</code>属性的<code>style</code>标签，也就意味着要加两个<code>style</code>，一个用于私有样式，一个用于共有样式。这肯定是有点shit的，并且这两种解决方案都回避不了一个问题：权重！！！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//content.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        &lt;p class=&quot;title&quot;&gt;&lt;/p&gt;</span><br><span class="line">        &lt;!-- v-button假设是上面定义的组件 --&gt;</span><br><span class="line">        &lt;v-button&gt;&lt;/v-button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">...</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">    .content&#123;</span><br><span class="line">        width: 1200px;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .content .button&#123;</span><br><span class="line">        border-raduis: 5px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样符合规范么？貌似没看到不能这么写，并且这么写也确实生效了。。。但这样确实增加了思维的复杂度，有点苦恼啊。</p>
+<h2 id="总结scoped的渲染规则"><a href="#总结scoped的渲染规则" class="headerlink" title="总结scoped的渲染规则"></a>总结scoped的渲染规则</h2><p>总结一下<code>scoped</code>三条渲染规则</p>
+<ul>
+<li>给<code>HTML</code>的<code>DOM</code>节点加一个不重复<code>data</code>属性(形如：data-v-2311c06a)来表示他的唯一性</li>
+<li>在每句<code>css</code>选择器的末尾（编译后的生成的css语句）加一个当前组件的<code>data</code>属性选择器（如[data-v-2311c06a]）来私有化样式</li>
+<li>如果组件内部包含有其他组件，只会给其他组件的最外层标签加上当前组件的data属性</li>
+</ul>
+<h2 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h2><p>对于引用的三方库，如果对方使用了<code>scoped</code>，我们无力改变什么，如果确实需要修改他的样式最能在不加<code>scoped</code>的组件中修改样式，或者全局样式直接修改，这很粗暴！<br>对于自己维护的组件，一定要想清楚，组件的样式能否满足所有的情况。如果确实需要加，无疑会增加使用这个组件的开发同学的工作！</p>
+<p>当然对于这个问题，如果诸君有更好的解决方案，请诸君TELL ME一下下！</p>
+<h2 id="趣事"><a href="#趣事" class="headerlink" title="趣事"></a>趣事</h2><p>在使用scoped一定要谨慎scoped的这个特性，本人以为这是一个BUG，就去提了<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Z1ZWpzL3Z1ZS9pc3N1ZXMvNzA2Nw==">issue<i class="fa fa-external-link-alt"></i></span> ，结果尤大很霸气的回复<br><code>scoped</code>设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，因为设计如此。所以理所当然的这个<code>issue</code>已被干掉。。。😂😂😂😂😂😂</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2017-11-15/vue-style-scoped.html" title="vue中慎用style的scoped属性">https://blog.imx0.com/2017-11-15/vue-style-scoped.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+              <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2017-11-15/vue-style-scoped"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"5f1f8a5eb2d431eaf3c3d86c13397aed"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

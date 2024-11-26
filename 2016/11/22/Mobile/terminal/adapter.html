@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="移动端越来越被大众所接收，那么相应的技术就越来越向它靠拢，这是一种不可阻挡的趋势，也是万物发展的规律。移动端有三大难题：兼容、调试和适配。这三大问题就好像三座无法逾越的大山阻挡者我们前进的步伐，此文将记录我在项目中关于移动端适配的一些方式，供大家参考  分析移动端适配的根本原因">
+<meta property="og:type" content="website">
+<meta property="og:title" content="移动端适配方案">
+<meta property="og:url" content="https://blog.imx0.com/2016/11/22/Mobile/terminal/adapter.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="移动端越来越被大众所接收，那么相应的技术就越来越向它靠拢，这是一种不可阻挡的趋势，也是万物发展的规律。移动端有三大难题：兼容、调试和适配。这三大问题就好像三座无法逾越的大山阻挡者我们前进的步伐，此文将记录我在项目中关于移动端适配的一些方式，供大家参考  分析移动端适配的根本原因">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-11-22T07:39:04.000Z">
+<meta property="article:modified_time" content="2016-11-22T07:39:04.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="rem">
+<meta property="article:tag" content="mobile">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2016/11/22/Mobile/terminal/adapter.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2016-11-22/Mobile-terminal-adapter.html","path":"2016-11-22/Mobile-terminal-adapter.html","title":"移动端适配方案"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>移动端适配方案 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">适配方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F-%E2%80%93-%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.</span> <span class="nav-text">纯css实现方式 – 媒体查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F-%E2%80%93-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">纯css实现方式 – 计算属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">js的实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2016-11-22/Mobile-terminal-adapter.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="移动端适配方案 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          移动端适配方案
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-11-22 15:39:04" itemprop="dateCreated datePublished" datetime="2016-11-22T15:39:04+08:00">2016-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>移动端越来越被大众所接收，那么相应的技术就越来越向它靠拢，这是一种不可阻挡的趋势，也是万物发展的规律。移动端有三大难题：兼容、调试和适配。这三大问题就好像三座无法逾越的大山阻挡者我们前进的步伐，此文将记录我在项目中关于移动端适配的一些方式，供大家参考</p>
+</blockquote>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>移动端适配的根本原因</p>
+<ul>
+<li>屏幕窗口的大小</li>
+<li>设备像素比(devicepixelratio，简称dpr)</li>
+</ul>
+<p>很多地方介绍设备像素比的，这里就不做具体探讨，简单总结一下：<code>devicepixelratio</code>(设备像素比,即dpr) &#x3D; <code>physicalpixel</code> (物理像素) &#x2F; <code>density-independent pixel</code>(设备独立像素,即dip)。<code>dip</code>或<code>dp</code>,（<code>device independent pixels</code>，设备独立像素）与屏幕密度有关。<code>dip</code>可以用来辅助区分视网膜设备还是非视网膜设备。<br>在<code>JavaScript</code>中，可以通过<code>window.devicePixelRatio</code>获取到当前设备的dpr，但遗憾的是并不是所有的都支持。<br>在CSS中，可以分别针对屏幕大小和设备像素比做适配：<br>针对窗口大小，一般使用媒体查询的<code>only screen</code>、<code>min-width</code>、<code>max-width</code>来适配，也是使用<code>css</code>做适配最常见的一种方式<br>针对像素比，可以使用<code>-webkit-device-pixel-ratio</code>，<code>-webkit-min-device-pixel-ratio</code>和 <code>-webkit-max-device-pixel-ratio</code>属性，同样他的支持度一样不高（其实是很低），所以几乎没有用武之地。</p>
+<h2 id="适配方式"><a href="#适配方式" class="headerlink" title="适配方式"></a>适配方式</h2><p>移动端适配主要有两大不同的方向：</p>
+<ul>
+<li>响应式布局：它是根据屏幕大小自动的调整布局位置（非单纯的缩放），实现适配</li>
+<li>自适应布局：它是根据屏幕大小自动的缩放大小，实现适配。</li>
+</ul>
+<p>两种方式应用的场景不同，各有优劣，本人对自适应布局使用的比较多</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>为了解决这个老大难问题，从最初开始百分比到<code>em</code>，然后到现在<code>rem</code>的使用，都一一体现着技术的滚滚向前。目前是用的最多的也就是<code>rem</code>，他们的区别和有点请自行<code>GG</code>。<br>有了<code>rem</code>这个大杀器，解决问题就变得简单起来，具体请往下看。</p>
+<h2 id="纯css实现方式-–-媒体查询"><a href="#纯css实现方式-–-媒体查询" class="headerlink" title="纯css实现方式 – 媒体查询"></a>纯css实现方式 – 媒体查询</h2><p>使用原生<code>css</code>来实现媒体查询是很繁琐的，因为每个媒体查询都要去设定规则。推荐使用<code>css</code>的预编译器(sass,less,stylus)，比较方便。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义规则 */</span></span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">401px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">24px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">428px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">28</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">481px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">30px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">569px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">35px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">641px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">40px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">751px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">50px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">1080px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">60px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//less 方式调用</span></span><br><span class="line"><span class="variable">@unit:</span> <span class="number">50rem</span>; <span class="comment">//基准单位,根据设计稿来确定。假设：设计稿尺寸为750，那么@unit设置为50rem(1rem=50px更方便下面计算)</span></span><br><span class="line"><span class="selector-class">.warp</span>&#123;with: 100 / @unit&#125; <span class="comment">// 设计稿上元素的尺寸为100px =&gt; .warp&#123;with: 2rem&#125;</span></span><br><span class="line"><span class="selector-class">.warp</span>&#123;with: 10 / @unit&#125; <span class="comment">// 设计稿上元素的尺寸为10px =&gt; .warp&#123;with: 0.2rem&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果这里使用原生<code>css</code>来做，每个尺寸都需要去计算，如果使用预处理器，只需要定义一个变量，计算的事情直接交给它们就行。</p>
+<p>这样当页面展示在<code>750</code>的屏幕上时，html的<code>font-size</code>为<code>50px</code>，那么当设置为2rem的元素显示的尺寸就为<code>2*50px=100px</code>。在其他尺寸的设备也会根据媒体查询设置的不同<code>font-size</code>进行自动缩放适配。<br>当然上面也提到了，在<code>css</code>中也是可以获取到<code>devicePixelRatio</code>的值，那么为了更精确在写媒体查询的时候可以把它也加上去，这里就不展开了。</p>
+<h2 id="纯css实现方式-–-计算属性"><a href="#纯css实现方式-–-计算属性" class="headerlink" title="纯css实现方式 – 计算属性"></a>纯css实现方式 – 计算属性</h2><p>当然除了媒体查询，还有一种更潮的方式就是利用css3的一些新属性：计算属性和<code>vw</code>属性来实现自动设置根字体大小的目的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="built_in">calc</span>(<span class="number">100vw</span>/<span class="number">6.4</span>)&#125; //<span class="number">6.4</span>为psd设计稿尺寸/<span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>这套方案几乎是目前最简洁的方案了，并且<code>calc</code>和<code>vw</code>在移动端的支持也不错哟。</p>
+<h2 id="js的实现方式"><a href="#js的实现方式" class="headerlink" title="js的实现方式"></a>js的实现方式</h2><p>js的实现方式，参考了<code>网易</code>和<code>淘宝</code>的实现方式，对他们进行了整合。并且修复了手机端<code>1px问题</code>。</p>
+<ul>
+<li><code>网易实现方式</code>是通过设备尺寸动态的设置DOM的根元素字体大小，没有考虑devicePixelRatio的因素;</li>
+<li><code>淘宝实现方式</code>也是通过设备尺寸动态的设置DOM的根元素字体大小，并且考虑了devicePixelRatio的因素，但淘宝在设置rem时，显得较复杂(不方便写css把px转化成rem);</li>
+<li><code>1px问</code>题简单点说就是因为<code>devicePixelRatio</code>的存在，css的1px不等于移动端的1px。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params">doc, win, designSize</span>) &#123; <span class="comment">//designSize为设计稿的尺寸(宽)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> docEl = <span class="variable language_">document</span>.<span class="property">documentElement</span>,</span><br><span class="line">        devWidth = docEl.<span class="property">clientWidth</span> &gt; <span class="number">1080</span> ? <span class="number">1080</span> : docEl.<span class="property">clientWidth</span>,</span><br><span class="line">        dpr = devicePixelRatio || <span class="number">1</span>,</span><br><span class="line">        scale = <span class="number">1</span> / dpr,</span><br><span class="line">        width = dpr * devWidth,</span><br><span class="line">        resizeEvt = <span class="string">&#x27;orientationchange&#x27;</span> <span class="keyword">in</span> <span class="variable language_">window</span> ? <span class="string">&#x27;orientationchange&#x27;</span> : <span class="string">&#x27;onresize&#x27;</span>, <span class="comment">//判断横屏和窗口重置</span></span><br><span class="line">        recalc = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> clientWidth = docEl.<span class="property">clientWidth</span>;</span><br><span class="line">            <span class="keyword">if</span> (!clientWidth) <span class="keyword">return</span>;</span><br><span class="line">            <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;meta[name=&quot;viewport&quot;]&#x27;</span>)</span><br><span class="line">                    .<span class="title function_">setAttribute</span>(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;width=&#x27;</span> + width +</span><br><span class="line">                                <span class="string">&#x27;, initial-scale=&#x27;</span> + scale +</span><br><span class="line">                                <span class="string">&#x27;, maximum-scale=&#x27;</span> + scale +</span><br><span class="line">                                <span class="string">&#x27;, minimum-scale=&#x27;</span> + scale +</span><br><span class="line">                                <span class="string">&#x27;, user-scalable=no&#x27;</span>);</span><br><span class="line">            docEl.<span class="property">style</span>.<span class="property">fontSize</span> = devWidth / (designSize / <span class="number">100</span>) * dpr + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!doc.<span class="property">addEventListener</span>) <span class="keyword">return</span>;</span><br><span class="line">    win.<span class="title function_">addEventListener</span>(resizeEvt, recalc, <span class="literal">false</span>);</span><br><span class="line">    doc.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, recalc, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">&#125;)(<span class="variable language_">document</span>, <span class="variable language_">window</span>, <span class="number">750</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>以上三种方案对比，第一种媒体查询是最死板的，基本就是纯体力活。</li>
+<li>利用<code>css</code>的计算属性可以很优雅的解决问题，但是在兼容方面来说，目前还不是很完美</li>
+<li>并且利用纯<code>css</code>也没考虑<code>devicePixelRatio</code>（像素问题）这个因素。</li>
+<li>最后的<code>javascript</code>解决方案则是考虑到了兼容和<code>devicePixelRatio</code>这些因素，但是这里有一个很大的弊端就是：页面在某些情况（性能慢）会经过两次重回（给<code>HTML</code>根设置<code>font-size</code>和设置<code>meta</code>标签时）,在网络或者终端性能不是很好的情况用户体验很不错甚至页面错乱的情况。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2016-11-22/Mobile-terminal-adapter.html" title="移动端适配方案">https://blog.imx0.com/2016-11-22/Mobile-terminal-adapter.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/rem/" rel="tag"><i class="fa fa-tag"></i> rem</a>
+              <a href="/tags/mobile/" rel="tag"><i class="fa fa-tag"></i> mobile</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2016/11/22/Mobile/terminal/adapter.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"7602e293815a7162fae85db552bf39af"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

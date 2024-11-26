@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型JavaScript变量包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据，有Number、String、Boolean、Undefine">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Javascript常用见问题之变量类型判断终极篇">
+<meta property="og:url" content="https://blog.imx0.com/2017-03-31/javascript-type.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。本文所有的如果没特指，都是基于ES5的原生javascript  变量的基本类型JavaScript变量包含两种不同的数据类型的值：基本类型和引用类型。基本类型是指简单的数据，有Number、String、Boolean、Undefine">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-31T09:05:06.000Z">
+<meta property="article:modified_time" content="2017-03-31T09:05:06.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="typeof">
+<meta property="article:tag" content="object">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2017-03-31/javascript-type.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2017-03-31/javascript-type.html","path":"2017-03-31/javascript-type.html","title":"Javascript常用见问题之变量类型判断终极篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Javascript常用见问题之变量类型判断终极篇 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">变量的基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isNaN-para"><span class="nav-number">2.</span> <span class="nav-text">isNaN(para)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#para"><span class="nav-number">3.</span> <span class="nav-text">!para</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof-para"><span class="nav-number">4.</span> <span class="nav-text">typeof para</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-prototype-toString-call-para"><span class="nav-number">5.</span> <span class="nav-text">Object.prototype.toString.call(para)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E7%BB%93%E6%9E%9C%E6%AF%94%E8%BE%83%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">判断结果比较表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">总结方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E5%AD%97-%E9%9D%9E%E4%B8%A5%E6%A0%BC"><span class="nav-number">7.0.1.</span> <span class="nav-text">判断数字(非严格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E5%AD%97-%E4%B8%A5%E6%A0%BC"><span class="nav-number">7.0.2.</span> <span class="nav-text">判断数字(严格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88%E9%9D%9E%E4%B8%A5%E6%A0%BC%EF%BC%89"><span class="nav-number">7.0.3.</span> <span class="nav-text">判断字符串（非严格）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88%E4%B8%A5%E6%A0%BC%EF%BC%89"><span class="nav-number">7.0.4.</span> <span class="nav-text">判断字符串（严格）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%80%E8%88%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%8D%B3%E9%9D%9E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.0.5.</span> <span class="nav-text">判断一般数据类型(即非引用类型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BAnull-%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%E2%80%99%E2%80%99"><span class="nav-number">7.0.6.</span> <span class="nav-text">判断是否为null(不能识别’’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA%E5%AD%97%E7%AC%A6%E4%B8%B2-%E4%B8%8D%E5%8C%85%E5%90%AB%E7%A9%BA%E6%A0%BC"><span class="nav-number">7.0.7.</span> <span class="nav-text">判断是否为空字符串(不包含空格)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BAundefined"><span class="nav-number">7.0.8.</span> <span class="nav-text">判断是否为undefined</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BAfalse"><span class="nav-number">7.0.9.</span> <span class="nav-text">判断是否为false</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%EF%BC%88%E9%9D%9E%E4%B8%A5%E6%A0%BC1%E2%80%93%E6%89%80%E6%9C%89%E7%9A%84obejct%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">7.0.10.</span> <span class="nav-text">判断对象（非严格1–所有的obejct对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%EF%BC%88%E9%9D%9E%E4%B8%A5%E6%A0%BC2%E2%80%93%E9%99%A4%E5%8E%BBnull%E7%9A%84%E6%89%80%E6%9C%89object%E5%AF%B9%E8%B1%A1%EF%BC%89-%E5%88%A4%E6%96%AD%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.0.11.</span> <span class="nav-text">判断对象（非严格2–除去null的所有object对象）&lt;–&gt; 判断引用类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%A5%E6%A0%BC%E2%80%93%E5%8F%AA%E8%AF%86%E5%88%AB-JSON%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">7.0.12.</span> <span class="nav-text">判断对象（严格–只识别{}JSON对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84"><span class="nav-number">7.0.13.</span> <span class="nav-text">判断数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1"><span class="nav-number">7.0.14.</span> <span class="nav-text">判断对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%8F%AF%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-number">7.0.15.</span> <span class="nav-text">判断可执行函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2017-11-24/regex-to-something.html" rel="bookmark">
+        <time class="popular-posts-time">2017-11-24</time>
+        <br>
+      一道小小的题目引发对javascript支持正则表达式相关方法的探讨
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2017-03-31/javascript-type.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Javascript常用见问题之变量类型判断终极篇 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Javascript常用见问题之变量类型判断终极篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-31 17:05:06" itemprop="dateCreated datePublished" datetime="2017-03-31T17:05:06+08:00">2017-03-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>类型判断是我们在编程中常遇到的棘手问题，严格的变量类型约束会为代码减少很多致命的BUG。本文是对常用到的类型判断的一个整理，以求以最简洁的方式来判断变量的类型。<br/>本文所有的如果没特指，都是基于ES5的原生javascript</p>
+</blockquote>
+<h2 id="变量的基本类型"><a href="#变量的基本类型" class="headerlink" title="变量的基本类型"></a>变量的基本类型</h2><p><code>JavaScript</code>变量包含两种不同的数据类型的值：<strong>基本类型</strong>和<strong>引用类型</strong>。基本类型是指简单的数据，有<code>Number</code>、<code>String</code>、<code>Boolean</code>、<code>Undefined</code>、<code>Null</code>(null可以算作是一个特殊的基本数据类型)，而引用类型指那些可能包含多个值的对象，有<code>Object</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>等。在<code>JavaScript</code>中，我们通过<code>var</code>来声明变量，由于<code>JavaScript</code>弱语言类型，我们无法在申明的时候规定他的类型，<code>JavaScript</code>变量的类型是随变量的值改变而改变的。为了代码的安全性，在有些情况下我们要判断变量值的类型，如何正确的判断变量的类型就成了一个比较有深度的问题。下图列举一些常见的类型：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Null</strong></td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center"><strong>Undefined</strong></td>
+<td align="center">undefined、未赋值的变量</td>
+</tr>
+<tr>
+<td align="center"><strong>Boolean</strong></td>
+<td align="center">true、false</td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center">-1、0 、 1、 NaN</td>
+</tr>
+<tr>
+<td align="center"><strong>String</strong></td>
+<td align="center">‘1’、’a’</td>
+</tr>
+<tr>
+<td align="center"><strong>Array</strong></td>
+<td align="center">[]、new Array()</td>
+</tr>
+<tr>
+<td align="center"><strong>Object</strong></td>
+<td align="center">{}、new Object()</td>
+</tr>
+<tr>
+<td align="center"><strong>Function</strong></td>
+<td align="center">function(){}</td>
+</tr>
+</tbody></table>
+<p>判断他们的类型，第一时间可能你会想到用<code>typeof</code>去检测它们的类型，然后你就崩溃了：明明是<code>Null</code>为什么结果却是<code>oject</code>，明明是<code>Array</code>为什么还是<code>obejct</code>？…因此可以看出<code>typeof</code>方法不是很可靠，我们必须寻找一种行之有效的方法来解决这个问题？请继续往下读(为了方便阅读，下文中所有的<code>para</code>表示要判断的变量)：</p>
+<ul>
+<li>isNaN(para)</li>
+<li>!para</li>
+<li>typeof para</li>
+<li>Object.prototype.toString.call(para);</li>
+</ul>
+<p>除了上面这些方法，未来可能会有更多方法来增强变量的约束和判断，比如<code>isNumber</code>等</p>
+<h2 id="isNaN-para"><a href="#isNaN-para" class="headerlink" title="isNaN(para)"></a>isNaN(para)</h2><p>用来判断是否为<code>number</code>类型的专有方法。但是需要注意的是，如果使用<code>typeof</code>判断那么结果会是<code>number</code>。</p>
+<h2 id="para"><a href="#para" class="headerlink" title="!para"></a>!para</h2><p>常用来判断一个变量是否存在，面对<code>Arry</code>、<code>Object</code>等<strong>引用类型变量</strong>时无论是否为空都会被转换成<code>true</code></p>
+<h2 id="typeof-para"><a href="#typeof-para" class="headerlink" title="typeof para"></a>typeof para</h2><p>事实证明<code>typeof</code>并不是万能的，在对除<code>Null</code>以外的<strong>基本类型</strong>变量是相当有威力的，但是对<strong>引用类型变量</strong>和<code>Null</code>时都会被识别成<code>object</code>，但是请注意：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> &#123;&#125;; <span class="comment">//object</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="title class_">Object</span>; <span class="comment">//Function</span></span><br></pre></td></tr></table></figure>
+<p>为什么会出现这样的情况呢？因为<code>Object</code>是一个构造函数，而不是<code>object</code>数据类型对象，同理<code>Array</code>，<code>Date</code>，<code>Function</code>等都是属于构造函数</p>
+<h2 id="Object-prototype-toString-call-para"><a href="#Object-prototype-toString-call-para" class="headerlink" title="Object.prototype.toString.call(para)"></a>Object.prototype.toString.call(para)</h2><p>前面的<code>typeof</code>死在半路，无法打探到<strong>引用类型变量</strong>和<code>null</code>的真实情报，但是我们得出了另一个情报：**他们都是<code>obejct</code>**。别慌，我们另外一个强大的武器，可以直指要害，<code>Object.prototype.toString.call(para)</code></p>
+<h2 id="判断结果比较表"><a href="#判断结果比较表" class="headerlink" title="判断结果比较表"></a>判断结果比较表</h2><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">值</th>
+<th align="center">isNaN(para)</th>
+<th align="center">!para</th>
+<th align="center">typeof para</th>
+<th align="center">toString(para)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Null</strong></td>
+<td align="center">null</td>
+<td align="center">true</td>
+<td align="center">true</td>
+<td align="center">obejct</td>
+<td align="center">[obejct Null]</td>
+</tr>
+<tr>
+<td align="center"><strong>Undefined</strong></td>
+<td align="center">undefined</td>
+<td align="center">true</td>
+<td align="center">true</td>
+<td align="center">undefined</td>
+<td align="center">[obejct Undefined]</td>
+</tr>
+<tr>
+<td align="center"><strong>Boolean</strong></td>
+<td align="center">true&#x2F;false</td>
+<td align="center">true</td>
+<td align="center">false&#x2F;true</td>
+<td align="center">true</td>
+<td align="center">[obejct Boolean]</td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center">-1</td>
+<td align="center">false</td>
+<td align="center">false</td>
+<td align="center">number</td>
+<td align="center">[obejct Number]</td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center">0</td>
+<td align="center">false</td>
+<td align="center">true</td>
+<td align="center">number</td>
+<td align="center">[obejct Number]</td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center">1</td>
+<td align="center">false</td>
+<td align="center">false</td>
+<td align="center">number</td>
+<td align="center">[obejct Number]</td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center">NaN</td>
+<td align="center">true</td>
+<td align="center">true</td>
+<td align="center">number</td>
+<td align="center">[obejct  Number]</td>
+</tr>
+<tr>
+<td align="center"><strong>String</strong></td>
+<td align="center">‘1’</td>
+<td align="center">false</td>
+<td align="center">false</td>
+<td align="center">string</td>
+<td align="center">[obejct String]</td>
+</tr>
+<tr>
+<td align="center"><strong>String</strong></td>
+<td align="center">‘a’</td>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">string</td>
+<td align="center">[obejct String]</td>
+</tr>
+<tr>
+<td align="center"><strong>String</strong></td>
+<td align="center">‘’</td>
+<td align="center">true</td>
+<td align="center">true</td>
+<td align="center">string</td>
+<td align="center">[obejct String]</td>
+</tr>
+<tr>
+<td align="center"><strong>String</strong></td>
+<td align="center">‘ ‘(中间包含空格)</td>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">string</td>
+<td align="center">[obejct String]</td>
+</tr>
+<tr>
+<td align="center"><strong>Array</strong></td>
+<td align="center">[]&#x2F;[4]</td>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">obejct</td>
+<td align="center">[obejct Array]</td>
+</tr>
+<tr>
+<td align="center"><strong>Object</strong></td>
+<td align="center">{}&#x2F;{n:4}</td>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">obejct</td>
+<td align="center">[obejct Object]</td>
+</tr>
+<tr>
+<td align="center"><strong>Function</strong></td>
+<td align="center">function(){}</td>
+<td align="center">true</td>
+<td align="center">false</td>
+<td align="center">obejct</td>
+<td align="center">[obejct Function]</td>
+</tr>
+</tbody></table>
+<h2 id="总结方法"><a href="#总结方法" class="headerlink" title="总结方法"></a>总结方法</h2><p>根据上面的表格对比，我整理了一些常见的方法。并且再比较结果精准的情况下尽可能的简化比较过程.</p>
+<h4 id="判断数字-非严格"><a href="#判断数字-非严格" class="headerlink" title="判断数字(非严格)"></a>判断数字(非严格)</h4><p>字符串’<code>1</code>‘会被识别成<code>number</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isNumber</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="built_in">isNaN</span>(para);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断数字-严格"><a href="#判断数字-严格" class="headerlink" title="判断数字(严格)"></a>判断数字(严格)</h4><p>在必要的情况下使用：此方法会把字符串’<code>1</code>‘识别成<code>string</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isStrictNumber</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="built_in">isNaN</span>(para) &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断字符串（非严格）"><a href="#判断字符串（非严格）" class="headerlink" title="判断字符串（非严格）"></a>判断字符串（非严格）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isString</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">&#x27;string&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断字符串（严格）"><a href="#判断字符串（严格）" class="headerlink" title="判断字符串（严格）"></a>判断字符串（严格）</h4><p>在必要的情况下使用：此种方法会把字符串’<code>1</code>‘识别成<code>number</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isStrictString</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">isNaN</span>(para) &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">&#x27;string&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断一般数据类型-即非引用类型"><a href="#判断一般数据类型-即非引用类型" class="headerlink" title="判断一般数据类型(即非引用类型)"></a>判断一般数据类型(即非引用类型)</h4><p>注意：使用typeof判断<code>null</code>结果为<code>object</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isBasicType</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para !== <span class="string">&#x27;obejct&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否为null-不能识别’’"><a href="#判断是否为null-不能识别’’" class="headerlink" title="判断是否为null(不能识别’’)"></a>判断是否为null(不能识别’’)</h4><p>此方法只能识别<code>null</code>，如果要包含’’，请结合方法<code>isStringNull()</code>一起使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isNull</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !para &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">&#x27;object&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否为空字符串-不包含空格"><a href="#判断是否为空字符串-不包含空格" class="headerlink" title="判断是否为空字符串(不包含空格)"></a>判断是否为空字符串(不包含空格)</h4><p>此方法只能识别<code>&#39;&#39;</code>，如果要包含<code>null</code>，请结合方法<code>isNull()</code>一起使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isStringtNull</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !para &amp;&amp; <span class="keyword">typeof</span> para === <span class="string">&#x27;string&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否为undefined"><a href="#判断是否为undefined" class="headerlink" title="判断是否为undefined"></a>判断是否为<code>undefined</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isUndefined</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">&#x27;undefined&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否为false"><a href="#判断是否为false" class="headerlink" title="判断是否为false"></a>判断是否为<code>false</code></h4><p>当为<code>null</code>,<code>undefined</code>,<code>&#39;&#39;</code>,<code>0</code>,<code>-0</code>,<code>false</code>,<code>NaN</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isFalse</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !para;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断对象（非严格1–所有的obejct对象）"><a href="#判断对象（非严格1–所有的obejct对象）" class="headerlink" title="判断对象（非严格1–所有的obejct对象）"></a>判断对象（非严格1–所有的obejct对象）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isAllObject</span>(<span class="params">_v</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> _v === <span class="string">&#x27;obejct&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断对象（非严格2–除去null的所有object对象）-判断引用类型"><a href="#判断对象（非严格2–除去null的所有object对象）-判断引用类型" class="headerlink" title="判断对象（非严格2–除去null的所有object对象）&lt;–&gt; 判断引用类型"></a>判断对象（非严格2–除去null的所有object对象）&lt;–&gt; 判断引用类型</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isObject</span>(<span class="params">_v</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> !!v &amp;&amp; <span class="keyword">typeof</span> _v === <span class="string">&#x27;obejct&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断对象（严格–只识别-JSON对象）"><a href="#判断对象（严格–只识别-JSON对象）" class="headerlink" title="判断对象（严格–只识别{}JSON对象）"></a>判断对象（严格–只识别{}JSON对象）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isStrictObject</span>(<span class="params">_v</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(_v) === <span class="string">&#x27;[object Object]&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断数组"><a href="#判断数组" class="headerlink" title="判断数组"></a>判断数组</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isArray</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(para) === <span class="string">&#x27;[object Array]&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断对象"><a href="#判断对象" class="headerlink" title="判断对象"></a>判断对象</h4><p>这里特指{}类<code>JSON</code>对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isObject</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(para) === <span class="string">&#x27;[object Object]&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断可执行函数"><a href="#判断可执行函数" class="headerlink" title="判断可执行函数"></a>判断可执行函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isFunction</span>(<span class="params">para</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para === <span class="string">&#x27;function&#x27;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当我们需要判断其他类型时，完全可以参照上面的表来写出自己的方法哦。<br>当然现在前端各种流行库不断推陈出新，我们完全可以直接使用别人封装好的库来实现这些功能，比如<code>underscore.js</code>、<code>lodash.js</code>等，但是编码的乐趣不就是在于自己解决最本质的问题么。所以即使有这么多的流行库大行其道，也不妨碍我们了解这些知识的初心，说不定哪天你自己也写出一个很火的库呢~<br>当然随着ES6标准的不断被各大浏览器厂商支持，ES6的普及度越来越广，这些方法都会被内置到原生<code>javascript</code>内部吧(有些方法已经加进去了~)。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2017-03-31/javascript-type.html" title="Javascript常用见问题之变量类型判断终极篇">https://blog.imx0.com/2017-03-31/javascript-type.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/typeof/" rel="tag"><i class="fa fa-tag"></i> typeof</a>
+              <a href="/tags/object/" rel="tag"><i class="fa fa-tag"></i> object</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2017-03-31/javascript-type.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"fcab83221309dee904b39ce8ac4ce76c"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

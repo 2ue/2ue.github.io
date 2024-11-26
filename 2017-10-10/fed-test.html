@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前端测试是保证代码质量以及程序稳定的一种可靠方式，同时也从代码层面解决了自测难，自测烦等前端测试综合症。当然在前端开发引入测试环节无疑会增加人力和时间成本，如果最终产生的结果和增加的成本能够两两抵消产生正面效应，那么有必要考虑把测试环节加入到团队的规划中。但是在实际开发过程中，测试用例更多的被用于开源项目中，在大部分公司的生成项目很少使用维护测试用例，其根本原因是不纯粹的生产环境导致维护测试用例">
+<meta property="og:type" content="website">
+<meta property="og:title" content="前端测试探索">
+<meta property="og:url" content="https://blog.imx0.com/2017-10-10/fed-test.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="前端测试是保证代码质量以及程序稳定的一种可靠方式，同时也从代码层面解决了自测难，自测烦等前端测试综合症。当然在前端开发引入测试环节无疑会增加人力和时间成本，如果最终产生的结果和增加的成本能够两两抵消产生正面效应，那么有必要考虑把测试环节加入到团队的规划中。但是在实际开发过程中，测试用例更多的被用于开源项目中，在大部分公司的生成项目很少使用维护测试用例，其根本原因是不纯粹的生产环境导致维护测试用例">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-10-10T02:06:30.000Z">
+<meta property="article:modified_time" content="2017-10-10T02:06:30.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="自动化测试">
+<meta property="article:tag" content="前端测试">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2017-10-10/fed-test.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2017-10-10/fed-test.html","path":"2017-10-10/fed-test.html","title":"前端测试探索"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端测试探索 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GUI-Graphical-User-Interface-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">GUI(Graphical User Interface)软件测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TDD-Test-Driven-Development-BDD-Behaviour-Driven-Development"><span class="nav-number">2.</span> <span class="nav-text">TDD(Test Driven Development) &amp; BDD(Behaviour Driven Development)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">如何实现自动化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A6%86%E7%9B%96%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">可覆盖的测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91-%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81-%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.</span> <span class="nav-text">业务逻辑&#x2F;业务代码&#x2F;测试用例的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Good"><span class="nav-number">6.</span> <span class="nav-text">Good</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bad"><span class="nav-number">7.</span> <span class="nav-text">Bad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6"><span class="nav-number">8.</span> <span class="nav-text">测试框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PhantomJS-CasperJS"><span class="nav-number">8.1.</span> <span class="nav-text">PhantomJS&#x2F;CasperJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PhantomCSS"><span class="nav-number">8.2.</span> <span class="nav-text">PhantomCSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Page-monitor"><span class="nav-number">8.3.</span> <span class="nav-text">Page-monitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BackstopJS"><span class="nav-number">8.4.</span> <span class="nav-text">BackstopJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mocha-Chai"><span class="nav-number">8.5.</span> <span class="nav-text">Mocha + Chai</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Selenium2"><span class="nav-number">8.6.</span> <span class="nav-text">Selenium2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NightwatchJs"><span class="nav-number">8.7.</span> <span class="nav-text">NightwatchJs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E7%9A%84%E6%94%AF%E6%8C%81"><span class="nav-number">9.</span> <span class="nav-text">对前端框架的支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue"><span class="nav-number">9.1.</span> <span class="nav-text">Vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React"><span class="nav-number">9.2.</span> <span class="nav-text">React</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">10.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">11.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2017-10-10/mocha+chai.html" rel="bookmark">
+        <time class="popular-posts-time">2017-10-10</time>
+        <br>
+      mocha+chai使用记录
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2017-10-10/fed-test.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端测试探索 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端测试探索
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-10 10:06:30" itemprop="dateCreated datePublished" datetime="2017-10-10T10:06:30+08:00">2017-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/test/" itemprop="url" rel="index"><span itemprop="name">test</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>前端测试是保证代码质量以及程序稳定的一种可靠方式，同时也从代码层面解决了自测难，自测烦等前端测试综合症。当然在前端开发引入测试环节无疑会增加人力和时间成本，如果最终产生的结果和增加的成本能够两两抵消产生正面效应，那么有必要考虑把测试环节加入到团队的规划中。但是在实际开发过程中，测试用例更多的被用于开源项目中，在大部分公司的生成项目很少使用维护测试用例，其根本原因是不纯粹的生产环境导致维护测试用例变得困难，而目的性很强的开源项目则更纯粹，所以前端测试的发展任重而道远。</p>
+</blockquote>
+<p>Ps：本次更多的是讲述概念性的东西，代码性的具体实例不做过多实践</p>
+<hr>
+<h2 id="GUI-Graphical-User-Interface-软件测试"><a href="#GUI-Graphical-User-Interface-软件测试" class="headerlink" title="GUI(Graphical User Interface)软件测试"></a>GUI(Graphical User Interface)软件测试</h2><blockquote>
+<p>前端测试不同于后端测试，因为除了一般的逻辑测试以外，由于存在界面交互，所以涉及到模拟用户行为达到测试的目的。由此引入了一个概念：GUI(Graphical User Interface)软件测试，也就是图形用户界面软件测试</p>
+</blockquote>
+<h2 id="TDD-Test-Driven-Development-BDD-Behaviour-Driven-Development"><a href="#TDD-Test-Driven-Development-BDD-Behaviour-Driven-Development" class="headerlink" title="TDD(Test Driven Development) &amp; BDD(Behaviour Driven Development)"></a>TDD(Test Driven Development) &amp; BDD(Behaviour Driven Development)</h2><p><code>TDD</code>很明显的意思是测试驱动开发，也就是说我们可以从测试的角度来检验整个项目。大概的流程是先针对每个功能点抽象出接口代码，然后编写单元测试代码，接下来实现接口，运行单元测试代码，循环此过程，直到整个单元测试都通过。<br><code>TDD</code>的好处自然不用多说，它能让你减少程序逻辑方面的错误，尽可能的减少项目中的<code>bug</code>，开始接触编程的时候我们大都有过这样的体验，可能你觉得完成得很完美，自我感觉良好，但是实际测试或者应用的时候才发现里面可能存在一堆bug，或者存在设计问题，或者更严重的逻辑问题，而<code>TDD</code>正好可以帮助我们尽量减少类似事件的发生。<br>当然，并不是所有的项目都适合<code>TDD</code>，要使用<code>TDD</code>,我认为必须至少具备以下两个条件</p>
+<ul>
+<li>项目的业务逻辑很清晰，并且程序员对开发逻辑很清晰</li>
+<li>项目模块的复杂度和依赖度不高。如果复杂度高和依赖度高会导致在最开始拆分单元的时候造成很大的困扰，有可能根本不能顺利拆分</li>
+</ul>
+<p><code>BDD</code>行为驱动开发，这里的行为不是指程序员的行为，而是指业务（程序）的逻辑行为，实际上<code>BDD</code>可以看作是对<code>TDD</code>的一种补充，当然你也可以把它看作<code>TDD</code>的一个分支，因为在<code>TDD</code>中，我们并不能完全保证根据设计所编写的测试就是用户所期望的功能</p>
+<h2 id="如何实现自动化"><a href="#如何实现自动化" class="headerlink" title="如何实现自动化"></a>如何实现自动化</h2><p>说一千道一万，新环节的引入必然带来成本的增加，那么我们如何控制增加的成本在合理范围内？很自然的我们想到了使用工具来实现自动化的测试，让机器帮我完成复杂的交互和测试，并自动监控返回错误报警，为我们手动排除问题提供参考</p>
+<h2 id="可覆盖的测试"><a href="#可覆盖的测试" class="headerlink" title="可覆盖的测试"></a>可覆盖的测试</h2><blockquote>
+<p>那到底前端在开发中需要测试哪些东西？在目前技术又可以实现那些测试？</p>
+</blockquote>
+<ul>
+<li>函数功能测试<ul>
+<li>全局变量</li>
+<li>公共方法</li>
+</ul>
+</li>
+<li>界面&amp;交互测试<ul>
+<li>事件交互</li>
+<li>数据输入交互</li>
+<li>特征检测<ul>
+<li>设计图还原度</li>
+<li>图片大小</li>
+<li>…</li>
+</ul>
+</li>
+<li>特殊情况<ul>
+<li>自适应和响应式测试</li>
+<li>浏览器兼容</li>
+<li>多端测试</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络请求测试<ul>
+<li>数据库访问</li>
+<li>模拟用户登陆等</li>
+<li>ajax请求</li>
+</ul>
+</li>
+<li>直观的错误信息展示<ul>
+<li>网页表格</li>
+<li>截图</li>
+</ul>
+</li>
+<li>性能测试</li>
+<li>回归测试</li>
+<li>自动化<ul>
+<li>测试用例数据自动化 - 结合mockjs打造假数据</li>
+<li>测试用例自动化创建 - 通过读取源码中的注释来自动生成测试用例？</li>
+</ul>
+</li>
+</ul>
+<h2 id="业务逻辑-业务代码-测试用例的关系"><a href="#业务逻辑-业务代码-测试用例的关系" class="headerlink" title="业务逻辑&#x2F;业务代码&#x2F;测试用例的关系"></a>业务逻辑&#x2F;业务代码&#x2F;测试用例的关系</h2><p>业务代码的颗粒度与测试用例的复杂度成反比：颗粒度划分越多（细），复杂度越低<br>业务代码的量与测试用例的量成正比</p>
+<h2 id="Good"><a href="#Good" class="headerlink" title="Good"></a>Good</h2><ul>
+<li>相对于等待问题产生，更倾向于避免可能的问题</li>
+<li>有利于形成团队代码规范，对团队未来成员的扩充是一个很好的约束规范</li>
+<li>对输出的产品有进一步的质量保证</li>
+</ul>
+<h2 id="Bad"><a href="#Bad" class="headerlink" title="Bad"></a>Bad</h2><ul>
+<li>增加维护测试用例本（时间和人力）</li>
+<li>增加编码复杂度（需要靠如何更友好的进行测试），对团队人员的编码要求提高了</li>
+<li>也许会增加学习成本（并不一定所有人都会写测试用例）</li>
+<li>需要把控测试用例的合理性、覆盖率、通过率</li>
+</ul>
+<h2 id="测试框架"><a href="#测试框架" class="headerlink" title="测试框架"></a>测试框架</h2><h3 id="PhantomJS-CasperJS"><a href="#PhantomJS-CasperJS" class="headerlink" title="PhantomJS&#x2F;CasperJS"></a><span class="exturl" data-url="aHR0cDovL3BoYW50b21qcy5vcmcv">PhantomJS<i class="fa fa-external-link-alt"></i></span>&#x2F;<span class="exturl" data-url="aHR0cDovL2Nhc3BlcmpzLm9yZy8=">CasperJS<i class="fa fa-external-link-alt"></i></span></h3><p><code>PhantomJS</code>是一个服务器端的支持<code>JavaScript API</code>的<code>WebKit</code>。其支持各种Web标准：<code>DOM</code>处理, <code>CSS</code>选择器, <code>JSON</code>, <code>Canvas</code>和<code>SVG</code>。对于<code>web</code>测试、界面、网络捕获、页面自动化访问等等方面。当启动的时候会在内存在开启一个无界面浏览器，以此模拟用户各种操作，可以对界面截图<br><code>Casperjs</code>是对<code>PhantomJS</code>的封装，提供了更加易用的<code>API</code>, 增强了测试等方面的支持</p>
+<h3 id="PhantomCSS"><a href="#PhantomCSS" class="headerlink" title="PhantomCSS"></a><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0h1ZGRsZS9QaGFudG9tQ1NT">PhantomCSS<i class="fa fa-external-link-alt"></i></span></h3><p>像素对比工具，基于<code>PhantomJs</code>开发，结合了<code>Casperjs</code>截图和<code>ResembleJs</code>图像对比分析</p>
+<h3 id="Page-monitor"><a href="#Page-monitor" class="headerlink" title="Page-monitor"></a><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZvdWJlci9wYWdlLW1vbml0b3I=">Page-monitor<i class="fa fa-external-link-alt"></i></span></h3><p><code>DOM</code>结构对比工具，基于<code>PhantomJS</code>开发，根据<code>DOM</code>结构与样式的对比来对比整个页面的变动部分</p>
+<h3 id="BackstopJS"><a href="#BackstopJS" class="headerlink" title="BackstopJS"></a><span class="exturl" data-url="aHR0cHM6Ly9nYXJyaXMuZ2l0aHViLmlvL0JhY2tzdG9wSlM=">BackstopJS<i class="fa fa-external-link-alt"></i></span></h3><p>主要通过<code>PhantomJS</code>、<code>capserJS</code>等工具在不同尺寸下截图，然后根据<code>resemberJS</code>进行像素比对判断是否正常，以实现响应式测试</p>
+<h3 id="Mocha-Chai"><a href="#Mocha-Chai" class="headerlink" title="Mocha + Chai"></a><span class="exturl" data-url="aHR0cHM6Ly93d3cuenlidWx1by5jb20vbWRlZGl0b3IjOTExNzE0LWZ1bGwtcmVhZGVy">Mocha + Chai<i class="fa fa-external-link-alt"></i></span></h3><p><code>mocha+chai</code>是一个经典的组合主要用来测试函数功能，也能测试异步操作。也有常用<code>chai</code>的超集（拓展库）<code>sion-chai</code>来加强<code>chai</code></p>
+<h3 id="Selenium2"><a href="#Selenium2" class="headerlink" title="Selenium2"></a><span class="exturl" data-url="aHR0cDovL3d3dy5zZWxlbml1bWhxLm9yZy9kb2Nz">Selenium2<i class="fa fa-external-link-alt"></i></span></h3><p><code>Selenium2</code>，它的主要新功能是集成了<code>Selenium1.0</code>以及<code>WebDriver</code>。<br>也就是说<code>Selenium2</code>是<code>Selenium</code>和<code>WebDriver</code>两个项目的合并，即<code>Selenium2</code>兼容<code>Selenium</code>，它既支持<code>Selenium API</code>也支持<code>WebDriver API</code>。<code>WebDriver</code>是一个用来进行复杂重复的<code>web</code>自动化测试的工具,意在提供一种比<code>Selenium1.0</code>更简单易学，有利于维护的<code>API</code>。它没有和任何测试框架进行绑定，所以他可以很好的在单元测试中调用。当启动<code>Selenium2</code>时通常会调起一个可见的界面，但也可以通过设置，让它以<code>PhantomJS</code>的形式进行无界面的测试<br>当然使用<code>Selenium2</code>必须额外的安装每种浏览器的<code>WebDriver</code><br><code>Selenium2</code>上手难度大于<code>PhantomJS</code></p>
+<h3 id="NightwatchJs"><a href="#NightwatchJs" class="headerlink" title="NightwatchJs"></a><span class="exturl" data-url="aHR0cDovL25pZ2h0d2F0Y2hqcy5vcmcvZ3VpZGU=">NightwatchJs<i class="fa fa-external-link-alt"></i></span></h3><p>推特出品，基于<code>Selenium WebDriver API</code>开发，意味着支持浏览器自动化测试，内部集成了<code>mocha+chai</code>并将它加强，同时支持分组测试和单个测试，对语法进行了简化，归纳有以下特点:</p>
+<ul>
+<li>简单但强大的语法（更符合<code>js</code>书写习惯），只需要使用<code>JavaScript</code>和<code>CSS</code>选择器，开发者就能够非常迅捷地撰写测试。</li>
+<li>开发者也不必初始化其他对象和类，只需要编写测试规范即可。</li>
+<li>使用<code>CSS</code>选择器或<code>Xpath</code>，定位并验证页面中的元素或是执行命令。</li>
+<li>易于扩展，便于开发者根据需要，实现与自己应用相关的命令。</li>
+<li>…</li>
+</ul>
+<p>目前，<code>Selenium</code>是<code>JavaScript</code>的验收测试方面最流行的工具之一，同类的还有<code>PhantomJS</code>。二者都有其独到的方法：<code>Selenium</code>使用<code>WebDriver API</code>，而<code>PhantomJS</code>使用无界面的<code>WebKit</code>浏览器。它们都是非常成熟的工具，都具有强大的社区支持。它们与<code>Nightwatch</code>之间最大的不同，主要是在于语法的简易度以及对持续集成的支持。与<code>Nightwatch</code>相比，<code>Selenium</code>和<code>PhantomJS</code>都拥有更加冗长的语法，这会让编码变得更庞大</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">demoTestGoogle</span> = <span class="keyword">function</span> (<span class="params">browser</span>) &#123;</span><br><span class="line">   browser</span><br><span class="line">     .<span class="title function_">url</span>(“<span class="attr">http</span>:<span class="comment">//www.google.com”)</span></span><br><span class="line">     .<span class="title function_">waitForElementVisible</span>(<span class="string">&#x27;body&#x27;</span>, <span class="number">1000</span>)</span><br><span class="line">     .<span class="title function_">setValue</span>(<span class="string">&#x27;input[type=text]&#x27;</span>, <span class="string">&#x27;nightwatch&#x27;</span>)</span><br><span class="line">     .<span class="title function_">waitForElementVisible</span>(<span class="string">&#x27;button[name=btnG]&#x27;</span>, <span class="number">1000</span>)</span><br><span class="line">     .<span class="title function_">click</span>(<span class="string">&#x27;button[name=btnG]&#x27;</span>)</span><br><span class="line">     .<span class="title function_">pause</span>(<span class="number">1000</span>)</span><br><span class="line">     .<span class="property">assert</span>.<span class="title function_">containsText</span>(<span class="string">&#x27;#main&#x27;</span>, <span class="string">&#x27;The Night Watch&#x27;</span>)</span><br><span class="line">     .<span class="title function_">end</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="string">&#x27;step one&#x27;</span> : <span class="keyword">function</span> (<span class="params">browser</span>) &#123;</span><br><span class="line">    browser</span><br><span class="line">      .<span class="title function_">url</span>(<span class="string">&#x27;http://www.google.com&#x27;</span>)</span><br><span class="line">      .<span class="title function_">waitForElementVisible</span>(<span class="string">&#x27;body&#x27;</span>, <span class="number">1000</span>)</span><br><span class="line">      .<span class="title function_">setValue</span>(<span class="string">&#x27;input[type=text]&#x27;</span>, <span class="string">&#x27;nightwatch&#x27;</span>)</span><br><span class="line">      .<span class="title function_">waitForElementVisible</span>(<span class="string">&#x27;button[name=btnG]&#x27;</span>, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="string">&#x27;step two&#x27;</span> : <span class="keyword">function</span> (<span class="params">browser</span>) &#123;</span><br><span class="line">    browser</span><br><span class="line">      .<span class="title function_">click</span>(<span class="string">&#x27;button[name=btnG]&#x27;</span>)</span><br><span class="line">      .<span class="title function_">pause</span>(<span class="number">1000</span>)</span><br><span class="line">      .<span class="property">assert</span>.<span class="title function_">containsText</span>(<span class="string">&#x27;#main&#x27;</span>, <span class="string">&#x27;Night Watch&#x27;</span>)</span><br><span class="line">      .<span class="title function_">end</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对前端框架的支持"><a href="#对前端框架的支持" class="headerlink" title="对前端框架的支持"></a>对前端框架的支持</h2><p>在实际开发中，我们可能是用了不同的框架。虽然我们完全可以在把源码编译成普通的<code>HTML/CSS/JS</code>代码然后测试，但是此种方法的弊端也显而易见：不易于自动化，必须等到所有模块开发完成才能测试…为此我们必须寻找某种方式使得测试不收框架的限制</p>
+<h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><p>本身可以通过<code>new</code>一个<code>Vue</code>的方式挂载节点达到效果。<br>下面是一个简单的测试用例，测试<code>.hello h1</code>标签内容是否符合预期</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HelloWorld</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/HelloWorld&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;HelloWorld.vue&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">it</span>(<span class="string">&#x27;should render correct contents&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">Constructor</span> = <span class="title class_">Vue</span>.<span class="title function_">extend</span>(<span class="title class_">HelloWorld</span>)</span><br><span class="line">    <span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="title class_">Constructor</span>().$mount()</span><br><span class="line">    <span class="title function_">expect</span>(vm.<span class="property">$el</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.hello h1&#x27;</span>).<span class="property">textContent</span>)</span><br><span class="line">      .<span class="property">to</span>.<span class="title function_">equal</span>(<span class="string">&#x27;Welcome to Your Vue.js App&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><p>1.官方提供了两种方法：</p>
+<ul>
+<li>渲染虚拟<code>DOM</code>（<code>Shallow Rendering</code>）</li>
+</ul>
+<p>只渲染第一层，不渲染子组件，速度快，返回一个浅渲染的虚拟<code>DOM</code>对象。然后拿到节点的各种信息，进行测试</p>
+<ul>
+<li>渲染真实<code>DOM</code>节点（<code>renderIntoDocument</code>）</li>
+</ul>
+<p><code>renderIntoDocument</code> 方法要求存在一个真实的<code>DOM</code>环境，否则会报错。因此，测试用例之中，<code>DOM</code>环境（即<code>window</code>, <code>document</code> 和 <code>navigator</code> 对象）必须是存在的。<code>jsdom</code>库提供这项功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import jsdom from &#x27;jsdom&#x27;;</span><br><span class="line"></span><br><span class="line">if (typeof document === &#x27;undefined&#x27;) &#123;</span><br><span class="line">  global.document = jsdom.jsdom(&#x27;&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;&#x27;);</span><br><span class="line">  global.window = document.defaultView;</span><br><span class="line">  global.navigator = global.window.navigator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.<code>Enzyme</code><br><code>Enzyme</code>是官方测试工具库的封装，它模拟了<code>jQuery</code>的<code>API</code>，非常直观，易于使用和学习，主要提供三种方法：</p>
+<ul>
+<li>shallow</li>
+</ul>
+<p><code>shallow</code>方法就是官方的<code>shallow rendering</code>的封装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import &#123;shallow&#125; from &#x27;enzyme&#x27;;</span><br><span class="line"></span><br><span class="line">describe(&#x27;Enzyme Shallow&#x27;, function () &#123;</span><br><span class="line">  it(&#x27;App\&#x27;s title should be Todos&#x27;, function () &#123;</span><br><span class="line">    let app = shallow(&lt;App/&gt;);</span><br><span class="line">    expect(app.find(&#x27;h1&#x27;).text()).to.equal(&#x27;Todos&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>render</li>
+</ul>
+<p><code>render</code>方法将<code>React</code>组件渲染成静态的<code>HTML</code>字符串，然后分析这段<code>HTML</code>代码的结构，返回一个对象。它跟<code>shallow</code>方法非常像，主要的不同是采用了第三方HTML解析库<code>Cheerio</code>，它返回的是一个<code>Cheerio</code>实例对象。</p>
+<ul>
+<li>mount</li>
+</ul>
+<p><code>mount</code>方法用于将<code>React</code>组件加载为真实<code>DOM</code>节点</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>回到开始，个人认为不要滥用测试，需要合理评估测试用例对团队项目的积极作用和消极作用。不合理或者不恰当的使用测试只会增加工作复杂度和成本。<br>并且测试用例只是检查代码的工具，所以不要本末倒置以测试用例强行约束业务代码</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS91c3Rid3V5aS9hcmNoaXZlLzIwMTIvMTAvMjYvMjc0MTIyMy5odG1s">关于TDD、BDD和DDD的一些看法<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5pbmZvcS5jb20vY24vYXJ0aWNsZXMvdmlydHVhbC1wYW5lbC0lNjBUREQlNjAtJTYwQkREJTYw">虚拟座谈会：代码测试比率、测试驱动开发及行为驱动开发<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5ydWFueWlmZW5nLmNvbS9ibG9nLzIwMTUvMTIvYS1tb2NoYS10dXRvcmlhbC1vZi1leGFtcGxlcy5odG1s">Mocha<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2EvMTE5MDAwMDAwOTMzMzE1Nw==">PhantomJS<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5pbmZvcS5jb20vY24vbmV3cy8yMDE0LzAyL25pZ2h0d2F0Y2g=">NightwatchJs<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL2ZleC5iYWlkdS5jb20vYmxvZy8yMDE1LzA3L2Zyb250LWVuZC10ZXN0Lw==">前端自动化测试探索<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2017-10-10/fed-test.html" title="前端测试探索">https://blog.imx0.com/2017-10-10/fed-test.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 自动化测试</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 前端测试</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2017-10-10/fed-test.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"11defadc3af48f975ecb635839861d30"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

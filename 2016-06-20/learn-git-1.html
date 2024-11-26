@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！  安装官网下载最新版本安装，然后查看是否安装成功">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Git系列之新手入门">
+<meta property="og:url" content="https://blog.imx0.com/2016-06-20/learn-git-1.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！  安装官网下载最新版本安装，然后查看是否安装成功">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-20T07:51:17.000Z">
+<meta property="article:modified_time" content="2016-06-20T07:51:17.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2016-06-20/learn-git-1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2016-06-20/learn-git-1.html","path":"2016-06-20/learn-git-1.html","title":"Git系列之新手入门"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git系列之新手入门 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">全局个人信息配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">初始化本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4-%E6%8F%90%E4%BA%A4%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="nav-number">3.2.</span> <span class="nav-text">第一次提交(提交到本地)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81"><span class="nav-number">3.3.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E9%80%80"><span class="nav-number">3.4.</span> <span class="nav-text">回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A2%E5%BC%83%E5%B7%A5%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">3.5.</span> <span class="nav-text">丢弃工区的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E6%9A%82%E5%AD%98%E5%8C%BA%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">3.6.</span> <span class="nav-text">撤销暂存区的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.7.</span> <span class="nav-text">提交到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%94%9F%E6%88%90SSH-KEY"><span class="nav-number">3.8.</span> <span class="nav-text">本地生成SSH KEY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0%E5%85%AC%E9%92%A5"><span class="nav-number">3.9.</span> <span class="nav-text">github设置本地公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E8%BF%9E%E9%80%9A"><span class="nav-number">3.10.</span> <span class="nav-text">测试是否连通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github%E4%BB%93%E5%BA%93%E5%92%8C%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94"><span class="nav-number">3.11.</span> <span class="nav-text">github仓库和本地仓库关联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9Aclone%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%93%E5%BA%93%EF%BC%8C%E7%AE%80%E5%8D%95%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%92%8Cgithub%E4%B8%8A%E5%90%8D%E5%AD%97%E4%B8%80%E6%A0%B7"><span class="nav-number">3.11.1.</span> <span class="nav-text">方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%88%A9%E7%94%A8%E5%91%BD%E4%BB%A4%E5%85%B3%E8%81%94%E4%BB%93%E5%BA%93%EF%BC%8C%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%90%8D%E5%8F%AF%E4%BB%A5%E5%92%8Cgithub%E7%9A%84%E4%BB%93%E5%BA%93%E5%90%8D%E4%B8%8D%E4%B8%80%E6%A0%B7"><span class="nav-number">3.11.2.</span> <span class="nav-text">方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4-push"><span class="nav-number">4.</span> <span class="nav-text">提交(push)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="nav-number">4.1.</span> <span class="nav-text">第一次提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%8F%8A%E4%BB%A5%E5%90%8E"><span class="nav-number">4.2.</span> <span class="nav-text">第二次及以后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BB%A3%E7%A0%81-pull"><span class="nav-number">4.3.</span> <span class="nav-text">更新代码(pull)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%B3%E6%AD%A4%E4%B8%80%E4%B8%AA%E6%AF%94%E8%BE%83%E5%AE%8C%E6%95%B4%E7%9A%84%E6%B5%81%E7%A8%8B%E8%B5%B0%E9%80%9A%E4%BA%86%EF%BC%8C%E5%BD%93%E7%84%B6%E5%9C%A8%E8%BF%99%E4%BA%9B%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%B9%9F%E8%AE%B8%E8%BF%98%E4%BC%9A%E9%81%87%E5%88%B0%E5%85%B6%E5%AE%83%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%A6%82%EF%BC%8C%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81%EF%BC%8C%E5%88%86%E6%94%AF%EF%BC%8C%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E7%AD%89%E7%AD%89%E3%80%82"><span class="nav-number">5.1.</span> <span class="nav-text">至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2018-01-20/Git%E7%B3%BB%E5%88%97%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B9%8B%E6%94%BE%E5%BC%83%E4%BF%AE%E6%94%B9.html" rel="bookmark">
+        <time class="popular-posts-time">2018-01-20</time>
+        <br>
+      Git系列常用命令之放弃修改
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2024-04-19/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html" rel="bookmark">
+        <time class="popular-posts-time">2024-04-19</time>
+        <br>
+      如何使用Github Actions实现自动化部署Hexo博客
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2017-06-15/babun-casue-ssh-key-bad.html" rel="bookmark">
+        <time class="popular-posts-time">2017-06-15</time>
+        <br>
+      Babun导致本地SSH-KEY不可用
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2024-04-20/%E4%BD%BF%E7%94%A8Github%20Action%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83npm%E5%8C%85.html" rel="bookmark">
+        <time class="popular-posts-time">2024-04-20</time>
+        <br>
+      使用Github Action自动化发布npm包
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2018-03-08/Git%E7%B3%BB%E5%88%97%E4%B9%8BSSH%20Key%E9%85%8D%E7%BD%AE.html" rel="bookmark">
+        <time class="popular-posts-time">2018-03-08</time>
+        <br>
+      Git系列之SSH Key配置
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2016-06-20/learn-git-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git系列之新手入门 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git系列之新手入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-20 15:51:17" itemprop="dateCreated datePublished" datetime="2016-06-20T15:51:17+08:00">2016-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>工欲善其事，必先利其器。git一个不可或缺的利器，其魅力值得我们慢慢品尝！</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官网下载最新版本安装，然后查看是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git -v</span><br><span class="line">git version 2.7.3.windows.1  //2.7.3为当前版本</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局个人信息配置"><a href="#全局个人信息配置" class="headerlink" title="全局个人信息配置"></a>全局个人信息配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;username&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>windows环境也可以打开计算机用户文件夹下的.gitconfig编辑</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">    name = username</span><br><span class="line">    email = email</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> storage</span><br><span class="line">$ git init //初始化当前目录为本地仓库</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> D:/storages/.git/  //初始化了一个空的目录为本地仓库</span><br></pre></td></tr></table></figure>
+
+<h3 id="第一次提交-提交到本地"><a href="#第一次提交-提交到本地" class="headerlink" title="第一次提交(提交到本地)"></a>第一次提交(提交到本地)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br><span class="line">$ git commit -m <span class="string">&quot;添加项目文档简介&quot;</span>  //-m 参数后面跟表示对当前提交的一个简单说明</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><p>查看当前文件处于何种状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<h3 id="回退"><a href="#回退" class="headerlink" title="回退"></a>回退</h3><p>当你<code>add</code>或<code>commit</code>了错误的文件时，可以使用以下命令来撤回<code>add</code>或者<code>commit</code>;<br>那么你必须首先明白工作区和暂存区是什么？<br>直白的说.git文件夹所在的目录(即<code>git init</code>初始化的目录)为当前工作区<br>当<code>add</code>之后，<code>add</code>的文件就会进入暂存区<br>当<code>commit</code>之后，暂存区就会清空，<code>commit</code>的文件就会进入本地当前的分支(如master分支)</p>
+<p>PS：关于工作区和暂存区更详细的解释可以去看廖雪峰<span class="exturl" data-url="aHR0cDovL3d3dy5saWFveHVlZmVuZy5jb20vd2lraS8wMDEzNzM5NTE2MzA1OTI5NjA2ZGQxODM2MTI0ODU3OGM2N2I4MDY3YzhjMDE3YjAwMC8wMDEzNzQ1Mzc0MTUxNzgyZWI2NThjNWE1Y2E0NTRlYWE0NTE2NjEyNzU4ODZjNjAwMA==">工作区和暂存区<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="丢弃工区的修改"><a href="#丢弃工区的修改" class="headerlink" title="丢弃工区的修改"></a>丢弃工区的修改</h3><p>命令<code>git checkout -- filename</code>可以把<code>filename</code>文件在工作区的修改全部撤销</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- README.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="撤销暂存区的修改"><a href="#撤销暂存区的修改" class="headerlink" title="撤销暂存区的修改"></a>撤销暂存区的修改</h3><p>命令<code>git reset HEAD filename</code>可以把<code>filename</code>文件在暂存区的修改全部撤销</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD README.md</span><br><span class="line">$ git checkout -- README.md //--参数不能省</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up-to-date with <span class="string">&#x27;origin/master&#x27;</span>.</span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
+
+<p>当然<code>reset</code> 命令,不仅能够撤销暂存区的内容，还能回退版本，即使你错误提交，也可以用<code>reset</code>回滚到之前的版本<br>如果你提交了错误文件，可以使用以下命令来回退;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br></pre></td></tr></table></figure>
+
+<p><code>git reset --hard HEAD^</code>表示回退到上一个版本，<code>HEAD</code>后面的参数可以跟<code>commit ID</code>，这个ID可以通过以下命令获得</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit 97c8460bc1cda8233866686d9cae270e0e0113f1</span><br><span class="line">Author: 2ue &lt;jie746635835@163.com&gt;</span><br><span class="line">Date:   Mon Jun 20 15:44:01 2016 +0800</span><br><span class="line"></span><br><span class="line">    update README.md</span><br><span class="line"></span><br><span class="line">.....(中间有10条日志)</span><br><span class="line"></span><br><span class="line">commit 2d936223341333384dd41533dd44ba8e0640493c</span><br><span class="line">Author: 2ue &lt;jie746635835@163.com&gt;</span><br><span class="line">Date:   Mon Jun 01 13:16:22 2016 +0800</span><br><span class="line"></span><br><span class="line">    README.md</span><br></pre></td></tr></table></figure>
+
+<p><code>commit 97c8460bc1cda8233866686d9cae270e0e0113f1</code>，这一长串就是我们所需的ID,一般情况下，只需要前7位就够了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD 2d93622 //回退到commit 2d936223341333384dd41533dd44ba8e0640493c</span><br><span class="line">$ git reset --hard HEAD~12 //回退到往上第12个版本，也是2d93622这个版本</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交到服务器"><a href="#提交到服务器" class="headerlink" title="提交到服务器"></a>提交到服务器</h3><p>当<code>commit</code>后，你做出的修改只是提交到了暂存区，下一步就需要把代码提交到服务器。这里的服务器，可以自己搭建，也可以是公司的，或者第三方的。这里我们将代码提交到<code>github</code>上(假设你是已经有一个<code>github</code>账户，并创建了一个仓库)。</p>
+<h3 id="本地生成SSH-KEY"><a href="#本地生成SSH-KEY" class="headerlink" title="本地生成SSH KEY"></a>本地生成SSH KEY</h3><p><code>SSH KEY</code>就是连通本地与<code>github</code>的桥梁，钥匙，使用以下命令来生成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;youremail@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后回车:</p>
+<ul>
+<li>提示设置密码<ul>
+<li>如果不设置，直接按回车，然后会提示你确认密码，再按一次回车</li>
+<li>如果设置密码，输入你想设置的密码，并确认，这样以后每次提交需要输入密码</li>
+</ul>
+</li>
+<li>提示生成key的文件名<ul>
+<li>如果不修改，则使用默认文件名<code>id_rsa</code></li>
+<li>如果你有在该电脑管理多个key或者已经有生成的key占用了该文件名，则需要重命令</li>
+</ul>
+</li>
+</ul>
+<p>这里简单起见，先不设置密码，并保持文件名默认</p>
+<p>然后在用户主目录（例如如果是windows系统一般就在：C:\Users\Administrator）找到<code>.ssh</code>，其中<code>id_rsa</code>表示私钥不能泄露和<code>id_rsa.pub</code>表示公钥，用于对外。</p>
+<h3 id="github设置本地公钥"><a href="#github设置本地公钥" class="headerlink" title="github设置本地公钥"></a>github设置本地公钥</h3><p>打开<code>id_rsa.pub</code>，复制里面的全部内容；<br>进入<code>github</code>账户；<br>找到 <code>setting</code>；<br>打开<code>SSH KEYS</code>新建一个<code>SSH KEY</code>，名字随便取，然后粘贴<code>id_rsa.pub</code>的内容，保存；</p>
+<h3 id="测试是否连通"><a href="#测试是否连通" class="headerlink" title="测试是否连通"></a>测试是否连通</h3><p>理论上讲，上一步操作无特殊错误，就已经和<code>github</code>连通的，为了放心，我们可以测试一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Enter passphrase <span class="keyword">for</span> key <span class="string">&#x27;/c/Users/Administrator/.ssh/id_rsa&#x27;</span>:  //如果设置了密码，此处将会提示你输入密码</span><br><span class="line">Hi 2ue! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure>
+<p>上面就是成功的提示</p>
+<h3 id="github仓库和本地仓库关联"><a href="#github仓库和本地仓库关联" class="headerlink" title="github仓库和本地仓库关联"></a>github仓库和本地仓库关联</h3><p>有两种方式把本地仓库和<code>github</code>仓库关联起来</p>
+<h4 id="方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样"><a href="#方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样" class="headerlink" title="方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样"></a>方法一：clone自己的仓库，简单，并且本地文件目录和github上名字一样</h4><p>登陆账号，新建仓库(new repository)；<br>进入仓库主页，找到按钮<code>clone or download</code>按钮，复制里面的<code>git@github.com:userName/repositoryName.git</code>;<br>打开<code>git bash</code>，clone；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:userName/repositoryName.git</span><br></pre></td></tr></table></figure>
+
+<p>就会把这个项目克隆到你当前目录下。此时你就可以顺畅的像<code>github</code>推送你的东西了。</p>
+<h4 id="方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样"><a href="#方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样" class="headerlink" title="方法二：利用命令关联仓库，本地仓库名可以和github的仓库名不一样"></a>方法二：利用命令关联仓库，本地仓库名可以和<code>github</code>的仓库名不一样</h4><p>假设你github上有一个项目，<code>git@github.com:userName/repositoryName.git</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> testRepository  //新建目录testRepository</span><br><span class="line">$ <span class="built_in">cd</span> testRepository  //切换到这个目录</span><br><span class="line">$ git init  //初始化当前目录</span><br><span class="line">$ git remote add origin git@github.com:userName/repositoryName.git</span><br><span class="line">// origin为本地暂存区的名字，为了语义化，建议默认为它</span><br><span class="line">// 注意github上的repositoryName与本地的testRepository可以不一样</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交-push"><a href="#提交-push" class="headerlink" title="提交(push)"></a>提交(push)</h2><h3 id="第一次提交"><a href="#第一次提交" class="headerlink" title="第一次提交"></a>第一次提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二次及以后"><a href="#第二次及以后" class="headerlink" title="第二次及以后"></a>第二次及以后</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>第一次提交带参数<code>-u</code>是为了让你本地和<code>github</code>的仓库保持同步。</p>
+<h3 id="更新代码-pull"><a href="#更新代码-pull" class="headerlink" title="更新代码(pull)"></a>更新代码(pull)</h3><p>当我们在一台设备上对<code>github</code>提交(push)代码之后，在另外的设备上修改这个项目时就必须先从<code>github</code>更新代码，以保持代码的同步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。"><a href="#至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。" class="headerlink" title="至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。"></a>至此一个比较完整的流程走通了，当然在这些过程中也许还会遇到其它的问题，如，代码冲突，分支，分支合并等等。</h3><p><code>github</code>上创建一个新的项目<br><code>github repositoryName</code>：testGit<br><code>github userName</code>：2ue</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ makdir testGit   //创建一个空文件夹testGit(名字任意取)，做仓库</span><br><span class="line">$ <span class="built_in">cd</span> testGit    //切换到目录testGit</span><br><span class="line">$ git init    //初始化testGit为本地仓库</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;this repository is localhost&#x27;</span> &gt; README.md</span><br><span class="line">//创建文件README.md，并写入<span class="string">&#x27;this repository is localhost&#x27;</span></span><br><span class="line">//在window下以上操作的第一步和第四步可以在图形化界面中完成</span><br><span class="line">$ git add README.md</span><br><span class="line">$ git commit -m <span class="string">&#x27;add README.md&#x27;</span>//提交更新，并注释信息“add README.md”</span><br><span class="line">$ git remote add origin git@github.com:2ue/testGit.git   //关联github上的项目</span><br><span class="line">$ git push -u origin master   //提交到github</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2016-06-20/learn-git-1.html" title="Git系列之新手入门">https://blog.imx0.com/2016-06-20/learn-git-1.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2016-06-20/learn-git-1.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"10ec40f36b8a8d1892bb808a71bb8436"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

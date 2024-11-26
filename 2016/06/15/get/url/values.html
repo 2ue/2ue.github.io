@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="神奇的url一条url包含了很丰富的信息，那么我们如何来获取这些信息并有效的加以利用呢?随便举个例子：https:&#x2F;&#x2F;github.com&#x2F;search?utf8&#x3D;%E2%9C%93&amp;q&#x3D;javascript这条url就是在github上搜索javascript后跳转页面对应的url。我们要做的就是获取’?’后面的参数，以及获取后可以用来做什么。 获取参数">
+<meta property="og:type" content="website">
+<meta property="og:title" content="利用javascrit获取url传递的参数">
+<meta property="og:url" content="https://blog.imx0.com/2016/06/15/get/url/values.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="神奇的url一条url包含了很丰富的信息，那么我们如何来获取这些信息并有效的加以利用呢?随便举个例子：https:&#x2F;&#x2F;github.com&#x2F;search?utf8&#x3D;%E2%9C%93&amp;q&#x3D;javascript这条url就是在github上搜索javascript后跳转页面对应的url。我们要做的就是获取’?’后面的参数，以及获取后可以用来做什么。 获取参数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.imx0.com/images/posts/windowLocation.png">
+<meta property="og:image" content="https://blog.imx0.com/images/posts/navLocation.png">
+<meta property="article:published_time" content="2016-06-15T12:54:14.000Z">
+<meta property="article:modified_time" content="2016-06-15T12:54:14.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="url">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.imx0.com/images/posts/windowLocation.png">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2016/06/15/get/url/values.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2016-06-15/get-url-values.html","path":"2016-06-15/get-url-values.html","title":"利用javascrit获取url传递的参数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>利用javascrit获取url传递的参数 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E5%A5%87%E7%9A%84url"><span class="nav-number">1.</span> <span class="nav-text">神奇的url</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">获取参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#window-location%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">window.location的对象方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96url%E6%89%80%E6%9C%89%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">获取url所有的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96url%E4%B8%AD%E6%8C%87%E5%AE%9A%E9%94%AE%E5%90%8D-name-%E7%9A%84%E9%94%AE%E5%80%BC-val"><span class="nav-number">2.3.</span> <span class="nav-text">获取url中指定键名(name)的键值(val)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%96%B9%E6%B3%95%E7%BB%91%E5%AE%9A%E5%88%B0%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8A"><span class="nav-number">3.</span> <span class="nav-text">将方法绑定到原型链上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">利用正则表达式来获取参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E6%9F%90%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">获取指定某个参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">获取所有的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E5%88%A9%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">参数的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E5%AE%9A%E4%BD%8D"><span class="nav-number">5.1.</span> <span class="nav-text">导航定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">html代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js%E4%BB%A3%E7%A0%81"><span class="nav-number">6.1.</span> <span class="nav-text">js代码</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2016-06-15/get-url-values.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="利用javascrit获取url传递的参数 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用javascrit获取url传递的参数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-15 20:54:14" itemprop="dateCreated datePublished" datetime="2016-06-15T20:54:14+08:00">2016-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>991</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="神奇的url"><a href="#神奇的url" class="headerlink" title="神奇的url"></a>神奇的url</h2><p>一条url包含了很丰富的信息，那么我们如何来获取这些信息并有效的加以利用呢?<br>随便举个例子：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NlYXJjaD91dGY4PSVFMiU5QyU5MyZxPWphdmFzY3JpcHQ=">https://github.com/search?utf8=%E2%9C%93&amp;q=javascript<i class="fa fa-external-link-alt"></i></span><br>这条url就是在github上搜索javascript后跳转页面对应的url。我们要做的就是获取’?’后面的参数，以及获取后可以用来做什么。</p>
+<h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><h3 id="window-location的对象方法"><a href="#window-location的对象方法" class="headerlink" title="window.location的对象方法"></a>window.location的对象方法</h3><p><img data-src="/images/posts/windowLocation.png" alt="window.location的参数"></p>
+<h3 id="获取url所有的参数"><a href="#获取url所有的参数" class="headerlink" title="获取url所有的参数"></a>获取url所有的参数</h3><p>我们可以直接通过<code>window.location.search</code>来取得这部分，也就是我们需要的url参数。</p>
+<p>当<code>url</code>没有包含<code>?</code>时，<code>window.location.search</code>会返回<code>undefined</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getUrlVal</span>(<span class="params">str</span>)&#123;</span><br><span class="line">  	<span class="keyword">if</span>(!str || str.<span class="title function_">indexOf</span>(<span class="string">&#x27;?&#x27;</span>) != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> urlValArry = str.<span class="title function_">replace</span>(<span class="string">&#x27;?&#x27;</span>,<span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> urlValObject = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> urlValArry)&#123;</span><br><span class="line">        urlValObject[urlValArry[i].<span class="title function_">split</span>(<span class="string">&#x27;=&#x27;</span>)[<span class="number">0</span>]] = urlValArry[i].<span class="title function_">split</span>(<span class="string">&#x27;=&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> urlValObject;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  https://github.com/search?utf8=%E2%9C%93&amp;q=javascript</span></span><br><span class="line"><span class="keyword">var</span> urlStr = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span>.<span class="title function_">replace</span>(<span class="string">&#x27;?&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getUrlVal</span>(urlStr));  <span class="comment">//输出 Object &#123;utf8: &quot;%E2%9C%93&quot;, q: &quot;javascript&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取url中指定键名-name-的键值-val"><a href="#获取url中指定键名-name-的键值-val" class="headerlink" title="获取url中指定键名(name)的键值(val)"></a>获取url中指定键名(name)的键值(val)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getOneVal</span>(<span class="params">str,name</span>)&#123;</span><br><span class="line">  	<span class="keyword">if</span>(!str || str.<span class="title function_">indexOf</span>(<span class="string">&#x27;?&#x27;</span>) != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> afterNameStr = str.<span class="title function_">replace</span>(<span class="string">&#x27;?&#x27;</span>,<span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(name)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> strFirstSite = afterNameStr.<span class="title function_">indexOf</span>(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">  	<span class="comment">// 返回第一个&amp;位置，如果没有&#x27;&amp;&#x27;则返回字符串长度</span></span><br><span class="line">    strFirstSite = (strFirstSite == -<span class="number">1</span>) ? afterNameStr.<span class="property">length</span> : strFirstSite</span><br><span class="line">    <span class="keyword">var</span> reslt = afterNameStr.<span class="title function_">slice</span>(<span class="number">1</span>,strFirstSite);</span><br><span class="line">    <span class="keyword">return</span> reslt;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  &#x27;http://www.gotoplay.com/active?itemtype=sport&amp;active=basketball&amp;time=20160614&amp;place=N230&amp;peopleNum=657&#x27;</span></span><br><span class="line"><span class="keyword">var</span> urlStr = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getOneVal</span>(urlStr,<span class="string">&#x27;time&#x27;</span>))  <span class="comment">//输出20160614</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getOneVal</span>(urlStr,<span class="string">&#x27;peopleNum&#x27;</span>))  <span class="comment">//657</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="将方法绑定到原型链上"><a href="#将方法绑定到原型链上" class="headerlink" title="将方法绑定到原型链上"></a>将方法绑定到原型链上</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">String</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toObj</span> = <span class="keyword">function</span>(<span class="params">key</span>)&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">  		如果有传入key，那么就只返回key对应的Val(找不到则返回undefined)</span></span><br><span class="line"><span class="comment">		如果没有传入key,那么就返回一个object对象</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">  <span class="keyword">var</span> str = <span class="variable language_">this</span>;</span><br><span class="line">  <span class="keyword">if</span>(str.<span class="title function_">indexOf</span>(<span class="string">&#x27;?&#x27;</span>) != <span class="number">0</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span>(str.<span class="title function_">indexOf</span>(key) == -<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">var</span> tmpArry = str.<span class="title function_">replace</span>(<span class="string">&#x27;?&#x27;</span>,<span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> reslt = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> tmpArry)&#123;</span><br><span class="line">    <span class="keyword">var</span> tempKeyVal = tmpArry[i].<span class="title function_">split</span>(<span class="string">&#x27;=&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(!!key) &#123;</span><br><span class="line">      <span class="keyword">if</span>(tempKeyVal[<span class="number">0</span>] != key) reslt = <span class="literal">undefined</span>;</span><br><span class="line">      reslt = tempKeyVal[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      reslt[tempKeyVal[<span class="number">0</span>]] = tempKeyVal[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> reslt;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// http://www.gotoplay.com/active?itemtype=sport&amp;active=basketball&amp;time=20160614</span></span><br><span class="line"><span class="keyword">var</span> urlStr = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(urlStr.<span class="title function_">toObj</span>()) <span class="comment">//&#123;itemtype:&#x27;sport&#x27;,active:&#x27;basketball&#x27;,time:&#x27;20160614&#x27;&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(urlStr.<span class="title function_">toObj</span>(<span class="string">&#x27;active&#x27;</span>))  <span class="comment">//basketball</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="利用正则表达式来获取参数"><a href="#利用正则表达式来获取参数" class="headerlink" title="利用正则表达式来获取参数"></a>利用正则表达式来获取参数</h2><p>强大的正则总是让人心生向往，利用正则无疑是最简洁优雅的一种方法</p>
+<h3 id="获取指定某个参数"><a href="#获取指定某个参数" class="headerlink" title="获取指定某个参数"></a>获取指定某个参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getUrlParam</span>(<span class="params">url,name</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!name) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&#x27;(^|&amp;)&#x27;</span> + name + <span class="string">&#x27;=([^&amp;]*)(&amp;|$)&#x27;</span>, <span class="string">&#x27;i&#x27;</span>),</span><br><span class="line">        r = url.<span class="title function_">substr</span>(<span class="number">1</span>).<span class="title function_">match</span>(reg);</span><br><span class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (r[<span class="number">2</span>]);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取所有的参数"><a href="#获取所有的参数" class="headerlink" title="获取所有的参数"></a>获取所有的参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">parse_url</span>(<span class="params">url</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!url) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> pattern = <span class="regexp">/(\w+)=(\w+)/ig</span>;</span><br><span class="line">    <span class="keyword">var</span> parames = &#123;&#125;;</span><br><span class="line">    url.<span class="title function_">replace</span>(pattern, <span class="keyword">function</span>(<span class="params">a, b, c</span>)&#123;</span><br><span class="line">        parames[b] = c;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> parames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数的利用"><a href="#参数的利用" class="headerlink" title="参数的利用"></a>参数的利用</h2><p>在项目中这些参数有哪些用处呢，下面列举几个比较常用的用处</p>
+<ul>
+<li>传递数据</li>
+<li>导航定位</li>
+<li>更改状态</li>
+<li>…</li>
+</ul>
+<h3 id="导航定位"><a href="#导航定位" class="headerlink" title="导航定位"></a>导航定位</h3><p>什么是导航定位？就是点击导航栏的标签，页面跳转后，对应的标签相应的会突出变化。如下图：<br><img data-src="/images/posts/navLocation.png" alt="navLocation"></p>
+<p>跳转后有两种情况：<br>一种ajax异步刷新，只是局部页面发生变化，因为可以直接用点击事件来控制。<br>另外一种比较常见的方式就是整个页面刷新，这种情况下，点击事件就没用了，就必须另辟蹊径：<br>    1.比较传统的方法就是每个页面里面写一段CSS样式来控制<br>    2.那么另外一种不用说就是通过url的参数来定位咯<br>假如用每个页面写CSS样式来控制，可以明显感受到的弊端是：每次新的页面都需要修改对应的CSS<br>那么利用url来控制又需要做哪些事呢？<br>    1.首先需要约定参数，并且后台来传递这些参数<br>    2.然后在导航栏部分，对应的地方加上参数值，这一步，导航栏都是公用模板，并且规则都一样，所以只需要一次添加<br>    3.跳转后定位</p>
+<h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;nav&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/index.htm?nav=index&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/layout/post.htm?nav=post&quot;</span>&gt;</span>文章<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/layout/tag.htm?nav=tags&quot;</span>&gt;</span>标签<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/layout/about.htm?nav=aboutUs&quot;</span>&gt;</span>关于我<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getOneVal</span>(<span class="params">name,urlValStr</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> afterNameStr = urlValStr.<span class="title function_">split</span>(name)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> strFirstSite = afterNameStr.<span class="title function_">indexOf</span>(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">    strFirstSite = (strFirstSite == -<span class="number">1</span>) ? afterNameStr.<span class="property">length</span> : strFirstSit;</span><br><span class="line">    <span class="keyword">var</span> val = afterNameStr.<span class="title function_">slice</span>(<span class="number">1</span>,strFirstSite);</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> thisUrlVal = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span>.<span class="title function_">replace</span>(<span class="string">&#x27;?&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> thisNVal = <span class="title function_">getOneVal</span>(<span class="string">&#x27;nav&#x27;</span>,urlValStr);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定位</span></span><br><span class="line">$(<span class="string">&#x27;.nav a&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> _this = $(<span class="variable language_">this</span>);</span><br><span class="line">    <span class="keyword">var</span> urlValStr = _this.<span class="title function_">attr</span>(<span class="string">&#x27;href&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;?&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> nVal = <span class="title function_">getOneVal</span>(<span class="string">&#x27;nav&#x27;</span>,urlValStr);</span><br><span class="line">    <span class="keyword">if</span>(nVal == thisNVal) &#123;</span><br><span class="line">        _this.<span class="title function_">addClass</span>(<span class="string">&#x27;on&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2016-06-15/get-url-values.html" title="利用javascrit获取url传递的参数">https://blog.imx0.com/2016-06-15/get-url-values.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/url/" rel="tag"><i class="fa fa-tag"></i> url</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2016/06/15/get/url/values.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"b6d1af7e3eaf720caf25f0149d74a3c1"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>

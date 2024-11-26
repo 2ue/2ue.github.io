@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>前端路上</title>
+  <icon>https://blog.imx0.com/icon.png</icon>
+  <subtitle>万物皆有裂缝</subtitle>
+  <link href="https://blog.imx0.com/atom.xml" rel="self"/>
+  
+  <link href="https://blog.imx0.com/"/>
+  <updated>2024-05-26T07:38:02.000Z</updated>
+  <id>https://blog.imx0.com/</id>
+  
+  <author>
+    <name>2ue</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Node.js开发必看系列之-如何在ES模块中正确使用__dirname和__filename</title>
+    <link href="https://blog.imx0.com/2024-05-26/Node.js%E5%BC%80%E5%8F%91%E5%BF%85%E7%9C%8B%E7%B3%BB%E5%88%97%E4%B9%8B-%E5%A6%82%E4%BD%95%E5%9C%A8ES%E6%A8%A1%E5%9D%97%E4%B8%AD%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8__dirname%E5%92%8C__filename.html"/>
+    <id>https://blog.imx0.com/2024-05-26/Node.js%E5%BC%80%E5%8F%91%E5%BF%85%E7%9C%8B%E7%B3%BB%E5%88%97%E4%B9%8B-%E5%A6%82%E4%BD%95%E5%9C%A8ES%E6%A8%A1%E5%9D%97%E4%B8%AD%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8__dirname%E5%92%8C__filename.html</id>
+    <published>2024-05-26T07:38:02.000Z</published>
+    <updated>2024-05-26T07:38:02.000Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;在Node.js中，&lt;code&gt;__dirname&lt;/code&gt;是一个非常有用的全局变量，它返回当前正在执行的脚本所在的目录名。然而，随着Node.js对ES模块（ESM）的支持，直接在ES模块中使用&lt;code&gt;__dirname&lt;/code&gt;会导致“&lt;code&gt;__dirname is not defined in ES module scope&lt;/code&gt;”的错误信息。本文将探讨这一问题，并提供有效的解决方案。&lt;/p&gt;
+&lt;h2 id=&quot;理解ES模块与CommonJS&quot;&gt;&lt;a href=&quot;#理解ES模块与CommonJS&quot; class=&quot;headerlink&quot; title=&quot;理解ES模块与CommonJS&quot;&gt;&lt;/a&gt;理解ES模块与CommonJS&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="前端/Nodejs" scheme="https://blog.imx0.com/categories/%E5%89%8D%E7%AB%AF-Nodejs/"/>
+    
+    
+    <category term="Nodejs" scheme="https://blog.imx0.com/tags/Nodejs/"/>
+    
+    <category term="__dirname" scheme="https://blog.imx0.com/tags/dirname/"/>
+    
+    <category term="__filename" scheme="https://blog.imx0.com/tags/filename/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oh My Zsh 自动化：轻松管理多个 Git 用户身份信息</title>
+    <link href="https://blog.imx0.com/2024-04-23/Oh%20My%20Zsh%20%E8%87%AA%E5%8A%A8%E5%8C%96-%E8%BD%BB%E6%9D%BE%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20Git%20%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E4%BF%A1%E6%81%AF.html"/>
+    <id>https://blog.imx0.com/2024-04-23/Oh%20My%20Zsh%20%E8%87%AA%E5%8A%A8%E5%8C%96-%E8%BD%BB%E6%9D%BE%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20Git%20%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E4%BF%A1%E6%81%AF.html</id>
+    <published>2024-04-23T06:05:00.000Z</published>
+    <updated>2024-04-23T06:05:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;在 Git 工作流中，有时需要在同一台电脑上针对不同的项目设置不同的用户身份。例如，开发人员可能需要在个人项目和公司项目之间切换，而这两个项目可能需要不同的 Git 用户名和电子邮件地址。Oh My Zsh 提供了强大的自定义功能，允许我们通过编写自定义的 shell 函数来实现这一需求。本文将展示如何使用 Oh My Zsh 的 &lt;code&gt;chpwd&lt;/code&gt; 函数来自动设置特定目录及其子目录、孙目录下的 Git 用户配置。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;开始之前&quot;&gt;&lt;a href=&quot;#开始之前&quot; class=&quot;headerlink&quot; title=&quot;开始之前&quot;&gt;&lt;/a&gt;开始之前&lt;/h2&gt;&lt;p&gt;假设你对git身份信息和ssh key概念有比较清晰的认识和了解其基础使用，比如git身份信息是用户名和邮箱，在你使用git commit的时候进行记录；而ssh key是一个凭证（分为公钥和私钥），用于远端身份信息验证，和git没有直接关系，也可以用于其他场景使用，比如ssh登录远程主机。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="git" scheme="https://blog.imx0.com/categories/git/"/>
+    
+    <category term="oh-my-zsh" scheme="https://blog.imx0.com/categories/git/oh-my-zsh/"/>
+    
+    
+    <category term="git" scheme="https://blog.imx0.com/tags/git/"/>
+    
+    <category term="oh-my-zsh" scheme="https://blog.imx0.com/tags/oh-my-zsh/"/>
+    
+    <category term="git多身份" scheme="https://blog.imx0.com/tags/git%E5%A4%9A%E8%BA%AB%E4%BB%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Github Action自动化发布npm包</title>
+    <link href="https://blog.imx0.com/2024-04-20/%E4%BD%BF%E7%94%A8Github%20Action%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83npm%E5%8C%85.html"/>
+    <id>https://blog.imx0.com/2024-04-20/%E4%BD%BF%E7%94%A8Github%20Action%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83npm%E5%8C%85.html</id>
+    <published>2024-04-20T08:32:00.000Z</published>
+    <updated>2024-04-20T08:32:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;GitHub Actions 提供了一种强大的自动化构建和发布流程的方式，通过组合github action的方式形成了workflow，来实现CI&amp;#x2F;CD。我们完全可以将 npm 包的发布流程集成到 GitHub workflow中，做到自动化发包，这可以可以提高效率并减少人为错误。以下是如何使用 GitHub Actions 实现自动化发布的详细指南。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;0-原理解释&quot;&gt;&lt;a href=&quot;#0-原理解释&quot; class=&quot;headerlink&quot; title=&quot;0. 原理解释&quot;&gt;&lt;/a&gt;0. 原理解释&lt;/h2&gt;&lt;p&gt;github actions是一个github推出的CI&amp;#x2F;CD工具，可以模拟平台（比如linux等）自动化执行一些操作。&lt;br&gt;npm可以通过token实现免登陆发布包，并且Github Secrets能很好的保护token不被泄露（后面会说简单说一下为什么），这样就避免了在登陆信息在CI&amp;#x2F;CD时泄露&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="github/actions" scheme="https://blog.imx0.com/categories/github-actions/"/>
+    
+    
+    <category term="npm" scheme="https://blog.imx0.com/tags/npm/"/>
+    
+    <category term="CD" scheme="https://blog.imx0.com/tags/CD/"/>
+    
+    <category term="CI" scheme="https://blog.imx0.com/tags/CI/"/>
+    
+    <category term="action" scheme="https://blog.imx0.com/tags/action/"/>
+    
+    <category term="github" scheme="https://blog.imx0.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何使用Github Actions实现自动化部署Hexo博客</title>
+    <link href="https://blog.imx0.com/2024-04-19/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html"/>
+    <id>https://blog.imx0.com/2024-04-19/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html</id>
+    <published>2024-04-19T06:01:02.000Z</published>
+    <updated>2024-04-19T06:01:02.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Hexo 是一个基于 Node.js 的静态博客框架，它以简洁的速度和易用性受到许多开发者的青睐。如果你的博客部署在github上，那么这里有一种新的部署方式可能让摆脱频繁提交部署的苦恼！GitHub Actions 为自动化部署Hexo提供了一种解决方案，极大地简化了部署流程和节省了时间，可以让我们更多的专注到写作本身。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;为什么使用Github-Actions&quot;&gt;&lt;a href=&quot;#为什么使用Github-Actions&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Github Actions&quot;&gt;&lt;/a&gt;为什么使用Github Actions&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;将文章源文件和部署文件分离，有助于保护源文件中的隐私和你的草稿文件等&lt;/li&gt;
+&lt;li&gt;节省手动部署的时间，专注于写作本身&lt;/li&gt;
+&lt;li&gt;学习Github Actions相关知识，不折腾不作死发作了&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://blog.imx0.com/categories/hexo/"/>
+    
+    <category term="github" scheme="https://blog.imx0.com/categories/hexo/github/"/>
+    
+    
+    <category term="action" scheme="https://blog.imx0.com/tags/action/"/>
+    
+    <category term="github" scheme="https://blog.imx0.com/tags/github/"/>
+    
+    <category term="hexo" scheme="https://blog.imx0.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用conda快速初始化项目python</title>
+    <link href="https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html"/>
+    <id>https://blog.imx0.com/2024-03-07/%E4%BD%BF%E7%94%A8conda%E5%BF%AB%E9%80%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AEpython.html</id>
+    <published>2024-03-07T05:15:00.000Z</published>
+    <updated>2024-03-07T05:15:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;python的环境管理方案很多，社区有很多解决方案，本文介绍一种常用的、支持多版本python、多人协作的、方便快捷的环境管理方案：miniforge-conda&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;p&gt;如果你想使用conda来管理你的Python环境和依赖，你需要在你的机器上安装Anaconda或Miniconda。Anaconda包含了conda，Python和150+科学包及其依赖。而Miniconda只包含了conda和Python，可以参考[[python环境依赖管理方案]]&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="python/Anaconda" scheme="https://blog.imx0.com/categories/python-Anaconda/"/>
+    
+    
+    <category term="python" scheme="https://blog.imx0.com/tags/python/"/>
+    
+    <category term="Anaconda" scheme="https://blog.imx0.com/tags/Anaconda/"/>
+    
+    <category term="conda" scheme="https://blog.imx0.com/tags/conda/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac提示”xxx.app已损坏，无法打开，你应该将它移到废纸篓”的解决方法</title>
+    <link href="https://blog.imx0.com/2021-09-14/Mac%E6%8F%90%E7%A4%BA%E2%80%9Dxxx.app%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%EF%BC%8C%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E2%80%9D%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html"/>
+    <id>https://blog.imx0.com/2021-09-14/Mac%E6%8F%90%E7%A4%BA%E2%80%9Dxxx.app%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%EF%BC%8C%E4%BD%A0%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E2%80%9D%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html</id>
+    <published>2021-09-14T11:50:48.000Z</published>
+    <updated>2021-09-14T11:50:48.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;随着mac系统的升级，对app安全控制越来越严，经常遇到一些非官方渠道安装的app，安装后无法打开的情况，如提示”xxx.app已损坏，无法打开，你应该将它移到废纸篓”，一般情况下，出现该问题是因为软件没有签名，所以被MAC系统禁止运行。可以尝试以下解决方案&lt;/p&gt;
+&lt;h2 id=&quot;老系统：设置允许任何来源下载的App&quot;&gt;&lt;a href=&quot;#老系统：设置允许任何来源下载的App&quot; class=&quot;headerlink&quot; title=&quot;老系统：设置允许任何来源下载的App&quot;&gt;&lt;/a&gt;老系统：设置允许任何来源下载的App&lt;/h2&gt;&lt;p&gt;比较老的版本系统，可以按以下步骤操作：&lt;br&gt;打开”系统偏好设置 -&amp;gt; 安全与隐私 -&amp;gt; 通用”选项卡，检查是否已经启用了”任何来源”选项。如果没有启用，先点击左下角的小黄锁图标解锁，然后选中”任何来源”。（由于作者mac系统比较新，故此图来源网络）&lt;br&gt;&lt;img data-src=&quot;https://raw.githubusercontent.com/2ue/post-files/main/files/20240424125739-50d88ba9028afaa7fbbfd06d2ff6c107-1713934660.png&quot; alt=&quot;image.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="mac" scheme="https://blog.imx0.com/categories/mac/"/>
+    
+    
+    <category term="mac" scheme="https://blog.imx0.com/tags/mac/"/>
+    
+    <category term="app损坏" scheme="https://blog.imx0.com/tags/app%E6%8D%9F%E5%9D%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu云服务器安装docker及docker-compose保姆级教程</title>
+    <link href="https://blog.imx0.com/2021-07-03/ubuntu%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85docker%E5%8F%8Adocker-compose%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html"/>
+    <id>https://blog.imx0.com/2021-07-03/ubuntu%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85docker%E5%8F%8Adocker-compose%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html</id>
+    <published>2021-07-03T12:55:52.000Z</published>
+    <updated>2024-05-03T15:03:30.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文记录在ubuntu云服务器上安装docker和docker-compose的完整过程及踩坑&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;为什么安装docker时会卡在添加秘钥这一步？&lt;br&gt;为什么安装docker-compose时，下载总是失败？&lt;br&gt;为什么安装的docker-compose不是最新版本？&lt;br&gt;…&lt;br&gt;且看下文，帮你解惑~&lt;/p&gt;
+&lt;h2 id=&quot;卸载旧版本&quot;&gt;&lt;a href=&quot;#卸载旧版本&quot; class=&quot;headerlink&quot; title=&quot;卸载旧版本&quot;&gt;&lt;/a&gt;卸载旧版本&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="安装教程" scheme="https://blog.imx0.com/categories/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="docker" scheme="https://blog.imx0.com/tags/docker/"/>
+    
+    <category term="ubuntu" scheme="https://blog.imx0.com/tags/ubuntu/"/>
+    
+    <category term="docker-compose" scheme="https://blog.imx0.com/tags/docker-compose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Npm Token免登陆发包</title>
+    <link href="https://blog.imx0.com/2019-10-12/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Npm%20Token%E5%85%8D%E7%99%BB%E9%99%86%E5%8F%91%E5%8C%85.html"/>
+    <id>https://blog.imx0.com/2019-10-12/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Npm%20Token%E5%85%8D%E7%99%BB%E9%99%86%E5%8F%91%E5%8C%85.html</id>
+    <published>2019-10-12T06:01:24.000Z</published>
+    <updated>2024-04-13T09:51:31.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;在使用 npm 包管理器进行包的发布时，通常需要手动登录 npm 账户，并且我们在本地使用npm时因为某些不可抗原因，使用了非npm官方源，导致我们每次发布都需要切换到官方源，显得非常繁琐。现在，通过使用 npm Token，可以避免手动登录，切换源等步骤，实现自动化发布流程，特别是在持续集成&amp;#x2F;持续部署（CI&amp;#x2F;CD）环境中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1-准备工作&quot;&gt;&lt;a href=&quot;#1-准备工作&quot; class=&quot;headerlink&quot; title=&quot;1. 准备工作&quot;&gt;&lt;/a&gt;1. 准备工作&lt;/h2&gt;&lt;p&gt;在开始之前，请确保：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="npm" scheme="https://blog.imx0.com/categories/npm/"/>
+    
+    
+    <category term="npm" scheme="https://blog.imx0.com/tags/npm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何解决“cannot remove directory not empty”</title>
+    <link href="https://blog.imx0.com/2019-05-29/how%20to%20solve%20cannot%20remove%20directory%20not%20empty.html"/>
+    <id>https://blog.imx0.com/2019-05-29/how%20to%20solve%20cannot%20remove%20directory%20not%20empty.html</id>
+    <published>2019-05-29T09:43:30.000Z</published>
+    <updated>2019-05-29T09:43:30.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;在windows系统下，删除文件或者文件夹，出现”Cannot remove xxx: Directory not empty”，如果在使用各种删除方法（比如使用命令行删除，解除占用，kill相关进程等）都得到相同的提示后，那么一般是磁盘存在问题，可以尝试使用&lt;code&gt;CHKDSK&lt;/code&gt;命令来修复磁盘解决问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;CHKDSK&quot;&gt;&lt;a href=&quot;#CHKDSK&quot; class=&quot;headerlink&quot; title=&quot;CHKDSK&quot;&gt;&lt;/a&gt;CHKDSK&lt;/h2&gt;&lt;p&gt;&lt;code&gt;CHKDSK&lt;/code&gt;的全称是check disk，就是磁盘检查的意思。该工具基于被检测的分区所用的&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTYlOTYlODclRTQlQkIlQjYlRTclQjMlQkIlRTclQkIlOUYvNDgyNzIxNT9mcm9tTW9kdWxlPWxlbW1hX2lubGluaw==&quot;&gt;文件系统&lt;i class=&quot;fa fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;，可以检查硬盘文件系统的完整性，并可以修复FAT16、FAT32和NTFS硬盘上的各种文件系统错误，创建和显示磁盘的状态报告。CHKDSK 还会列出并纠正磁盘上的错误。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="/" scheme="https://blog.imx0.com/categories/"/>
+    
+    
+    <category term="Windows" scheme="https://blog.imx0.com/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Node.js版本神器之nvm</title>
+    <link href="https://blog.imx0.com/2018-07-21/node.js-version-management-artifact-nvm.html"/>
+    <id>https://blog.imx0.com/2018-07-21/node.js-version-management-artifact-nvm.html</id>
+    <published>2018-07-21T11:47:23.000Z</published>
+    <updated>2018-07-21T11:47:23.000Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Node Version Manager (nvm) 是一个易于使用的工具，可以帮助您在不同Node.js版本之间进行切换，以满足不同项目的需求。&lt;/p&gt;
+&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="工具" scheme="https://blog.imx0.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="nvm" scheme="https://blog.imx0.com/categories/%E5%B7%A5%E5%85%B7/nvm/"/>
+    
+    
+    <category term="node" scheme="https://blog.imx0.com/tags/node/"/>
+    
+    <category term="npm" scheme="https://blog.imx0.com/tags/npm/"/>
+    
+    <category term="nvm" scheme="https://blog.imx0.com/tags/nvm/"/>
+    
+    <category term="版本管理" scheme="https://blog.imx0.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git系列之SSH Key配置</title>
+    <link href="https://blog.imx0.com/2018-03-08/Git%E7%B3%BB%E5%88%97%E4%B9%8BSSH%20Key%E9%85%8D%E7%BD%AE.html"/>
+    <id>https://blog.imx0.com/2018-03-08/Git%E7%B3%BB%E5%88%97%E4%B9%8BSSH%20Key%E9%85%8D%E7%BD%AE.html</id>
+    <published>2018-03-08T10:03:07.000Z</published>
+    <updated>2018-03-08T10:03:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;在使用Git进行版本控制时，SSH密钥是一种常见的身份验证方式。当你需要在同一台机器上管理多个Git账户时，如何配置和使用多个SSH密钥呢？本文将为你提供一份的教程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h2&gt;&lt;p&gt;本篇文章以github仓库为例来进行说明&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工具/git" scheme="https://blog.imx0.com/categories/%E5%B7%A5%E5%85%B7-git/"/>
+    
+    
+    <category term="git" scheme="https://blog.imx0.com/tags/git/"/>
+    
+    <category term="ssh" scheme="https://blog.imx0.com/tags/ssh/"/>
+    
+    <category term="ssh-key" scheme="https://blog.imx0.com/tags/ssh-key/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git系列常用命令之放弃修改</title>
+    <link href="https://blog.imx0.com/2018-01-20/Git%E7%B3%BB%E5%88%97%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B9%8B%E6%94%BE%E5%BC%83%E4%BF%AE%E6%94%B9.html"/>
+    <id>https://blog.imx0.com/2018-01-20/Git%E7%B3%BB%E5%88%97%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B9%8B%E6%94%BE%E5%BC%83%E4%BF%AE%E6%94%B9.html</id>
+    <published>2018-01-20T11:52:00.000Z</published>
+    <updated>2018-05-03T06:50:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Git 是一种流行的分布式版本控制系统，它允许开发者在不同的分支上进行工作，同时保持代码的完整性和历史记录。在使用 Git 进行版本控制的过程中，我们可能会遇到需要放弃当前工作进度的情况，例如，当发现当前分支的修改与主分支的代码不兼容，或者需要切换到另一个分支继续工作时。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;这篇文章会介绍如何在 Git 中放弃对文件的修改，包括以下几个方面：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工具/git" scheme="https://blog.imx0.com/categories/%E5%B7%A5%E5%85%B7-git/"/>
+    
+    
+    <category term="git" scheme="https://blog.imx0.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>风继续吹</title>
+    <link href="https://blog.imx0.com/2017-11-29/blow-forever.html"/>
+    <id>https://blog.imx0.com/2017-11-29/blow-forever.html</id>
+    <published>2017-11-29T14:53:37.000Z</published>
+    <updated>2017-11-29T14:53:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最近在某些比较看重的事情上，处理的很失败，感觉整个心态都发生了变化。下班独行的那段路上，突然惊醒自己也许需要做出一些改变，晚饭后静静的思考了一阵：似乎勇往前行才是我最需需要的改变。古语有云：走自己的路，让别人去说吧。是的，生活需要你不断踽踽独行，活在他人的世界里是可怕的，特别他（她）还是陌生人。随手记录一些句子，它们是我最近的心态和生活的写照，也以此鞭策自己砥砺前行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;时间不会因你沮丧而停滞不前&lt;br&gt;生活不会因你懊恼而雨过天晴&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随想" scheme="https://blog.imx0.com/categories/%E9%9A%8F%E6%83%B3/"/>
+    
+    
+    <category term="人生" scheme="https://blog.imx0.com/tags/%E4%BA%BA%E7%94%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用javascript代码片段</title>
+    <link href="https://blog.imx0.com/2017-11-26/javascript-sinpats.html"/>
+    <id>https://blog.imx0.com/2017-11-26/javascript-sinpats.html</id>
+    <published>2017-11-26T14:37:45.000Z</published>
+    <updated>2017-11-26T14:37:45.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是拒绝引入不纯粹的三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;placeholder属性支持&quot;&gt;&lt;a href=&quot;#placeholder属性支持&quot; class=&quot;headerlink&quot; title=&quot;placeholder属性支持&quot;&gt;&lt;/a&gt;placeholder属性支持&lt;/h2&gt;&lt;p&gt;有时候项目中placeholder也许要兼容某些特殊的浏览器，所以才有了下面这段代码。这种方案有一个缺点就是：如果你恰好要对这个输入框绑定focus事件并操作它的值，必须要小心处理&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/categories/javascript/"/>
+    
+    
+    <category term="sinpats" scheme="https://blog.imx0.com/tags/sinpats/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一道小小的题目引发对javascript支持正则表达式相关方法的探讨</title>
+    <link href="https://blog.imx0.com/2017-11-24/regex-to-something.html"/>
+    <id>https://blog.imx0.com/2017-11-24/regex-to-something.html</id>
+    <published>2017-11-24T01:57:10.000Z</published>
+    <updated>2017-11-24T01:57:10.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;以前对于正则是非常惧怕的，因为看不懂和学不会。但最近项目中频繁的使用到了正则，因此强迫自己去学习了解，慢慢的体会到了他的魅力与强大。当然学习正则初入门的时候有些枯燥难懂，但越学越觉得轻松。本文不准备说关于正则本身的事儿，而是说一说关于javascript中关于正则的几个方法中被很多人忽略的地方。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;工具&quot;&gt;&lt;a href=&quot;#工具&quot; class=&quot;headerlink&quot; title=&quot;工具&quot;&gt;&lt;/a&gt;工具&lt;/h2&gt;&lt;p&gt;说到正则，很多人都是从抄到改到自己写，这个过程可能有时候很漫长。如一些工具能帮助你快速分析和学习正则，那么学习的过程你肯定要轻松得多。下面我推荐两个我经常使用的正则在线可视化工具，正则可视化工具图解符合铁路图规律（其实不明白什么是铁路一样很容易看懂，只是一些细微的地方和我们的常规思维有点差别）。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="regex" scheme="https://blog.imx0.com/categories/regex/"/>
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/tags/javascript/"/>
+    
+    <category term="regex" scheme="https://blog.imx0.com/tags/regex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue中慎用style的scoped属性</title>
+    <link href="https://blog.imx0.com/2017-11-15/vue-style-scoped.html"/>
+    <id>https://blog.imx0.com/2017-11-15/vue-style-scoped.html</id>
+    <published>2017-11-15T11:09:16.000Z</published>
+    <updated>2017-11-15T11:09:16.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;在vue组件中，在style标签上添加scoped属性，以表示它的样式作用于当下的模块，很好的实现了样式私有化的目的，这是一个非常好的机制。但是为什么要慎用呢？在实际业务中我们往往会对公共组件样式做细微的调整，如果添加了scoped属性，那么样式将会变得不易修改。初写这篇文章时，本人没有找到一个好的方法去解决这个问题，后来经过大伙的解答，才让我恍然大悟。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;何为谨慎使用&quot;&gt;&lt;a href=&quot;#何为谨慎使用&quot; class=&quot;headerlink&quot; title=&quot;何为谨慎使用&quot;&gt;&lt;/a&gt;何为谨慎使用&lt;/h2&gt;&lt;p&gt;谨慎使用不是不用，而是持一种审视的目光去看待它。&lt;code&gt;scoped&lt;/code&gt;肯定是解决了样式私有化的问题，但同时也引入了新的问题—样式不易（可）修改，而很多时候，我们是需要对公共组件的样式做微调的。所以我才说要谨慎使用&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://blog.imx0.com/categories/vue/"/>
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/tags/javascript/"/>
+    
+    <category term="vue" scheme="https://blog.imx0.com/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何写一个日历组件</title>
+    <link href="https://blog.imx0.com/2017-11-02/how-to-make-a-kalendar.html"/>
+    <id>https://blog.imx0.com/2017-11-02/how-to-make-a-kalendar.html</id>
+    <published>2017-11-02T02:08:43.000Z</published>
+    <updated>2017-11-02T02:08:43.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;众所周知，虽然&lt;code&gt;javascript&lt;/code&gt;中关于时间的API有不少，我们可以通过方法单独的获取年、月、日、时、分、秒、毫秒…貌似很多，最近写了一个日历（以前写的，但写得很烂，最近优化一下），所以下面简单的记录一下如何写一个日历，列出了一些我在写日历过程中自己封装的一些方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;效果图&quot;&gt;&lt;a href=&quot;#效果图&quot; class=&quot;headerlink&quot; title=&quot;效果图&quot;&gt;&lt;/a&gt;效果图&lt;/h2&gt;&lt;p&gt;先来一张效果图，由于没有UI设计，所以就自己简单的设计了一个样式（好歹我也是设计专业的，虽然已不做设计很多年），虽然略丑，但重要的是功能！！！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/categories/javascript/"/>
+    
+    
+    <category term="日历" scheme="https://blog.imx0.com/tags/%E6%97%A5%E5%8E%86/"/>
+    
+    <category term="kalendar" scheme="https://blog.imx0.com/tags/kalendar/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>慎重用for...in与for...of</title>
+    <link href="https://blog.imx0.com/2017-10-27/for-in-and-for-of.html"/>
+    <id>https://blog.imx0.com/2017-10-27/for-in-and-for-of.html</id>
+    <published>2017-10-27T06:43:12.000Z</published>
+    <updated>2017-10-27T06:43:12.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;for...in&lt;/code&gt;和&lt;code&gt;for...of&lt;/code&gt;都是用于数据的遍历。&lt;code&gt;for...in&lt;/code&gt;是&lt;code&gt;ES5&lt;/code&gt;标准，用于遍历对象属性（键），而&lt;code&gt;for...of&lt;/code&gt;是&lt;code&gt;ES6&lt;/code&gt;标准，是对&lt;code&gt;for...in&lt;/code&gt;的修正，用于遍历对象元素（值），&lt;code&gt;for...of&lt;/code&gt;兼容性不是很好（除了PC端老顽固&lt;code&gt;IE&lt;/code&gt;之外，移动端某些安卓机和浏览器也是不支持它，具体可以&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvemgtQ04vZG9jcy9XZWIvSmF2YVNjcmlwdC9SZWZlcmVuY2UvU3RhdGVtZW50cy9mb3IuLi5vZg==&quot;&gt;查看MDN&lt;i class=&quot;fa fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;for…in&quot;&gt;&lt;a href=&quot;#for…in&quot; class=&quot;headerlink&quot; title=&quot;for…in&quot;&gt;&lt;/a&gt;for…in&lt;/h2&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;title class_&quot;&gt;Object&lt;/span&gt;.&lt;span class=&quot;property&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;prototype&lt;/span&gt;&lt;/span&gt;.&lt;span class=&quot;property&quot;&gt;objMethod&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &amp;#123;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;title class_&quot;&gt;Array&lt;/span&gt;.&lt;span class=&quot;property&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;prototype&lt;/span&gt;&lt;/span&gt;.&lt;span class=&quot;property&quot;&gt;arrMethod&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &amp;#123;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arr = [&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;], obj = &amp;#123; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&amp;#x27;2ue&amp;#x27;&lt;/span&gt;, &lt;span class=&quot;attr&quot;&gt;w&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;130&lt;/span&gt; &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arr.&lt;span class=&quot;property&quot;&gt;msg&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;&amp;#x27;hello&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;obj.&lt;span class=&quot;property&quot;&gt;msg&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;&amp;#x27;hello&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; arr) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;variable language_&quot;&gt;console&lt;/span&gt;.&lt;span class=&quot;title function_&quot;&gt;log&lt;/span&gt;(i); &lt;span class=&quot;comment&quot;&gt;// &amp;quot;0&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;msg&amp;quot;, &amp;quot;arrCustom&amp;quot;, &amp;quot;objCustom&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; arr) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (arr.&lt;span class=&quot;title function_&quot;&gt;hasOwnProperty&lt;/span&gt;(i)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;variable language_&quot;&gt;console&lt;/span&gt;.&lt;span class=&quot;title function_&quot;&gt;log&lt;/span&gt;(i); &lt;span class=&quot;comment&quot;&gt;// &amp;quot;0&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;msg&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; obj) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;variable language_&quot;&gt;console&lt;/span&gt;.&lt;span class=&quot;title function_&quot;&gt;log&lt;/span&gt;(i); &lt;span class=&quot;comment&quot;&gt;// &amp;quot;name&amp;quot;, &amp;quot;w&amp;quot;, &amp;quot;msg&amp;quot;, &amp;quot;objCustom&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; obj) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (obj.&lt;span class=&quot;title function_&quot;&gt;hasOwnProperty&lt;/span&gt;(i)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;variable language_&quot;&gt;console&lt;/span&gt;.&lt;span class=&quot;title function_&quot;&gt;log&lt;/span&gt;(i); &lt;span class=&quot;comment&quot;&gt;// &amp;quot;name&amp;quot;, &amp;quot;w&amp;quot;, &amp;quot;msg&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/categories/javascript/"/>
+    
+    
+    <category term="遍历" scheme="https://blog.imx0.com/tags/%E9%81%8D%E5%8E%86/"/>
+    
+    <category term="for...in" scheme="https://blog.imx0.com/tags/for-in/"/>
+    
+    <category term="for...of" scheme="https://blog.imx0.com/tags/for-of/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>H5的Notification特性 - Web的桌面通知功能</title>
+    <link href="https://blog.imx0.com/2017-10-16/desktop-notification.html"/>
+    <id>https://blog.imx0.com/2017-10-16/desktop-notification.html</id>
+    <published>2017-10-16T02:16:37.000Z</published>
+    <updated>2017-10-16T02:16:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;目前，&lt;code&gt;web&lt;/code&gt;网页使用桌面通知功能的越来越多，包括微博，腾讯视频等大厂站，桌面通知功能是&lt;code&gt;H5&lt;/code&gt;的一个&lt;code&gt;API&lt;/code&gt; - &lt;code&gt;Notifications&lt;/code&gt;。它允许网页或应用程序可以发出通知，通知将被显示在页面之外的[[系统]]层面上（通常使用操作[[系统]]的标准通知机制，但是在不同的平台和浏览器上的表现会有差异），这样即使应用程序空闲或在后台也可以向用户发送信息。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;应用场景&quot;&gt;&lt;a href=&quot;#应用场景&quot; class=&quot;headerlink&quot; title=&quot;应用场景&quot;&gt;&lt;/a&gt;应用场景&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Notifications&lt;/code&gt;的诞生简化了网站或者应用与用户之间的沟通成本（时间成本和开发成本），增强用户黏性（减少了用户离开应用的可能）。传统的通知方式，大多是通过站内信（消息），邮件，短信等方式，它们通常需要刷新（跳转）页面、离开应用打开其他应用或终端来查看消息；而桌面通知功能大大的简化了这个过程，消息的传递基本不消耗时间（如果不设置&lt;code&gt;setTimeout&lt;/code&gt;，用时基本不会超过&lt;code&gt;1s&lt;/code&gt;），并且用户不需要离开应用，这都带来了极大的方便。可以预见，&lt;code&gt;Notifications&lt;/code&gt;将会在很多网页或应用中被大量使用。当然&lt;code&gt;Notifications&lt;/code&gt;也具有它的局限性：无法存档、即看即毁&lt;br&gt;那么，这个功能到底能用在哪些场景呢？只能说能应用的场景很多：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="H5" scheme="https://blog.imx0.com/categories/H5/"/>
+    
+    
+    <category term="Notification" scheme="https://blog.imx0.com/tags/Notification/"/>
+    
+    <category term="javascript" scheme="https://blog.imx0.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mocha+chai使用记录</title>
+    <link href="https://blog.imx0.com/2017-10-10/mocha+chai.html"/>
+    <id>https://blog.imx0.com/2017-10-10/mocha+chai.html</id>
+    <published>2017-10-10T03:06:52.000Z</published>
+    <updated>2017-10-10T03:06:52.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;mocha+chai&lt;/code&gt;是比较流行的测试框架‘套装’，能实现一些基本的前端测试如函数功能测试，模拟登陆，异步测试,流程测试等&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;官方文档&quot;&gt;&lt;a href=&quot;#官方文档&quot; class=&quot;headerlink&quot; title=&quot;官方文档&quot;&gt;&lt;/a&gt;官方文档&lt;/h2&gt;&lt;h3 id=&quot;mocha&quot;&gt;&lt;a href=&quot;#mocha&quot; class=&quot;headerlink&quot; title=&quot;mocha&quot;&gt;&lt;/a&gt;&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL21vY2hhanMub3JnLw==&quot;&gt;mocha&lt;i class=&quot;fa fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="测试" scheme="https://blog.imx0.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="javascript" scheme="https://blog.imx0.com/tags/javascript/"/>
+    
+    <category term="测试" scheme="https://blog.imx0.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+</feed>

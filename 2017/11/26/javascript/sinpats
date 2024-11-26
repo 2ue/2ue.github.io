@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是拒绝引入不纯粹的三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！  placeholder属性支持有时候项目中pl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="常用javascript代码片段">
+<meta property="og:url" content="https://blog.imx0.com/2017/11/26/javascript/sinpats">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是拒绝引入不纯粹的三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！  placeholder属性支持有时候项目中pl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-26T14:37:45.000Z">
+<meta property="article:modified_time" content="2017-11-26T14:37:45.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="sinpats">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2017/11/26/javascript/sinpats">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2017-11-26/javascript-sinpats.html","path":"2017-11-26/javascript-sinpats.html","title":"常用javascript代码片段"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>常用javascript代码片段 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#placeholder%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">placeholder属性支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%B6%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text">格式化时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%89%88%E6%9C%AC%E7%AD%89%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">解析浏览器的版本等详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E6%88%90%E5%8D%83%E5%88%86%E4%BD%8D%E6%A0%BC%E5%BC%8F-%E5%A6%82%EF%BC%9A123-456-9-89"><span class="nav-number">4.</span> <span class="nav-text">数字转换成千分位格式(如：123,456,9.89)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%BB%BB%E6%84%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">判断任意数据的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%AF%E8%AE%A1%E7%AE%97%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">判断是不是一个可计算的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%8F%96%E5%80%BC%E9%98%B2%E6%AD%A2%E4%BB%A3%E7%A0%81%E6%8C%82%E6%8E%89"><span class="nav-number">7.</span> <span class="nav-text">深度取值防止代码挂掉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">8.</span> <span class="nav-text">反转义字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%8C"><span class="nav-number">9.</span> <span class="nav-text">未完</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2017-11-26/javascript-sinpats.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="常用javascript代码片段 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用javascript代码片段
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-26 22:37:45" itemprop="dateCreated datePublished" datetime="2017-11-26T22:37:45+08:00">2017-11-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>下面记录的主要是本人在项目中遇到的一些问题的解决方案或者个人觉得精妙的代码，方案也许来自于自己的想法，也有可能来自于网络（我尽量给出出处，以便大家追源溯流），也许干脆就是一个插件库（实际在项目中对于一些小的功能个人是拒绝引入不纯粹的三方库的）。肯定，这其中有些方案也不是尽善尽美，我会一一列出。如果对于某个问题在你看来有更好的解决方案，请不吝指出！</p>
+</blockquote>
+<h2 id="placeholder属性支持"><a href="#placeholder属性支持" class="headerlink" title="placeholder属性支持"></a>placeholder属性支持</h2><p>有时候项目中placeholder也许要兼容某些特殊的浏览器，所以才有了下面这段代码。这种方案有一个缺点就是：如果你恰好要对这个输入框绑定focus事件并操作它的值，必须要小心处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修复不支持placeholder属性 start</span></span><br><span class="line"><span class="keyword">const</span> isSurportPlder = <span class="string">&quot;placeholder&quot;</span> <span class="keyword">in</span> <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;input&quot;</span>); <span class="comment">// 判断浏览器是否支持 placeholder</span></span><br><span class="line"><span class="keyword">if</span> (!isSurportPlder) &#123;</span><br><span class="line">  $(<span class="string">&quot;[placeholder]&quot;</span>).<span class="title function_">focus</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> _this = $(<span class="variable language_">this</span>);</span><br><span class="line">    <span class="keyword">if</span> (_this.<span class="title function_">val</span>() == _this.<span class="title function_">attr</span>(<span class="string">&quot;placeholder&quot;</span>)) &#123;</span><br><span class="line">      _this.<span class="title function_">val</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).<span class="title function_">blur</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> _this = $(<span class="variable language_">this</span>);</span><br><span class="line">    <span class="keyword">if</span> (_this.<span class="title function_">val</span>() == <span class="string">&#x27;&#x27;</span> || _this.<span class="title function_">val</span>() == _this.<span class="title function_">attr</span>(<span class="string">&quot;placeholder&quot;</span>)) &#123;</span><br><span class="line">      _this.<span class="title function_">val</span>(_this.<span class="title function_">attr</span>(<span class="string">&quot;placeholder&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).<span class="title function_">blur</span>();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="格式化时间"><a href="#格式化时间" class="headerlink" title="格式化时间"></a>格式化时间</h2><p>关于格式化时间有很多插件，其中比较有名的就可以列很大一堆出来，比如老牌的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbWVudC9tb21lbnQ=">moment.js<i class="fa fa-external-link-alt"></i></span>，最近比较多star的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbWVudC9sdXhvbg==">luxon.js<i class="fa fa-external-link-alt"></i></span>; 对于为什么不选择他么，上面已经说了原因了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">formate</span>(<span class="params">fmt, date</span>) &#123;</span><br><span class="line">    date = <span class="keyword">new</span> <span class="title class_">Date</span>(date).<span class="title function_">toString</span>() === <span class="string">&#x27;Invalid Date&#x27;</span> ? <span class="keyword">new</span> <span class="title class_">Date</span>() : <span class="keyword">new</span> <span class="title class_">Date</span>(date);</span><br><span class="line">    <span class="keyword">const</span> _rules = [&#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;[yY]&#123;4&#125;&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getFullYear</span>()</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;M+&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getMonth</span>() + <span class="number">1</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;[dD]+&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getDate</span>()</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;h+&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getHours</span>()</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;m+&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getMinutes</span>()</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;s+&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getSeconds</span>()</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">rule</span>: <span class="string">&#x27;ms&#123;1,2&#125;&#x27;</span>,</span><br><span class="line">        <span class="attr">value</span>: date.<span class="title function_">getMilliseconds</span>()</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">    _rules.<span class="title function_">forEach</span>(<span class="function">(<span class="params">_r</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> rule = _r.<span class="property">rule</span>, val = _r.<span class="property">value</span>;</span><br><span class="line">        fmt = fmt.<span class="title function_">replace</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>(rule), <span class="keyword">function</span> (<span class="params">$1</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> rLen = val.<span class="title function_">toString</span>().<span class="property">length</span>, fLen = $1.<span class="property">length</span>;</span><br><span class="line">            <span class="keyword">return</span> (fLen !== <span class="number">2</span> || rLen &gt;= fLen) ? val : [<span class="string">&#x27;00&#x27;</span>, val].<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">substr</span>(rLen);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> fmt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析浏览器的版本等详细信息"><a href="#解析浏览器的版本等详细信息" class="headerlink" title="解析浏览器的版本等详细信息"></a>解析浏览器的版本等详细信息</h2><p>浏览器的判断涉及到很多复杂的变量和参数，所以偷懒选取了一个比较好的库，这个库它唯一的功能就是识别浏览器的版本等详细信息。<br>如果大家有更好的库，请推荐过来！</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL211bXV5L2Jyb3dzZXI=">browser.js<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="数字转换成千分位格式-如：123-456-9-89"><a href="#数字转换成千分位格式-如：123-456-9-89" class="headerlink" title="数字转换成千分位格式(如：123,456,9.89)"></a>数字转换成千分位格式(如：123,456,9.89)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">translateThree</span>(<span class="params">num</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> num.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="regexp">/(\d&#123;3&#125;(?=\d)(?!\d+\.|$))/g</span>, <span class="string">&#x27;$1,&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断任意数据的类型"><a href="#判断任意数据的类型" class="headerlink" title="判断任意数据的类型"></a>判断任意数据的类型</h2><p>精准的判断类型，<code>&#39;2&#39;</code>会识别成<code>string</code>类型，<code>2</code>会识别成<code>number</code>类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">tryType</span>(<span class="params">para</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> type = <span class="keyword">typeof</span> para;</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">&quot;number&quot;</span> &amp;&amp; <span class="built_in">isNaN</span>(para)) <span class="keyword">return</span> <span class="string">&quot;NaN&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (type !== <span class="string">&quot;object&quot;</span>) <span class="keyword">return</span> type;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span></span><br><span class="line">        .<span class="title function_">call</span>(para)</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/[\[\]]/g</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        .<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>]</span><br><span class="line">        .<span class="title function_">toLowerCase</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断是不是一个可计算的数字"><a href="#判断是不是一个可计算的数字" class="headerlink" title="判断是不是一个可计算的数字"></a>判断是不是一个可计算的数字</h2><p>上面的<code>tryType</code>方法会将<code>&#39;2&#39;</code>和<code>2</code>区别成两种类型，而这个方法将忽略这种区别</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">isNumber</span>(<span class="params">para</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">isNumber</span>) <span class="keyword">return</span> <span class="variable language_">window</span>.<span class="title function_">isNumber</span>(para);</span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">Number</span>.<span class="property">isNumber</span>) <span class="keyword">return</span> <span class="title class_">Number</span>.<span class="title function_">isNumber</span>(para);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> para !== <span class="string">&quot;undefined&quot;</span> &amp;&amp; !<span class="built_in">isNaN</span>(para);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度取值防止代码挂掉"><a href="#深度取值防止代码挂掉" class="headerlink" title="深度取值防止代码挂掉"></a>深度取值防止代码挂掉</h2><p>在项目中经常会遇到层级很深的<code>json</code>数据，这时候可能就会写类似这样的代码<code>a[2].list[3].name</code>，这种代码很不可靠，很容易由于数据的一点小错误，导致整段js代码挂掉。出的问题多了自然就会思考问题的解决方案，正当我苦思不得其解时，看到一篇文章<span class="exturl" data-url="aHR0cDovL3d3dy5qaWFuc2h1LmNvbS9wLzExZmM3NWYyODMwMg==">如何优雅安全地在深层数据结构中取值<i class="fa fa-external-link-alt"></i></span>，他详细的分析了深层取值如何避免报错的情况。<br>我阅读了博主的文章，整理了一下思路，没有像原博主那样使用<code>xs &amp;&amp; xs[x]</code>判断来打断取值，是因为这种情况可能会把<code>0</code>这种类型的值误伤</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getValueFromDeepData</span> (<span class="params">props, target</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (!props || !target) <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">    <span class="keyword">return</span> props.<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre, nxt</span>) =&gt;</span> (<span class="keyword">typeof</span> pre === <span class="string">&#x27;undefined&#x27;</span> || <span class="keyword">typeof</span> pre[nxt] === <span class="string">&#x27;undefined&#x27;</span> ? <span class="literal">undefined</span> : pre[nxt]), target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="反转义字符串"><a href="#反转义字符串" class="headerlink" title="反转义字符串"></a>反转义字符串</h2><p>何谓反转义字符串？就是后端在传输HTML代码的时候往往会对字符串处理：把一些特殊符号转义了；当我们拿到HTML渲染到页面希望他按照HTML代码的格式来显示，而不是按照转义的字符串显示成文本，所以我们需要对这段字符串反转义！<br>网上看到很多解决方案是通过正则的方式一一替换过来，但是个人觉得这样不好维护。后面发现一种浏览器自动转换的办法，利用这一特性，可以通过js创建一个虚拟的DOM节点，然后把需要转义的字符串使用innerHTML方法放进去，再通过nodeValue方法取出来。<br>但这种方法需要注意的是：<code>e.childNodes</code>是一个数组，它将<code>_html</code>分段（每65536字符分一段）存储到<code>e.childNodes[i]</code>中，使用<code>e.childNodes</code>方法取得反转义后的字符串需要循环<code>e.childNodes</code>数组。我看到网上很多方法都是直接取的<code>e.childNodes[0].nodeValue</code>，这样在内容过多的时候，是无法把数据取完整的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">htmlDecode</span>(<span class="params">str</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> e = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>), _html = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    e.<span class="property">innerHTML</span> = str;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; e.<span class="property">childNodes</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        _html += e.<span class="property">childNodes</span>[i].<span class="property">nodeValue</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> _html;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="未完"><a href="#未完" class="headerlink" title="未完"></a>未完</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>J.2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2017-11-26/javascript-sinpats.html" title="常用javascript代码片段">https://blog.imx0.com/2017-11-26/javascript-sinpats.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/sinpats/" rel="tag"><i class="fa fa-tag"></i> sinpats</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">44k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:40</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2017/11/26/javascript/sinpats"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"211bb8b9efe9304344f1e10484367f52"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>
