@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-50.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-20.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imx0.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="用 AI 写代码久了，你可能会遇到这些场景：  和 AI 反复拉扯，修改了 N 遍还是不对 明明上次说好的规范，新会话又忘了 代码改完不敢合并，因为不知道到底改了啥 几个人一起用 AI 开发，结果代码风格完全不统一  如果这些问题你都遇到过，说明你不是一个人。这篇文章想聊聊为什么会这样，以及如何用 OpenSpec 来解决这些问题。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OpenSpec：让 AI 编程从碰运气到有章可循">
+<meta property="og:url" content="https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html">
+<meta property="og:site_name" content="前端路上">
+<meta property="og:description" content="用 AI 写代码久了，你可能会遇到这些场景：  和 AI 反复拉扯，修改了 N 遍还是不对 明明上次说好的规范，新会话又忘了 代码改完不敢合并，因为不知道到底改了啥 几个人一起用 AI 开发，结果代码风格完全不统一  如果这些问题你都遇到过，说明你不是一个人。这篇文章想聊聊为什么会这样，以及如何用 OpenSpec 来解决这些问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-04T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-04T08:00:00.000Z">
+<meta property="article:author" content="2ue">
+<meta property="article:tag" content="openspec">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="规范驱动开发">
+<meta property="article:tag" content="vibe-coding">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html","path":"2025-01-04/OpenSpec：让 AI 编程从碰运气到有章可循.html","title":"OpenSpec：让 AI 编程从碰运气到有章可循"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenSpec：让 AI 编程从碰运气到有章可循 | 前端路上</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBN7RD3R8N"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FBN7RD3R8N","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="前端路上" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">前端路上</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">万物皆有裂缝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">27</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AVibe-Coding-%E7%9A%84%E5%9B%B0%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">第一部分：Vibe Coding 的困境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Vibe-Coding%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 Vibe Coding？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%97%9B%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">10 个常见痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">问题的根源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">第二部分：解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E5%A4%A7%E8%A7%A3%E5%86%B3%E7%AD%96%E7%95%A5"><span class="nav-number">2.1.</span> <span class="nav-text">七大解决策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9AOpenSpec-%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">第三部分：OpenSpec 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-OpenSpec%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 OpenSpec？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E5%A4%A7%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">六大核心特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.3.</span> <span class="nav-text">三阶段工作流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E4%BA%A7%E7%89%A9%E4%B8%8E%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">第四部分：产物与流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%89%A9%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">产物目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E4%BA%A7%E7%89%A9%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">各产物的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.3.</span> <span class="nav-text">规范文件格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86%EF%BC%9A%E7%A4%BA%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">5.</span> <span class="nav-text">第五部分：示例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%9A%E6%B7%BB%E5%8A%A0%E6%94%B6%E8%97%8F%E5%8A%9F%E8%83%BD"><span class="nav-number">5.1.</span> <span class="nav-text">场景：添加收藏功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">5.2.</span> <span class="nav-text">Step 1: 初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-%E5%88%9B%E5%BB%BA%E6%8F%90%E6%A1%88"><span class="nav-number">5.3.</span> <span class="nav-text">Step 2: 创建提案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-%E4%BA%BA%E5%B7%A5%E5%AE%A1%E6%A0%B8"><span class="nav-number">5.4.</span> <span class="nav-text">Step 3: 人工审核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-%E6%89%A7%E8%A1%8C%E5%AE%9E%E6%96%BD"><span class="nav-number">5.5.</span> <span class="nav-text">Step 4: 执行实施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-%E5%BD%92%E6%A1%A3%E5%8F%98%E6%9B%B4"><span class="nav-number">5.6.</span> <span class="nav-text">Step 5: 归档变更</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E9%83%A8%E5%88%86%EF%BC%9AOpenSpec-%E8%A7%A3%E5%86%B3%E4%BA%86%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">第六部分：OpenSpec 解决了哪些问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E8%A7%A3%E5%86%B3%E7%9A%84-8-%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">6.1.</span> <span class="nav-text">直接解决的 8 个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E7%BC%93%E8%A7%A3%E7%9A%84-2-%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.</span> <span class="nav-text">间接缓解的 2 个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E5%AE%8C%E5%85%A8%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.3.</span> <span class="nav-text">无法完全解决的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E9%83%A8%E5%88%86%EF%BC%9A%E4%BC%98%E7%BC%BA%E7%82%B9%E4%B8%8E%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">7.</span> <span class="nav-text">第七部分：优缺点与适用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">7.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">7.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">7.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AB%E9%83%A8%E5%88%86%EF%BC%9A%E5%AE%9E%E8%B7%B5%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%E4%B8%8E%E6%94%B9%E8%BF%9B"><span class="nav-number">8.</span> <span class="nav-text">第八部分：实践中的问题与改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1%EF%BC%9A%E6%8F%90%E6%A1%88%E7%BC%BA%E4%B9%8F%E5%BC%BA%E5%88%B6%E6%A0%A1%E9%AA%8C"><span class="nav-number">8.1.</span> <span class="nav-text">问题 1：提案缺乏强制校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-2%EF%BC%9A%E5%AE%9E%E6%96%BD%E7%BC%BA%E4%B9%8F%E5%AF%B9%E9%BD%90%E6%A3%80%E6%9F%A5"><span class="nav-number">8.2.</span> <span class="nav-text">问题 2：实施缺乏对齐检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-3%EF%BC%9A%E5%BD%92%E6%A1%A3%E7%BC%BA%E4%B9%8F%E8%A7%84%E8%8C%83%E7%BA%A6%E6%9D%9F"><span class="nav-number">8.3.</span> <span class="nav-text">问题 3：归档缺乏规范约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E5%90%8E%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">8.4.</span> <span class="nav-text">改进后的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E9%83%A8%E5%88%86%EF%BC%9A%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">第九部分：最佳实践总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E6%8F%90%E6%A1%88%EF%BC%9F"><span class="nav-number">9.1.</span> <span class="nav-text">何时需要提案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E6%B5%81%E7%A8%8B"><span class="nav-number">9.2.</span> <span class="nav-text">推荐流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99"><span class="nav-number">9.3.</span> <span class="nav-text">核心原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="2ue"
+      src="/images/common/avatar.png">
+  <p class="site-author-name" itemprop="name">2ue</p>
+  <div class="site-description" itemprop="description">前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzJ1ZQ==" title="Github → https:&#x2F;&#x2F;github.com&#x2F;2ue"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmppZTc0NjYzNTgzNUAxNjMuY29t" title="E-Mail → mailto:jie746635835@163.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2025-12-18/Claude%20Code%20+%20OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A0%81%E6%9B%B4%E5%8F%AF%E6%8E%A7%E7%9A%84%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91.html" rel="bookmark">
+        <time class="popular-posts-time">2025-12-18</time>
+        <br>
+      Claude Code + OpenSpec：让 AI 编码更可控的规范驱动开发
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/common/avatar.png">
+      <meta itemprop="name" content="2ue">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端路上">
+      <meta itemprop="description" content="前端不是终点！专注于前端开发的最佳实践和创新解决方案，但不满足前端技术的向全栈迈进的技术宅">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenSpec：让 AI 编程从碰运气到有章可循 | 前端路上">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenSpec：让 AI 编程从碰运气到有章可循
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-04 16:00:00" itemprop="dateCreated datePublished" datetime="2025-01-04T16:00:00+08:00">2025-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>用 AI 写代码久了，你可能会遇到这些场景：</p>
+<ul>
+<li>和 AI 反复拉扯，修改了 N 遍还是不对</li>
+<li>明明上次说好的规范，新会话又忘了</li>
+<li>代码改完不敢合并，因为不知道到底改了啥</li>
+<li>几个人一起用 AI 开发，结果代码风格完全不统一</li>
+</ul>
+<p>如果这些问题你都遇到过，说明你不是一个人。这篇文章想聊聊为什么会这样，以及如何用 OpenSpec 来解决这些问题。</p>
+<hr>
+<h2 id="第一部分：Vibe-Coding-的困境"><a href="#第一部分：Vibe-Coding-的困境" class="headerlink" title="第一部分：Vibe Coding 的困境"></a>第一部分：Vibe Coding 的困境</h2><h3 id="什么是-Vibe-Coding？"><a href="#什么是-Vibe-Coding？" class="headerlink" title="什么是 Vibe Coding？"></a>什么是 Vibe Coding？</h3><p>Vibe Coding，也叫”氛围编程”，就是用自然语言和 AI 对话来完成编程任务。比如：</p>
+<ul>
+<li>“帮我写个用户登录功能”</li>
+<li>“这个按钮的样式改成蓝色”</li>
+<li>“优化一下这段代码的性能”</li>
+</ul>
+<p>听起来很美好对吧？但实际使用中，我们遇到了一系列问题。</p>
+<h3 id="10-个常见痛点"><a href="#10-个常见痛点" class="headerlink" title="10 个常见痛点"></a>10 个常见痛点</h3><p>我总结了 AI 编程中的 10 个常见痛点：</p>
+<p><strong>表达层问题：</strong></p>
+<ol>
+<li><strong>词不达意（Expression Gap）</strong>：想得清楚但说不清楚。你脑子里有个很清晰的概念，但就是说不出来，或者说出来 AI 理解的不是你想的那个意思。</li>
+<li><strong>意图偏离（Intent Drift）</strong>：AI 理解和你想的不一样。你说”加个缓存”，AI 给你上了 Redis 分布式缓存，其实你只想要个内存缓存。</li>
+<li><strong>范围蔓延（Scope Creep）</strong>：边界模糊导致功能膨胀。你说”加个搜索”，AI 给你实现了关键词搜索、模糊匹配、拼音搜索、搜索历史、热门推荐……你只要一个简单的关键词搜索。你说”加个头像功能”，AI 给你头像上传、裁剪、历史记录、审核功能全套……你只是想显示个头像而已。</li>
+</ol>
+<p><strong>记忆层问题：</strong></p>
+<ol start="4">
+<li><strong>上下文断裂（Context Fragmentation）</strong>：跨会话丢失约定。上周和 AI 说好用 Tailwind，今天新会话又给你用 styled-components。</li>
+<li><strong>变更混乱（Change Chaos）</strong>：不知道改了什么、为什么改。AI 说”帮你优化了一下”，结果改了 15 个文件，你都不知道为什么要改。</li>
+<li><strong>重复劳动（Repetitive Work）</strong>：每次都要重新解释。每个新会话都要重新介绍项目背景、技术栈、代码规范……</li>
+<li><strong>协作困难（Collaboration Friction）</strong>：多人信息不对称。你让 AI 实现了用户模块用方案 A，同事不知道，也让 AI 实现了用户相关功能用方案 B，结果产生冲突。</li>
+</ol>
+<p><strong>执行层问题：</strong></p>
+<ol start="8">
+<li><strong>不可预测（Unpredictability）</strong>：同样的话，不同的结果。第一次问”写个表单验证”用 Yup，第二次问可能用 Zod。</li>
+<li><strong>场景遗漏（Scenario Gaps）</strong>：只考虑正常路径。AI 实现了登录成功的情况，但密码错误、账号锁定、网络超时这些异常情况都没考虑。</li>
+<li><strong>机械执行（Blind Execution）</strong>：不质疑明显问题。你说”在登录页加个删除用户按钮”，AI 也不问为什么，直接给你加上了。</li>
+</ol>
+<h3 id="问题的根源"><a href="#问题的根源" class="headerlink" title="问题的根源"></a>问题的根源</h3><p>这些问题的根源是什么？</p>
+<p><strong>AI 的不确定性。</strong></p>
+<p>AI 大语言模型是基于概率的。它的工作原理是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 Token → 概率分布 → 采样 → 输出 Token</span><br></pre></td></tr></table></figure>
+
+<p>这中间有个 temperature 参数控制随机性。这意味着：</p>
+<ul>
+<li>同样的输入，可能产生不同的输出</li>
+<li>AI 的”理解”是概率性的，而非确定性的</li>
+<li>无法保证每次都得到一致的结果</li>
+</ul>
+<p>我们无法改变 AI 的本质。但我们可以通过<strong>结构化的输入和约束</strong>来降低输出的不确定性。</p>
+<hr>
+<h2 id="第二部分：解决思路"><a href="#第二部分：解决思路" class="headerlink" title="第二部分：解决思路"></a>第二部分：解决思路</h2><p>既然知道了问题的根源，我们就可以想对策了。</p>
+<h3 id="七大解决策略"><a href="#七大解决策略" class="headerlink" title="七大解决策略"></a>七大解决策略</h3><ol>
+<li><strong>结构化的表达格式</strong>：用模板替代自由文本，减少表达歧义</li>
+<li><strong>强制的对齐环节</strong>：在执行前确保理解一致</li>
+<li><strong>明确的边界定义</strong>：定义”做什么”和”不做什么”</li>
+<li><strong>持久化的上下文</strong>：项目信息跨会话保持一致</li>
+<li><strong>完整的变更记录</strong>：每次变更都有清晰的追溯</li>
+<li><strong>可复用的知识库</strong>：积累的项目知识可以持续复用</li>
+<li><strong>统一的规范来源</strong>：团队共享同一份”真相”</li>
+</ol>
+<p>这些策略都很好，但如果人工来执行：</p>
+<ul>
+<li>每次手写模板，格式不统一</li>
+<li>人工组织 Review，流程不固化</li>
+<li>复制粘贴项目信息，繁琐易错</li>
+<li>手动创建目录和文件，结构不一致</li>
+</ul>
+<p><strong>结论：策略是好策略，但人工执行成本太高，难以坚持。</strong></p>
+<p>我们需要一个工具来帮我们自动化这些事情。这个工具就是 —— <strong>OpenSpec</strong>。</p>
+<hr>
+<h2 id="第三部分：OpenSpec-介绍"><a href="#第三部分：OpenSpec-介绍" class="headerlink" title="第三部分：OpenSpec 介绍"></a>第三部分：OpenSpec 介绍</h2><h3 id="什么是-OpenSpec？"><a href="#什么是-OpenSpec？" class="headerlink" title="什么是 OpenSpec？"></a>什么是 OpenSpec？</h3><p>OpenSpec 是一个面向 AI 编码助手的<strong>规范驱动开发（Spec-driven Development）</strong>工具。</p>
+<p>核心理念是：<strong>在编写代码之前，让人类与 AI 达成一致。</strong></p>
+<p>用一个公式来表达：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OpenSpec = 结构化需求 + 变更管理 + AI 指令 + CLI 工具</span><br></pre></td></tr></table></figure>
+
+<h3 id="六大核心特性"><a href="#六大核心特性" class="headerlink" title="六大核心特性"></a>六大核心特性</h3><ol>
+<li><strong>无需 API 密钥</strong>：OpenSpec 不调用 AI API，只生成指令文件供各种 AI 工具读取</li>
+<li><strong>轻量级工作流</strong>：文件即文档，Markdown 即规范，Git 即版本控制</li>
+<li><strong>支持 20+ AI 工具</strong>：Claude Code、Cursor、Copilot、CodeBuddy 等主流工具都支持</li>
+<li><strong>Brownfield 友好</strong>：可以渐进式引入到现有项目</li>
+<li><strong>Delta-based 变更</strong>：只记录变化，不复制全量</li>
+<li><strong>可追溯可审计</strong>：每个变更都有完整的生命周期记录</li>
+</ol>
+<h3 id="三阶段工作流"><a href="#三阶段工作流" class="headerlink" title="三阶段工作流"></a>三阶段工作流</h3><p>OpenSpec 的核心是三阶段工作流：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Stage 1: 创建变更        Stage 2: 实施变更        Stage 3: 归档变更</span><br><span class="line">   ↓                        ↓                        ↓</span><br><span class="line">/openspec:proposal      /openspec:apply         openspec archive</span><br><span class="line">   ↓                        ↓                        ↓</span><br><span class="line">生成提案文档             按序执行任务             合并到规范</span><br><span class="line">人工审核确认             更新进度                 历史存档</span><br></pre></td></tr></table></figure>
+
+<p>这个流程的关键在于：<strong>提案审核是强制环节</strong>。在 AI 开始写代码之前，必须先生成结构化的提案，经过人工审核确认后，才能开始实施。</p>
+<hr>
+<h2 id="第四部分：产物与流程"><a href="#第四部分：产物与流程" class="headerlink" title="第四部分：产物与流程"></a>第四部分：产物与流程</h2><h3 id="产物目录结构"><a href="#产物目录结构" class="headerlink" title="产物目录结构"></a>产物目录结构</h3><p>初始化 OpenSpec 后，项目会增加以下目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">openspec/</span><br><span class="line">├── project.md         # 项目级上下文和约定</span><br><span class="line">├── AGENTS.md          # AI 助手指令</span><br><span class="line">├── specs/             # 当前真相（已实现的功能规范）</span><br><span class="line">│   └── [capability]/</span><br><span class="line">│       ├── spec.md    # 需求规范 (WHAT + WHY)</span><br><span class="line">│       └── design.md  # 技术设计 (HOW, 可选)</span><br><span class="line">└── changes/           # 变更提案</span><br><span class="line">    ├── [change-name]/</span><br><span class="line">    │   ├── proposal.md    # 为什么改、改什么、影响</span><br><span class="line">    │   ├── tasks.md       # 实现任务清单</span><br><span class="line">    │   ├── design.md      # 技术决策 (可选)</span><br><span class="line">    │   └── specs/         # Delta 变更</span><br><span class="line">    └── archive/           # 已完成归档</span><br></pre></td></tr></table></figure>
+
+<h3 id="各产物的作用"><a href="#各产物的作用" class="headerlink" title="各产物的作用"></a>各产物的作用</h3><p><strong>project.md</strong>：定义项目整体信息，供 AI 理解项目背景。包括技术栈、代码规范、架构模式、测试策略等。</p>
+<p><strong>AGENTS.md</strong>：指导 AI 如何使用 OpenSpec，定义三阶段工作流，约束 AI 行为。</p>
+<p>**specs&#x2F;**：记录已实现功能的需求规范，是”当前真相”（Single Source of Truth）。</p>
+<p>**changes&#x2F;**：存放变更提案，包括提案说明、任务清单、技术设计和规范增量。</p>
+<h3 id="规范文件格式"><a href="#规范文件格式" class="headerlink" title="规范文件格式"></a>规范文件格式</h3><p>spec.md 使用特定格式：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### Requirement: User Login</span></span><br><span class="line">The system SHALL authenticate users with valid credentials.</span><br><span class="line"></span><br><span class="line"><span class="section">#### Scenario: Successful login</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**WHEN**</span> user submits correct credentials</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**THEN**</span> system grants access</span><br><span class="line"></span><br><span class="line"><span class="section">#### Scenario: Invalid password</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**WHEN**</span> user submits wrong password</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**THEN**</span> system displays error</span><br></pre></td></tr></table></figure>
+
+<p>格式要点：</p>
+<ul>
+<li><code>### Requirement:</code> 定义需求（3 个 #）</li>
+<li><code>#### Scenario:</code> 定义场景（4 个 #）</li>
+<li>每个需求至少一个场景</li>
+<li>使用 SHALL&#x2F;MUST 表示规范性要求</li>
+</ul>
+<hr>
+<h2 id="第五部分：示例演示"><a href="#第五部分：示例演示" class="headerlink" title="第五部分：示例演示"></a>第五部分：示例演示</h2><p>让我用一个实际例子来演示 OpenSpec 的完整流程。</p>
+<h3 id="场景：添加收藏功能"><a href="#场景：添加收藏功能" class="headerlink" title="场景：添加收藏功能"></a>场景：添加收藏功能</h3><p>假设我们有一个电商项目，需要添加”用户收藏商品”功能。</p>
+<h3 id="Step-1-初始化项目"><a href="#Step-1-初始化项目" class="headerlink" title="Step 1: 初始化项目"></a>Step 1: 初始化项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> my-ecommerce-project</span><br><span class="line">openspec init</span><br></pre></td></tr></table></figure>
+
+<p>选择要配置的 AI 工具（如 Claude Code、CodeBuddy），系统会自动创建目录结构和配置文件。</p>
+<p>然后填写 project.md，定义项目上下文。</p>
+<h3 id="Step-2-创建提案"><a href="#Step-2-创建提案" class="headerlink" title="Step 2: 创建提案"></a>Step 2: 创建提案</h3><p>向 AI 描述需求：</p>
+<blockquote>
+<p>我想让用户可以收藏商品，方便之后购买。用户可以在商品详情页点击收藏按钮，在个人中心可以看到收藏列表，也可以取消收藏。</p>
+</blockquote>
+<p>执行 <code>/openspec:proposal</code>，AI 会生成：</p>
+<p><strong>proposal.md</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## Why</span></span><br><span class="line">用户经常浏览商品但不立即购买，需要收藏功能方便后续查找。</span><br><span class="line"></span><br><span class="line"><span class="section">## What Changes</span></span><br><span class="line"><span class="bullet">-</span> ADDED: 商品收藏功能</span><br><span class="line"><span class="bullet">-</span> ADDED: 收藏/取消收藏 API</span><br><span class="line"><span class="bullet">-</span> ADDED: 收藏列表页面</span><br><span class="line"></span><br><span class="line"><span class="section">## Impact</span></span><br><span class="line"><span class="bullet">-</span> Affected specs: product-catalog</span><br><span class="line"><span class="bullet">-</span> Affected code: prisma/schema, src/api/favorites, src/pages/user</span><br></pre></td></tr></table></figure>
+
+<p><strong>tasks.md</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 1. Database Setup</span></span><br><span class="line"><span class="bullet">-</span> [ ] 1.1 Create Favorite model</span><br><span class="line"><span class="bullet">-</span> [ ] 1.2 Run migration</span><br><span class="line"></span><br><span class="line"><span class="section">## 2. Backend API</span></span><br><span class="line"><span class="bullet">-</span> [ ] 2.1 Create FavoriteService</span><br><span class="line"><span class="bullet">-</span> [ ] 2.2 Implement API endpoints</span><br><span class="line"></span><br><span class="line"><span class="section">## 3. Frontend</span></span><br><span class="line"><span class="bullet">-</span> [ ] 3.1 Create FavoriteButton component</span><br><span class="line"><span class="bullet">-</span> [ ] 3.2 Create FavoritesList page</span><br></pre></td></tr></table></figure>
+
+<p><strong>spec delta</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## ADDED Requirements</span></span><br><span class="line"></span><br><span class="line"><span class="section">### Requirement: Product Favorites</span></span><br><span class="line">The system SHALL allow users to favorite products.</span><br><span class="line"></span><br><span class="line"><span class="section">#### Scenario: Add to favorites</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**WHEN**</span> user clicks favorite button</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**THEN**</span> product is added to favorites</span><br><span class="line"></span><br><span class="line"><span class="section">#### Scenario: Remove from favorites</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**WHEN**</span> user clicks on favorited product</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**THEN**</span> product is removed from favorites</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-3-人工审核"><a href="#Step-3-人工审核" class="headerlink" title="Step 3: 人工审核"></a>Step 3: 人工审核</h3><p>这一步非常关键。我需要检查：</p>
+<ul>
+<li><input disabled="" type="checkbox"> Why 是否准确描述了需求背景？</li>
+<li><input disabled="" type="checkbox"> What Changes 是否完整列出了变更？</li>
+<li><input disabled="" type="checkbox"> Scenarios 是否覆盖了边界情况？</li>
+</ul>
+<p>比如我发现少了一个场景：”商品下架后收藏列表如何处理？”</p>
+<p>就让 AI 补充：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">#### Scenario: View favorites with unavailable products</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**WHEN**</span> user views favorites containing unavailable products</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**THEN**</span> unavailable products are marked with &quot;已下架&quot;</span><br></pre></td></tr></table></figure>
+
+<p>确认无误后，告诉 AI：”提案已批准，可以开始实施”。</p>
+<h3 id="Step-4-执行实施"><a href="#Step-4-执行实施" class="headerlink" title="Step 4: 执行实施"></a>Step 4: 执行实施</h3><p>执行 <code>/openspec:apply add-product-favorites</code>，AI 按 tasks.md 顺序执行任务：</p>
+<ol>
+<li>创建数据库模型</li>
+<li>实现 API 端点</li>
+<li>创建前端组件</li>
+<li>编写测试</li>
+</ol>
+<p>每完成一项，tasks.md 中对应的 <code>[ ]</code> 会变成 <code>[x]</code>。</p>
+<h3 id="Step-5-归档变更"><a href="#Step-5-归档变更" class="headerlink" title="Step 5: 归档变更"></a>Step 5: 归档变更</h3><p>所有任务完成后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openspec archive add-product-favorites</span><br></pre></td></tr></table></figure>
+
+<p>系统会：</p>
+<ol>
+<li>将 delta 合并到 <code>specs/product-catalog/spec.md</code></li>
+<li>将变更目录移动到 <code>changes/archive/2025-01-15-add-product-favorites/</code></li>
+</ol>
+<p>归档后，规范更新了，历史也保留了。</p>
+<hr>
+<h2 id="第六部分：OpenSpec-解决了哪些问题？"><a href="#第六部分：OpenSpec-解决了哪些问题？" class="headerlink" title="第六部分：OpenSpec 解决了哪些问题？"></a>第六部分：OpenSpec 解决了哪些问题？</h2><h3 id="直接解决的-8-个问题"><a href="#直接解决的-8-个问题" class="headerlink" title="直接解决的 8 个问题"></a>直接解决的 8 个问题</h3><table>
+<thead>
+<tr>
+<th>痛点</th>
+<th>OpenSpec 方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>词不达意</td>
+<td>结构化模板强制完整表达</td>
+</tr>
+<tr>
+<td>意图偏离</td>
+<td>提案审核机制对齐意图</td>
+</tr>
+<tr>
+<td>范围蔓延</td>
+<td>Goals&#x2F;Non-Goals 明确边界 + 审核限制扩展</td>
+</tr>
+<tr>
+<td>上下文断裂</td>
+<td>project.md 持久化上下文</td>
+</tr>
+<tr>
+<td>变更混乱</td>
+<td>changes&#x2F; 完整追踪</td>
+</tr>
+<tr>
+<td>重复劳动</td>
+<td>规范复用，无需重复解释</td>
+</tr>
+<tr>
+<td>场景遗漏</td>
+<td>Scenario 格式强制覆盖</td>
+</tr>
+<tr>
+<td>协作困难</td>
+<td>specs&#x2F; 作为统一真相来源</td>
+</tr>
+</tbody></table>
+<h3 id="间接缓解的-2-个问题"><a href="#间接缓解的-2-个问题" class="headerlink" title="间接缓解的 2 个问题"></a>间接缓解的 2 个问题</h3><ul>
+<li><strong>不可预测</strong>：技术栈约束减少选择空间，但 AI 生成仍有随机性</li>
+<li><strong>机械执行</strong>：澄清环节提供质疑机会，但不能保证 AI 一定会质疑</li>
+</ul>
+<h3 id="无法完全解决的问题"><a href="#无法完全解决的问题" class="headerlink" title="无法完全解决的问题"></a>无法完全解决的问题</h3><ul>
+<li>代码质量仍依赖模型能力</li>
+<li>复杂业务逻辑需要人工验证</li>
+<li>安全漏洞需要专门工具检测</li>
+</ul>
+<hr>
+<h2 id="第七部分：优缺点与适用场景"><a href="#第七部分：优缺点与适用场景" class="headerlink" title="第七部分：优缺点与适用场景"></a>第七部分：优缺点与适用场景</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li><strong>降低不确定性</strong>：从”赌运气”变成”有章可循”</li>
+<li><strong>知识沉淀复用</strong>：项目越用越”聪明”</li>
+<li><strong>变更可追溯</strong>：知道”改了什么”、”为什么改”</li>
+<li><strong>团队协作友好</strong>：消除信息不对称</li>
+<li><strong>工具无关性</strong>：支持 20+ AI 工具</li>
+<li><strong>轻量级实施</strong>：低成本引入，渐进式采用</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li><strong>增加前期工作量</strong>：写提案比直接写代码”慢”</li>
+<li><strong>学习成本</strong>：需要学习新的概念和流程</li>
+<li><strong>维护负担</strong>：需要持续维护规范文档</li>
+<li><strong>不保证代码质量</strong>：约束”做什么”，不保证”做得好”</li>
+<li><strong>小任务过重</strong>：简单任务走完整流程太繁琐</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p><strong>适合使用：</strong></p>
+<ul>
+<li>中大型功能开发（开发时间 &gt; 2 小时）</li>
+<li>团队协作项目</li>
+<li>长期维护项目</li>
+<li>复杂业务逻辑</li>
+</ul>
+<p><strong>不适合使用：</strong></p>
+<ul>
+<li>快速原型验证</li>
+<li>一次性脚本&#x2F;工具</li>
+<li>简单修改&#x2F;Bug 修复</li>
+<li>学习&#x2F;实验项目</li>
+</ul>
+<hr>
+<h2 id="第八部分：实践中的问题与改进"><a href="#第八部分：实践中的问题与改进" class="headerlink" title="第八部分：实践中的问题与改进"></a>第八部分：实践中的问题与改进</h2><p>在实际使用中，我发现了一些流程上的缺口：</p>
+<h3 id="问题-1：提案缺乏强制校验"><a href="#问题-1：提案缺乏强制校验" class="headerlink" title="问题 1：提案缺乏强制校验"></a>问题 1：提案缺乏强制校验</h3><p>提案生成后，可能有格式错误或决策问题，完全依赖人工审核。</p>
+<p><strong>改进</strong>：创建 <code>/proposal-verify</code> Skill，在提案完成后自动验证格式、检查决策、触发自我反思。</p>
+<h3 id="问题-2：实施缺乏对齐检查"><a href="#问题-2：实施缺乏对齐检查" class="headerlink" title="问题 2：实施缺乏对齐检查"></a>问题 2：实施缺乏对齐检查</h3><p>实施完成后，没有自动检查代码是否符合提案、场景是否都实现了。</p>
+<p><strong>改进</strong>：创建 <code>/apply-verify</code> Skill，验证任务完成度、提案对齐、场景覆盖、副作用检测。</p>
+<h3 id="问题-3：归档缺乏规范约束"><a href="#问题-3：归档缺乏规范约束" class="headerlink" title="问题 3：归档缺乏规范约束"></a>问题 3：归档缺乏规范约束</h3><p>有时候会用 <code>mv</code> 命令直接移动目录，跳过了 delta 合并。</p>
+<p><strong>改进</strong>：创建 <code>/archive-verify</code> Skill，强制使用正确的归档命令，验证合并正确性。</p>
+<h3 id="改进后的流程"><a href="#改进后的流程" class="headerlink" title="改进后的流程"></a>改进后的流程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需求 → 提案 → [proposal-verify] → 实施 → [apply-verify] → 归档 → [archive-verify]</span><br><span class="line">              ↑                          ↑                       ↑</span><br><span class="line">           验证点                     验证点                   验证点</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第九部分：最佳实践总结"><a href="#第九部分：最佳实践总结" class="headerlink" title="第九部分：最佳实践总结"></a>第九部分：最佳实践总结</h2><h3 id="何时需要提案？"><a href="#何时需要提案？" class="headerlink" title="何时需要提案？"></a>何时需要提案？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">新请求到来</span><br><span class="line">├── Bug 修复？ → 直接修</span><br><span class="line">├── 拼写格式？ → 直接修</span><br><span class="line">├── 新功能？ → 要提案</span><br><span class="line">├── 破坏性变更？ → 要提案</span><br><span class="line">└── 不确定？ → 要提案（更安全）</span><br></pre></td></tr></table></figure>
+
+<h3 id="推荐流程"><a href="#推荐流程" class="headerlink" title="推荐流程"></a>推荐流程</h3><ol>
+<li><strong>初始化</strong>：<code>openspec init</code>，填写 project.md</li>
+<li><strong>提案</strong>：描述需求，执行 <code>/openspec:proposal</code>，审核确认</li>
+<li><strong>实施</strong>：执行 <code>/openspec:apply</code>，监督执行，更新进度</li>
+<li><strong>归档</strong>：<code>openspec archive</code>，合并规范，存档历史</li>
+</ol>
+<h3 id="核心原则"><a href="#核心原则" class="headerlink" title="核心原则"></a>核心原则</h3><ul>
+<li>提案是强制环节，不可跳过</li>
+<li>审核是人的责任，不可偷懒</li>
+<li>规范是团队共享的真相来源</li>
+<li>变更可追溯，决策有记录</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>OpenSpec 的核心价值是什么？</p>
+<p><strong>在编码前对齐意图</strong>，通过结构化的表达、持久化的上下文、可追溯的变更记录，让人与 AI 的协作从”碰运气”变成”有章可循”。</p>
+<p>它不是银弹，不能解决所有问题。但对于需要准确性和可维护性的场景——团队协作、长期维护、复杂业务——OpenSpec 可以显著降低 AI 编程的不确定性，提高一次性成功率。</p>
+<p>如果你经常和 AI 反复拉扯，如果你在 AI 编程中遇到协作问题，不妨试试 OpenSpec。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g openspec</span><br><span class="line">openspec init</span><br></pre></td></tr></table></figure>
+
+<p>感兴趣的话可以到项目主页查看更多信息：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Zpc3Npb24tYWkvb3BlbnNwZWM=">https://github.com/fission-ai/openspec<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward/wechat-reward-image.png" alt="2ue 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/reward/alipay-reward-image.png" alt="2ue 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>2ue
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html" title="OpenSpec：让 AI 编程从碰运气到有章可循">https://blog.imx0.com/2025-01-04/OpenSpec：让 AI 编程从碰运气到有章可循.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLW5kLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/openspec/" rel="tag"><i class="fa fa-tag"></i> openspec</a>
+              <a href="/tags/AI%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> AI编程</a>
+              <a href="/tags/%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 规范驱动开发</a>
+              <a href="/tags/vibe-coding/" rel="tag"><i class="fa fa-tag"></i> vibe-coding</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">2ue</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">51k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/wavedrom.min.js","integrity":"sha256-psuqlelzklLSAoqBmPNNdyJw8msJdKgKpUFJZQlJJjo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.4.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.imx0.com/2025-01-04/OpenSpec%EF%BC%9A%E8%AE%A9%20AI%20%E7%BC%96%E7%A8%8B%E4%BB%8E%E7%A2%B0%E8%BF%90%E6%B0%94%E5%88%B0%E6%9C%89%E7%AB%A0%E5%8F%AF%E5%BE%AA.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"2ue","repo":"2ue.github.io","client_id":"6ebdecee42d586083095","client_secret":"5bea09e647da2b082c8f06b8e3e5a00f81ce9106","admin_user":"2ue","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"fccb7e23342f1024a242386fd28f8cd9"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<!-- hexo injector body_end start --><script async defer src="https://tj.imx0.com/tracker.js" data-website-id="clvsw8a7d0001qe4gn3g48lsq"></script><!-- hexo injector body_end end --></body>
+</html>
